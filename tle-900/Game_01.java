@@ -27,6 +27,7 @@ public class Game_01 {
                 System.out.println("DA");
             }
         }
+        
         in.close();
     }
 }
