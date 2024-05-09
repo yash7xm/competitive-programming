@@ -1,1 +1,1 @@
-## For practicing code-forces problems
+## code-forces problems
