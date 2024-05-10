@@ -15,7 +15,7 @@ public class Find_the_Car {
             int[] quer = new int[q];
             int[] ans = new int[q];
 
-            for (int i = 0; i < k; i++) {
+            for (int i = 0; i < k && n > 0; i++) {
                 arr[i] = in.nextInt();
             }
             for (int i = 0; i < k; i++) {
@@ -28,34 +28,49 @@ public class Find_the_Car {
             for (int i = 0; i < q; i++) {
                 int el = quer[i];
 
-                for (int j = 0; j < k; j++) {
-                    if (arr[j] > el) {
-                        if (j == 0) {
-                            double s = (double)arr[j] / b[j];
-                            ans[i] = (int)((el*1.0) / s);
-                        } else {
-                            int d = arr[j] - arr[j - 1];
-                            int time = b[j] - b[j - 1];
-                            double s = (double)(d / time);
+                int j = bs(arr, el);
 
-                            double newD = (double) el - arr[j-1];
+                if (arr[j] > el) {
+                    if (j == 0) {
+                        double s = (double) arr[j] / b[j];
+                        ans[i] = (int) ((el * 1.0) / s);
+                    } else {
+                        int d = arr[j] - arr[j - 1];
+                        int time = b[j] - b[j - 1];
+                        double s = (double) d / time;
 
-                            ans[i] = (int)(newD / s);
-                            ans[i] += b[j-1];
-                        }
-                        break;
-                    } else if (arr[j] == el) {
-                        ans[i] = b[j];
-                        break;
+                        double newD = el - arr[j - 1];
+
+                        ans[i] = (int) (newD / s);
+                        ans[i] += b[j - 1];
                     }
+                } else if (arr[j] == el) {
+                    ans[i] = b[j];
                 }
             }
 
-            for(int i=0; i<ans.length; i++) {
+            for (int i = 0; i < ans.length; i++) {
                 System.out.print(ans[i] + " ");
             }
             System.out.println();
         }
         in.close();
+    }
+
+    public static int bs(int[] arr, int t) {
+        int si = 0;
+        int ei = arr.length - 1;
+        while (si < ei) {
+            int mid = (si + ei) / 2;
+            if (arr[mid] > t) {
+                ei = mid;
+            } else if (arr[mid] < t) {
+                si = mid + 1;
+            } else {
+                si = mid;
+                break;
+            }
+        }
+        return si;
     }
 }
