@@ -2,14 +2,13 @@ package Number_Theory;
 
 import java.util.Scanner;
 
-public class gcd {
+public class GCD {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int a = in.nextInt();
         int b = in.nextInt();
 
-        int res = gcd(a > b ? a : b, a < b ? a : b);
-        System.out.println(res);
+        System.out.println(gcd(a, b));
         in.close();
     }
 
