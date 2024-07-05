@@ -22,7 +22,11 @@ public class NIT_Destroys_the_Universe {
                 }
             }
 
-            System.out.println(cnt);
+            if (cnt < 2) {
+                System.out.println(cnt);
+            } else {
+                System.out.println(2);
+            }
         }
         in.close();
     }
