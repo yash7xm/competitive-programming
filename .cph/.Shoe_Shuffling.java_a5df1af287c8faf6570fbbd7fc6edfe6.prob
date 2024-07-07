@@ -1,0 +1,1 @@
+{"name":"Local: Shoe_Shuffling","url":"/home/yash/code-forces/Shoe_Shuffling.java","tests":[{"id":1720356842551,"input":"3\n6\n1 1 1 1 1 1\n6\n3 6 8 13 15 21\n2\n1 2\n","output":"5 1 2 3 4 \n-1\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/yash/code-forces/Shoe_Shuffling.java","group":"local","local":true}
