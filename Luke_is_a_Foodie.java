@@ -14,15 +14,18 @@ public class Luke_is_a_Foodie {
                 arr[i] = in.nextInt();
             }
 
-            int lo = Math.abs(x - arr[0]);
-            int hi = x + arr[0];
+            int lo = arr[0] - x;
+            int hi = arr[0] + x;
             int res = 0;
 
             for (int i = 1; i < n; i++) {
-                int nlo = Math.abs(x - arr[i]);
-                int nhi = x + arr[i];
+                int nlo = arr[i] - x;
+                int nhi = arr[i] + x;
 
                 if ((nlo >= lo && nlo <= hi) || (nhi >= lo && nhi <= hi)) {
+                    lo = Math.max(lo, nlo);
+                    hi = Math.min(hi, nhi);
+                } else if ((lo >= nlo && lo <= nhi) || (hi >= nlo && hi <= nhi)) {
                     lo = Math.max(lo, nlo);
                     hi = Math.min(hi, nhi);
                 } else {
