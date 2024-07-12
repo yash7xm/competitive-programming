@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Stack;
 
 public class CountingRooms {
     public static void main(String[] args) {
@@ -35,13 +36,38 @@ public class CountingRooms {
         in.close();
     }
 
+    public static class Pair {
+        int i;
+        int j;
+
+        Pair(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+    }
+
     public static void dfs(int i, int j, int[][] arr, boolean[][] vis) {
-        if (i < 0 || j < 0 || i >= arr.length || j >= arr[0].length || vis[i][j] || arr[i][j] == 0)
-            return;
-        vis[i][j] = true;
-        dfs(i + 1, j, arr, vis);
-        dfs(i - 1, j, arr, vis);
-        dfs(i, j + 1, arr, vis);
-        dfs(i, j - 1, arr, vis);
+        Stack<Pair> st = new Stack<>();
+        st.push(new Pair(i, j));
+
+        int[][] dirs = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
+        while (st.size() > 0) {
+            Pair rem = st.pop();
+
+            if (vis[rem.i][rem.j])
+                continue;
+            vis[rem.i][rem.j] = true;
+
+            for (int[] dir : dirs) {
+                int rowdash = rem.i + dir[0];
+                int coldash = rem.j + dir[1];
+
+                if (rowdash < 0 || coldash < 0 || rowdash >= arr.length || coldash >= arr[0].length
+                        || vis[rowdash][coldash] || arr[rowdash][coldash] == 0)
+                    continue;
+
+                st.push(new Pair(rowdash, coldash));
+            }
+        }
     }
 }
