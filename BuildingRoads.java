@@ -4,16 +4,6 @@ import java.util.Scanner;
 
 public class BuildingRoads {
 
-    public static class Pair {
-        int i;
-        int j;
-
-        Pair(int i, int j) {
-            this.i = i;
-            this.j = j;
-        }
-    }
-
     public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         int n = scn.nextInt();
