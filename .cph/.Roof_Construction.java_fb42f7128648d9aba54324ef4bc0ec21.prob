@@ -1,0 +1,1 @@
+{"name":"Local: Roof_Construction","url":"/home/yash/code-forces/Roof_Construction.java","tests":[{"id":1720448294402,"input":"4\n2\n3\n5\n10\n","output":"0 1\n2 0 1\n3 2 1 0 4\n4 6 3 2 0 8 9 1 7 5\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/yash/code-forces/Roof_Construction.java","group":"local","local":true}
