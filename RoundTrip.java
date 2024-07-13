@@ -31,48 +31,47 @@ public class RoundTrip {
 
         for (int i = 1; i <= n; i++) {
             if (!vis[i] && cycleStart == -1) {
-                if (dfs(i, -1)) {
+                dfs(i, -1);
+                if (cycleStart != -1)
                     break;
-                }
             }
         }
 
         if (cycleStart == -1) {
             System.out.println("IMPOSSIBLE");
         } else {
-            ArrayList<Integer> cycle = new ArrayList<>();
-            cycle.add(cycleStart);
-            for (int v = cycleEnd; v != cycleStart; v = parent[v]) {
-                cycle.add(v);
+            ArrayList<Integer> res = new ArrayList<>();
+            res.add(cycleStart);
+            for (int i = cycleStart; i > 0 && i != cycleEnd; i = parent[i]) {
+                res.add(parent[i]);
             }
-            cycle.add(cycleStart);
+            res.add(cycleStart);
 
-            System.out.println(cycle.size());
-            for (int i = cycle.size() - 1; i >= 0; i--) {
-                System.out.print(cycle.get(i) + " ");
+            System.out.println(res.size());
+            for (int i = 0; i < res.size(); i++) {
+                System.out.print(res.get(i) + " ");
             }
-            System.out.println();
         }
 
         scn.close();
     }
 
-    private static boolean dfs(int vtx, int par) {
+    private static void dfs(int vtx, int par) {
         vis[vtx] = true;
+        parent[vtx] = par;
+
         for (int nbr : graph.get(vtx)) {
             if (nbr == par) {
                 continue;
             }
+
             if (vis[nbr]) {
                 cycleStart = nbr;
                 cycleEnd = vtx;
-                return true;
-            }
-            parent[nbr] = vtx;
-            if (dfs(nbr, vtx)) {
-                return true;
+                return;
+            } else {
+                dfs(nbr, vtx);
             }
         }
-        return false;
     }
 }
