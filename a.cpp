@@ -1,55 +1,44 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
 using namespace std;
 
-typedef long long ll;
-#define int ll
-#define endl '\n'
+int main() {
+    int n, m, q;
+    cin >> n >> m >> q;
 
-const ll mod = 1000000007;
-
-signed main()
-{
-    int n, m;
-    cin >> n >> m;
-    vector<vector<pair<int, int>>> adj(n + 1);
-    for (int i = 0; i < m; i++)
-    {
-        int u, v, w;
-        cin >> u >> v >> w;
-        adj[u].push_back({v, w});
+    vector<vector<long long>> dist(n, vector<long long>(n, LLONG_MAX));
+    
+    for (int i = 0; i < n; i++) {
+        dist[i][i] = 0;  // Distance from a node to itself is zero
     }
 
-    vector<int> dist(n + 1, 1e18);
-    dist[1] = 0;
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        long long wt;
+        cin >> u >> v >> wt;
+        u--; v--;  // Adjusting for 0-based indexing
+        dist[u][v] = min(dist[u][v], wt);
+        dist[v][u] = min(dist[v][u], wt);  // If the graph is bidirectional
+    }
 
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-    pq.push({0, 1});
-
-    while (!pq.empty())
-    {
-        int u = pq.top().second;
-        int d = pq.top().first;
-        pq.pop();
-
-        if (d > dist[u])
-            continue;
-
-        for (auto it : adj[u])
-        {
-            int v = it.first;
-            int w = it.second;
-
-            if (dist[v] > dist[u] + w)
-            {
-                dist[v] = dist[u] + w;
-                pq.push({dist[v], v});
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] != LLONG_MAX && dist[k][j] != LLONG_MAX) {
+                    dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+                }
             }
         }
     }
 
-    for (int i = 1; i <= n; i++)
-        cout << dist[i] << " ";
-    cout << endl;
+    for (int i = 0; i < q; i++) {
+        int x, y;
+        cin >> x >> y;
+        x--; y--;  // Adjusting for 0-based indexing
+        cout << (dist[x][y] == LLONG_MAX ? -1 : dist[x][y]) << endl;
+    }
 
     return 0;
 }
