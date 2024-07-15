@@ -1,90 +1,64 @@
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
-
-class Pair
+typedef long long ll;
+typedef long double ld;
+#define fastio                        \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL)
+#define max3(a, b, c) max(max(a, b), c)
+#define max4(a, b, c, d) max(max(a, b), max(c, d))
+#define fr(i, n) for (ll i = 0; i < n; i++)
+ll gcd(ll a, ll b)
 {
-public:
-    int vtx;
-    long long wt;
-    bool c;
-
-    Pair(int vtx, long long wt, bool c) : vtx(vtx), wt(wt), c(c) {}
-
-    bool operator>(const Pair &other) const
-    {
-        return this->wt > other.wt;
-    }
-};
-
-vector<vector<Pair>> graph;
+    return b == 0 ? a : gcd(b, a % b);
+}
 
 int main()
 {
-    int n, m;
-    cin >> n >> m;
-
-    graph.resize(n + 1);
-
-    for (int i = 0; i < m; i++)
+    fastio;
+    int n, m, k;
+    cin >> n >> m >> k;
+    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<ll, int>>> pq;
+    priority_queue<ll> bes[n + 1];
+    vector<pair<ll, ll>> adj[n + 1];
+    for (ll i = 0; i < m; i++)
     {
-        int u, v;
-        long long wt;
-        cin >> u >> v >> wt;
-        graph[u].emplace_back(v, wt, false);
+        int a, b, c;
+        cin >> a >> b >> c;
+        adj[a].push_back({b, c});
     }
-
-    priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
-    pq.emplace(1, 0, false);
-
-    vector<vector<long long>> path(n + 1, vector<long long>(2, LLONG_MAX));
-    path[1][0] = 0;
-
-    while (!pq.empty())
+    bes[1].push(0);
+    pq.push({0, 1});
+    while (pq.size() > 0)
     {
-        Pair rem = pq.top();
+        auto a = pq.top();
         pq.pop();
-
-        if (rem.wt > path[rem.vtx][rem.c ? 1 : 0])
-        {
+        if (a.first > bes[a.second].top())
             continue;
-        }
-
-        for (const Pair &nbr : graph[rem.vtx])
+        for (auto &i : adj[a.second])
         {
-            if (!rem.c)
+            ll tmp = a.first + i.second;
+            if (bes[i.first].size() < k)
             {
-                long long newWt = rem.wt + nbr.wt;
-                if (path[nbr.vtx][0] > newWt)
-                {
-                    path[nbr.vtx][0] = newWt;
-                    pq.emplace(nbr.vtx, newWt, false);
-                }
-
-                long long disWt = rem.wt + nbr.wt / 2;
-                if (path[nbr.vtx][1] > disWt)
-                {
-                    path[nbr.vtx][1] = disWt;
-                    pq.emplace(nbr.vtx, disWt, true);
-                }
+                bes[i.first].push(tmp);
+                pq.push({tmp, i.first});
             }
-            else
+            else if (tmp < bes[i.first].top())
             {
-                long long newWt = rem.wt + nbr.wt;
-                if (path[nbr.vtx][1] > newWt)
-                {
-                    path[nbr.vtx][1] = newWt;
-                    pq.emplace(nbr.vtx, newWt, true);
-                }
+                bes[i.first].pop();
+                bes[i.first].push(tmp);
+                pq.push({tmp, i.first});
             }
         }
     }
-
-    long long res = min(path[n][0], path[n][1]);
-    cout << res << endl;
-
-    return 0;
+    vector<ll> ans;
+    while (bes[n].size() > 0)
+    {
+        ans.push_back(bes[n].top());
+        bes[n].pop();
+    }
+    reverse(ans.begin(), ans.end());
+    for (auto a : ans)
+        cout << a << " ";
 }
