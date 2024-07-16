@@ -1,70 +1,108 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-#define MOD 1000000007
+#include <stack>
+#include <climits>
+#include <algorithm>
 
 using namespace std;
 
+struct Edge
+{
+    int vtx;
+    long long wt;
+    Edge(int v, long long w) : vtx(v), wt(w) {}
+};
+
+struct Node
+{
+    long long min;
+    int numOfMin;
+    int minVtxInMin;
+    int maxVtxInMin;
+    Node(long long m, int n, int minVtx, int maxVtx) : min(m), numOfMin(n), minVtxInMin(minVtx), maxVtxInMin(maxVtx) {}
+};
+
+vector<vector<Edge>> graph;
 vector<int> topsort;
-vector<vector<int>> graph;
 
-void topSort(int n) {
-    vector<int> indeg(n + 1, 0);
+void dfs(int u, vector<bool> &vis, stack<int> &st)
+{
+    vis[u] = true;
+    for (Edge &e : graph[u])
+    {
+        if (!vis[e.vtx])
+        {
+            dfs(e.vtx, vis, st);
+        }
+    }
+    st.push(u);
+}
 
-    for (int u = 1; u <= n; u++) {
-        for (int v : graph[u]) {
-            indeg[v]++;
+void topologicalSort(int n)
+{
+    vector<bool> vis(n + 1, false);
+    stack<int> st;
+
+    for (int u = 1; u <= n; u++)
+    {
+        if (!vis[u])
+        {
+            dfs(u, vis, st);
         }
     }
 
-    queue<int> q;
-    for (int i = 1; i <= n; i++) {
-        if (indeg[i] == 0) {
-            q.push(i);
-        }
-    }
-
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-
-        topsort.push_back(u);
-
-        for (int v : graph[u]) {
-            indeg[v]--;
-            if (indeg[v] == 0) {
-                q.push(v);
-            }
-        }
+    while (!st.empty())
+    {
+        topsort.push_back(st.top());
+        st.pop();
     }
 }
 
-int main() {
+int main()
+{
     int n, m;
     cin >> n >> m;
 
     graph.resize(n + 1);
-    for (int i = 0; i < m; i++) {
+    for (int i = 0; i < m; i++)
+    {
         int u, v;
-        cin >> u >> v;
-        graph[u].push_back(v);
+        long long wt;
+        cin >> u >> v >> wt;
+        graph[u].emplace_back(v, wt);
     }
 
-    topSort(n);
+    topologicalSort(n);
 
-    vector<int> dp(n + 1, 0);
-    for (int i = topsort.size() - 1; i >= 0; i--) {
-        int idx = topsort[i];
-        if (idx == n) {
-            dp[idx] = 1;
-        } else {
-            for (int v : graph[idx]) {
-                dp[idx] = (dp[idx] + dp[v]) % MOD;
+    vector<Node> dp(n + 1, Node(LLONG_MAX, 0, INT_MAX, INT_MIN));
+    dp[1] = Node(0, 1, 0, 0);
+    int mod = 1000000007;
+
+    for (int idx : topsort)
+    {
+        if (dp[idx].min != LLONG_MAX)
+        {
+            for (Edge &nbr : graph[idx])
+            {
+                long long newDist = nbr.wt + dp[idx].min;
+                if (newDist < dp[nbr.vtx].min)
+                {
+                    dp[nbr.vtx].min = newDist;
+                    dp[nbr.vtx].numOfMin = dp[idx].numOfMin;
+                    dp[nbr.vtx].minVtxInMin = dp[idx].minVtxInMin + 1;
+                    dp[nbr.vtx].maxVtxInMin = dp[idx].maxVtxInMin + 1;
+                }
+                else if (newDist == dp[nbr.vtx].min)
+                {
+                    dp[nbr.vtx].numOfMin = (dp[nbr.vtx].numOfMin + dp[idx].numOfMin) % mod;
+                    dp[nbr.vtx].minVtxInMin = min(dp[nbr.vtx].minVtxInMin, dp[idx].minVtxInMin + 1);
+                    dp[nbr.vtx].maxVtxInMin = max(dp[nbr.vtx].maxVtxInMin, dp[idx].maxVtxInMin + 1);
+                }
             }
         }
     }
 
-    cout << dp[1] << endl;
+    cout << dp[n].min << " " << dp[n].numOfMin << " " << dp[n].minVtxInMin << " " << dp[n].maxVtxInMin << endl;
 
     return 0;
 }
