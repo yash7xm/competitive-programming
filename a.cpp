@@ -1,73 +1,52 @@
 #include <iostream>
 #include <vector>
-#include <stack>
+#include <queue>
 
 using namespace std;
-
-vector<vector<int>> graph;
-vector<bool> vis;
-vector<bool> isPresent;
-stack<int> st;
-
-bool dfs(int u) {
-    vis[u] = true;
-    st.push(u);
-    isPresent[u] = true;
-
-    for (int v : graph[u]) {
-        if (!vis[v]) {
-            if (dfs(v))
-                return true;
-        }
-
-        if (isPresent[v]) {
-            st.push(v);
-            return true;
-        }
-    }
-
-    st.pop();
-    isPresent[u] = false;
-    return false;
-}
 
 int main() {
     int n, m;
     cin >> n >> m;
 
-    graph.resize(n + 1);
-    vis.resize(n + 1, false);
-    isPresent.resize(n + 1, false);
-
+    vector<vector<int>> graph(n + 1);
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         graph[u].push_back(v);
     }
 
+    vector<int> indeg(n + 1, 0);
     for (int u = 1; u <= n; u++) {
-        if (!vis[u]) {
-            if (dfs(u))
-                break;
+        for (int v : graph[u]) {
+            indeg[v]++;
         }
     }
 
-    if (st.empty()) {
+    queue<int> q;
+    for (int i = 1; i <= n; i++) {
+        if (indeg[i] == 0) {
+            q.push(i);
+        }
+    }
+
+    vector<int> res;
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        res.push_back(u);
+
+        for (int v : graph[u]) {
+            indeg[v]--;
+            if (indeg[v] == 0) {
+                q.push(v);
+            }
+        }
+    }
+
+    if (res.size() != n) {
         cout << "IMPOSSIBLE" << endl;
     } else {
-        int s = st.top();
-        st.pop();
-        vector<int> res;
-        res.push_back(s);
-        while (st.top() != s) {
-            res.push_back(st.top());
-            st.pop();
-        }
-        res.push_back(s);
-
-        cout << res.size() << endl;
-
-        for (int i = res.size() - 1; i >= 0; i--) {
+        for (int i = 0; i < res.size(); i++) {
             cout << res[i] << " ";
         }
         cout << endl;
