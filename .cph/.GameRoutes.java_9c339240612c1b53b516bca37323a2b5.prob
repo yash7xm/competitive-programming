@@ -1,0 +1,1 @@
+{"name":"Local: GameRoutes","url":"/home/yash/code-forces/GameRoutes.java","tests":[{"id":1721128819386,"input":"4 5\n1 2\n2 4\n1 3\n3 4\n1 4","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/yash/code-forces/GameRoutes.java","group":"local","local":true}

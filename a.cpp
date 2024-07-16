@@ -1,30 +1,24 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <stack>
-#include <algorithm>
-#include <climits>
+#define MOD 1000000007
 
 using namespace std;
 
-struct Pair {
-    int vtx;
-    int wt;
-    Pair(int vtx, int wt) : vtx(vtx), wt(wt) {}
-};
+vector<int> topsort;
+vector<vector<int>> graph;
 
-void topSort(vector<int>& topsort, vector<vector<Pair>>& graph) {
-    int n = graph.size();
-    vector<int> indeg(n, 0);
+void topSort(int n) {
+    vector<int> indeg(n + 1, 0);
 
-    for (int i = 1; i < n; i++) {
-        for (const Pair& nbr : graph[i]) {
-            indeg[nbr.vtx]++;
+    for (int u = 1; u <= n; u++) {
+        for (int v : graph[u]) {
+            indeg[v]++;
         }
     }
 
     queue<int> q;
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i <= n; i++) {
         if (indeg[i] == 0) {
             q.push(i);
         }
@@ -36,10 +30,10 @@ void topSort(vector<int>& topsort, vector<vector<Pair>>& graph) {
 
         topsort.push_back(u);
 
-        for (const Pair& nbr : graph[u]) {
-            indeg[nbr.vtx]--;
-            if (indeg[nbr.vtx] == 0) {
-                q.push(nbr.vtx);
+        for (int v : graph[u]) {
+            indeg[v]--;
+            if (indeg[v] == 0) {
+                q.push(v);
             }
         }
     }
@@ -49,48 +43,28 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    vector<vector<Pair>> graph(n + 1);
+    graph.resize(n + 1);
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
-        int wt = -1;
-        graph[u].emplace_back(v, wt);
+        graph[u].push_back(v);
     }
 
-    vector<int> topsort;
-    topSort(topsort, graph);
+    topSort(n);
 
-    vector<int> dist(n + 1, INT_MAX);
-    vector<int> parent(n + 1, -1);
-    dist[1] = 0;
-
-    for (int u : topsort) {
-        if (dist[u] != INT_MAX) {
-            for (const Pair& nbr : graph[u]) {
-                int newdist = dist[u] + nbr.wt;
-                if (newdist < dist[nbr.vtx]) {
-                    dist[nbr.vtx] = newdist;
-                    parent[nbr.vtx] = u;
-                }
+    vector<int> dp(n + 1, 0);
+    for (int i = topsort.size() - 1; i >= 0; i--) {
+        int idx = topsort[i];
+        if (idx == n) {
+            dp[idx] = 1;
+        } else {
+            for (int v : graph[idx]) {
+                dp[idx] = (dp[idx] + dp[v]) % MOD;
             }
         }
     }
 
-    if (dist[n] == INT_MAX) {
-        cout << "IMPOSSIBLE" << endl;
-    } else {
-        vector<int> res;
-        for (int i = n; i != 1; i = parent[i]) {
-            res.push_back(i);
-        }
-        res.push_back(1);
-
-        cout << res.size() << endl;
-        for (int i = res.size() - 1; i >= 0; i--) {
-            cout << res[i] << " ";
-        }
-        cout << endl;
-    }
+    cout << dp[1] << endl;
 
     return 0;
 }
