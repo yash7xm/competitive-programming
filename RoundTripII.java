@@ -4,6 +4,7 @@ public class RoundTripII {
 
     static ArrayList<ArrayList<Integer>> graph;
     static boolean[] vis;
+    static boolean[] isPresent;
     static Stack<Integer> st;
 
     public static void main(String[] args) {
@@ -25,78 +26,56 @@ public class RoundTripII {
         }
 
         vis = new boolean[n + 1];
+        isPresent = new boolean[n + 1];
         st = new Stack<>();
-        for (int i = 1; i <= n; i++) {
-            if (!vis[i]) {
-                stDfs(i);
-            }
-        }
-
-        ArrayList<ArrayList<Integer>> newGraph = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            newGraph.add(new ArrayList<>());
-        }
 
         for (int u = 1; u <= n; u++) {
-            for (int v : graph.get(u)) {
-                newGraph.get(v).add(u);
-            }
-        }
-
-        vis = new boolean[n + 1];
-        boolean flag = false;
-        while (st.size() > 0) {
-            int rem = st.pop();
-            if (!vis[rem]) {
-                ArrayList<Integer> comp = new ArrayList<>();
-                dfs(rem, comp, newGraph);
-                if (comp.size() > 1) {
-                    flag = true;
-                    System.out.println(comp.size() + 1);
-                    for (int i = comp.size() - 1; i >= 0; i--) {
-                        System.out.print(comp.get(i) + " ");
-                    }
-                    System.out.print(comp.get(comp.size() - 1));
+            if (!vis[u]) {
+                if (dfs(u))
                     break;
-                }
             }
         }
 
-        if (flag == false) {
+        if (st.size() == 0) {
             System.out.println("IMPOSSIBLE");
+        } else {
+            int s = st.pop();
+            ArrayList<Integer> res = new ArrayList<>();
+            res.add(s);
+            while (st.peek() != s) {
+                res.add(st.pop());
+            }
+            res.add(s);
+
+            System.out.println(res.size());
+
+            for (int i = res.size() - 1; i >= 0; i--) {
+                System.out.print(res.get(i) + " ");
+            }
         }
 
         scn.close();
     }
 
-    public static void dfs(int i, ArrayList<Integer> comp, ArrayList<ArrayList<Integer>> newGraph) {
-        if (vis[i])
-            return;
+    public static boolean dfs(int u) {
+        vis[u] = true;
+        st.push(u);
+        isPresent[u] = true;
 
-        vis[i] = true;
-        comp.add(i);
+        for (int v : graph.get(u)) {
+            if (!vis[v]) {
+                if (dfs(v))
+                    return true;
+            }
 
-        for (int nbr : newGraph.get(i)) {
-            if (!vis[nbr]) {
-                dfs(nbr, comp, newGraph);
-            } else
-                return;
-        }
-    }
-
-    public static void stDfs(int i) {
-
-        if (vis[i])
-            return;
-
-        vis[i] = true;
-
-        for (int nbr : graph.get(i)) {
-            if (!vis[nbr]) {
-                stDfs(nbr);
+            if (isPresent[v]) {
+                st.push(v);
+                return true;
             }
         }
 
-        st.push(i);
+        st.pop();
+        isPresent[u] = false;
+        return false;
     }
 }
