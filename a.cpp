@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <stack>
 #include <algorithm>
 #include <climits>
 
@@ -9,16 +10,40 @@ using namespace std;
 struct Pair {
     int vtx;
     int wt;
-
-    Pair(int vtx, int wt) {
-        this->vtx = vtx;
-        this->wt = wt;
-    }
-
-    bool operator<(const Pair& other) const {
-        return wt < other.wt;
-    }
+    Pair(int vtx, int wt) : vtx(vtx), wt(wt) {}
 };
+
+void topSort(vector<int>& topsort, vector<vector<Pair>>& graph) {
+    int n = graph.size();
+    vector<int> indeg(n, 0);
+
+    for (int i = 1; i < n; i++) {
+        for (const Pair& nbr : graph[i]) {
+            indeg[nbr.vtx]++;
+        }
+    }
+
+    queue<int> q;
+    for (int i = 1; i < n; i++) {
+        if (indeg[i] == 0) {
+            q.push(i);
+        }
+    }
+
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+
+        topsort.push_back(u);
+
+        for (const Pair& nbr : graph[u]) {
+            indeg[nbr.vtx]--;
+            if (indeg[nbr.vtx] == 0) {
+                q.push(nbr.vtx);
+            }
+        }
+    }
+}
 
 int main() {
     int n, m;
@@ -28,35 +53,30 @@ int main() {
     for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
-        int wt = 1;
-
+        int wt = -1;
         graph[u].emplace_back(v, wt);
     }
 
-    priority_queue<Pair> pq;
-    pq.emplace(1, 0);
-    vector<int> path(n + 1, INT_MIN);
+    vector<int> topsort;
+    topSort(topsort, graph);
+
+    vector<int> dist(n + 1, INT_MAX);
     vector<int> parent(n + 1, -1);
-    path[1] = 0;
+    dist[1] = 0;
 
-    while (!pq.empty()) {
-        Pair rem = pq.top();
-        pq.pop();
-
-        if (rem.wt < path[rem.vtx])
-            continue;
-
-        path[rem.vtx] = rem.wt;
-
-        for (Pair& nbr : graph[rem.vtx]) {
-            if (path[nbr.vtx] < rem.wt + nbr.wt) {
-                pq.emplace(nbr.vtx, rem.wt + nbr.wt);
-                parent[nbr.vtx] = rem.vtx;
+    for (int u : topsort) {
+        if (dist[u] != INT_MAX) {
+            for (const Pair& nbr : graph[u]) {
+                int newdist = dist[u] + nbr.wt;
+                if (newdist < dist[nbr.vtx]) {
+                    dist[nbr.vtx] = newdist;
+                    parent[nbr.vtx] = u;
+                }
             }
         }
     }
 
-    if (path[n] == INT_MIN) {
+    if (dist[n] == INT_MAX) {
         cout << "IMPOSSIBLE" << endl;
     } else {
         vector<int> res;

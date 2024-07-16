@@ -2,17 +2,13 @@ import java.util.*;
 
 public class LongestFlightRoute {
 
-    public static class Pair implements Comparable<Pair> {
+    public static class Pair {
         int vtx;
         int wt;
 
         Pair(int vtx, int wt) {
             this.vtx = vtx;
             this.wt = wt;
-        }
-
-        public int compareTo(Pair o) {
-            return Integer.compare(o.wt, this.wt);
         }
     }
 
@@ -29,38 +25,38 @@ public class LongestFlightRoute {
         for (int i = 0; i < m; i++) {
             int u = scn.nextInt();
             int v = scn.nextInt();
-            int wt = 1;
+            int wt = -1;
 
             graph.get(u).add(new Pair(v, wt));
         }
 
-        PriorityQueue<Pair> pq = new PriorityQueue<>();
-        pq.add(new Pair(1, 0));
-        int[] path = new int[n + 1];
-        Arrays.fill(path, Integer.MIN_VALUE);
+        ArrayList<Integer> topsort = new ArrayList<>();
+
+        topSort(topsort, graph);
+
+        int[] dist = new int[n + 1];
         int[] parent = new int[n + 1];
-        parent[1] = -1;
-        path[1] = 0;
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[1] = 0;
 
-        while (pq.size() > 0) {
-            Pair rem = pq.poll();
+        for (int i = 0; i < topsort.size(); i++) {
+            int u = topsort.get(i);
 
-            if (rem.wt < path[rem.vtx])
-                continue;
-
-            path[rem.vtx] = rem.wt;
-
-            for (Pair nbr : graph.get(rem.vtx)) {
-                pq.add(new Pair(nbr.vtx, nbr.wt + rem.wt));
-                parent[nbr.vtx] = rem.vtx;
+            if (dist[u] != Integer.MAX_VALUE) {
+                for (Pair nbr : graph.get(u)) {
+                    int newdist = dist[u] + nbr.wt;
+                    if (newdist < dist[nbr.vtx]) {
+                        dist[nbr.vtx] = newdist;
+                        parent[nbr.vtx] = u;
+                    }
+                }
             }
         }
 
-        if (path[n] == Integer.MIN_VALUE) {
+        if (dist[n] == Integer.MAX_VALUE) {
             System.out.println("IMPOSSIBLE");
         } else {
             ArrayList<Integer> res = new ArrayList<>();
-
             for (int i = n; i != 1; i = parent[i]) {
                 res.add(i);
             }
@@ -73,5 +69,37 @@ public class LongestFlightRoute {
         }
 
         scn.close();
+    }
+
+    public static void topSort(ArrayList<Integer> topsort, ArrayList<ArrayList<Pair>> graph) {
+        int n = graph.size();
+        int[] indeg = new int[n];
+
+        for (int i = 1; i < n; i++) {
+            for (Pair nbr : graph.get(i)) {
+                indeg[nbr.vtx]++;
+            }
+        }
+
+        LinkedList<Integer> q = new LinkedList<>();
+
+        for (int i = 1; i < n; i++) {
+            if (indeg[i] == 0) {
+                q.addLast(i);
+            }
+        }
+
+        while (q.size() > 0) {
+            int u = q.removeFirst();
+
+            topsort.add(u);
+
+            for (Pair nbr : graph.get(u)) {
+                indeg[nbr.vtx]--;
+                if (indeg[nbr.vtx] == 0) {
+                    q.add(nbr.vtx);
+                }
+            }
+        }
     }
 }
