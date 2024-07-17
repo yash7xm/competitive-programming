@@ -1,0 +1,1 @@
+{"name":"Local: PlanetsQueriesI","url":"/home/yash/code-forces/PlanetsQueriesI.java","tests":[{"id":1721224984357,"input":"4 3\n2 1 1 4\n1 2\n3 4\n4 1","output":"1\n2\n4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/yash/code-forces/PlanetsQueriesI.java","group":"local","local":true}
