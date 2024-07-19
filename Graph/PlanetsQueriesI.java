@@ -1,50 +1,35 @@
+package Graph;
 import java.util.*;
 import java.io.*;
 
-public class CatAndTree {
-    static boolean[] isOccupied;
-    static int[] parent;
-    static int[][] dp;
-    static int MAX = 18;
+public class PlanetsQueriesI {
 
-    static void build(int n) {
-        dp = new int[MAX + 1][n + 1];
+    static int MAX = 30;
+    static int[][] table;
 
-        for (int i = 1; i <= n; i++) {
-            dp[0][i] = parent[i];
+    static void build(int[] p) {
+        int n = p.length;
+        table = new int[MAX][n];
+
+        for (int i = 0; i < n; i++) {
+            table[0][i] = p[i];
         }
-        for (int i = 1; i <= MAX; i++) {
-            for (int j = 1; j <= n; j++) {
-                if (dp[i - 1][j] != 0) {
-                    dp[i][j] = dp[i - 1][dp[i - 1][j]];
-                }
+
+        for (int i = 1; i < MAX; i++) {
+            for (int j = 0; j < n; j++) {
+                table[i][j] = table[i - 1][table[i - 1][j]];
             }
         }
     }
 
-    static int query(int curr) {
-        if (isOccupied[curr])
-            return 0;
-
-        int j = 1;
-        for (int i = MAX; i >= 0; i--) {
-            int jp = dp[i][curr];
-
-            if (!isOccupied[jp]) {
-                curr = jp;
-                j += 1 << i;
+    static int query(int a, int k) {
+        for (int i = 0; i < MAX; i++) {
+            int mask = (1 << i);
+            if ((mask & k) > 0) {
+                a = table[i][a];
             }
         }
-        isOccupied[curr] = true;
-        return j;
-    }
-
-    static void setBit(int n) {
-        MAX = 0;
-        while ((1 << MAX) <= n) {
-            MAX++;
-        }
-        MAX--;
+        return a;
     }
 
     public static void main(String[] args) {
@@ -52,25 +37,20 @@ public class CatAndTree {
         PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 
         int n = scn.nextInt();
-        setBit(n);
-        parent = new int[n + 1];
+        int q = scn.nextInt();
 
-        for (int i = 1; i <= n; i++) {
-            int p = scn.nextInt();
-            parent[i] = p;
+        int[] p = new int[n];
+        for (int i = 0; i < n; i++) {
+            p[i] = scn.nextInt() - 1;
         }
 
-        build(n);
+        build(p);
 
-        int[] cat = new int[n + 1];
-        for (int i = 1; i <= n; i++) {
-            cat[i] = scn.nextInt();
-        }
+        for (int i = 0; i < q; i++) {
+            int a = scn.nextInt() - 1;
+            int k = scn.nextInt();
 
-        isOccupied = new boolean[n + 1];
-        isOccupied[0] = true;
-        for (int i = 1; i <= n; i++) {
-            out.println(query(cat[i]));
+            out.println(query(a, k) + 1);
         }
 
         out.flush();
