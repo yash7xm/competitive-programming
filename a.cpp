@@ -1,64 +1,74 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAX = 30;
-vector<vector<int>> table;
+const int MAX_HEIGHT = 20;
+vector<vector<int>> binaryLifting;
+vector<int> arr, len;
+vector<bool> visited;
 
-void build(vector<int> &p)
-{
-    int n = p.size();
-    table.assign(MAX, vector<int>(n));
-
-    for (int i = 0; i < n; i++)
-    {
-        table[0][i] = p[i];
+void dfs(int node) {
+    if (visited[node]) {
+        return;
     }
-
-    for (int i = 1; i < MAX; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            table[i][j] = table[i - 1][table[i - 1][j]];
-        }
+    visited[node] = true;
+    dfs(arr[node]);
+    binaryLifting[node][0] = arr[node];
+    len[node] = len[binaryLifting[node][0]] + 1;
+    for (int level = 1; level < MAX_HEIGHT; level++) {
+        binaryLifting[node][level] = binaryLifting[binaryLifting[node][level - 1]][level - 1];
     }
 }
 
-int query(int a, int k)
-{
-    for (int i = 0; i < MAX; i++)
-    {
-        if ((k & (1 << i)) != 0)
-        {
-            a = table[i][a];
+int jump(int a, int dist) {
+    if (dist < 0) return -1;
+    int level = 0;
+    while (dist != 0) {
+        if ((dist & 1) == 1) {
+            a = binaryLifting[a][level];
         }
+        level++;
+        dist = dist / 2;
     }
     return a;
 }
 
-int main()
-{
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int n, q;
     cin >> n >> q;
+    arr.resize(n + 1);
+    binaryLifting.assign(n + 1, vector<int>(MAX_HEIGHT));
+    len.assign(n + 1, 0);
+    visited.assign(n + 1, false);
 
-    vector<int> p(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> p[i];
-        p[i]--;
+    for (int i = 1; i <= n; i++) {
+        cin >> arr[i];
     }
 
-    build(p);
-
-    for (int i = 0; i < q; i++)
-    {
-        int a, k;
-        cin >> a >> k;
-        a--;
-        cout << query(a, k) + 1 << '\n';
+    for (int i = 1; i <= n; i++) {
+        if (!visited[i]) {
+            dfs(i);
+        }
     }
 
+    stringstream output;
+    for (int i = 0; i < q; i++) {
+        int a, b;
+        cin >> a >> b;
+        int aa = jump(a, len[a]);
+        int answer;
+        if (jump(a, len[a] - len[b]) == b) {
+            answer = len[a] - len[b];
+        } else if (jump(aa, len[aa] - len[b]) == b) {
+            answer = (len[aa] - len[b]) + len[a];
+        } else {
+            answer = -1;
+        }
+        output << answer << "\n";
+    }
+
+    cout << output.str();
     return 0;
 }
