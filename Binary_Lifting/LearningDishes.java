@@ -1,4 +1,5 @@
 package Binary_Lifting;
+
 import java.util.*;
 import java.io.*;
 
@@ -18,7 +19,7 @@ public class LearningDishes {
     }
 
     static int val[], parent[], dp[][];
-    static ArrayList<Integer>[] graph;
+    static ArrayList<ArrayList<Integer>> graph;
     static Pair[] up;
     static int maxbit;
 
@@ -36,7 +37,8 @@ public class LearningDishes {
 
     static int query(int u, int w) {
 
-        if(w >= up[u].max) return 0;
+        if (w >= up[u].max)
+            return 0;
         int a = u;
         for (int i = maxbit; i >= 0; i--) {
             int jp = dp[i][u];
@@ -58,7 +60,7 @@ public class LearningDishes {
             }
         }
 
-        for (int i : graph[node]) {
+        for (int i : graph.get(node)) {
             dfs(i, max, cost);
         }
     }
@@ -79,13 +81,13 @@ public class LearningDishes {
             val[i] = in.nextInt();
         }
         parent = new int[n + 1];
-        graph = new ArrayList[n + 1];
+        graph = new ArrayList<>();
         for (int i = 0; i <= n; i++) {
-            graph[i] = (new ArrayList<>());
+            graph.add(new ArrayList<>());
         }
         for (int i = 2; i <= n; i++) {
             parent[i] = in.nextInt();
-            graph[parent[i]].add(i);
+            graph.get(parent[i]).add(i);
         }
 
         up = new Pair[n + 1];
