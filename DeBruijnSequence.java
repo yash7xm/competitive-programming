@@ -6,17 +6,6 @@ public class DeBruijnSequence {
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 
-    static class Node {
-        String state;
-        List<Node> next;
-
-        Node(String state) {
-            this.state = state;
-            next = new ArrayList<>();
-        }
-    }
-
-
     static String generate(int alphabetSize, int length) {
         StringBuilder seq = new StringBuilder();
         char[] current = new char[alphabetSize * length];
