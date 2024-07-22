@@ -1,77 +1,66 @@
+package Graph;
+
 import java.util.*;
 import java.io.*;
 
-public class PlanetsAndKingdoms {
+public class RoadConstruction {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 
-    static ArrayList<ArrayList<Integer>> graph;
-    static ArrayList<ArrayList<Integer>> revGraph;
-    static int[] component;
-    static Stack<Integer> st;
-    static boolean vis[];
+    static int parent[], rank[], len[];
+    static int comp, max;
 
-    static void dfs1(int u) {
-        vis[u] = true;
-        for (int v : graph.get(u)) {
-            if (!vis[v]) {
-                dfs1(v);
-            }
-        }
-        st.push(u);
+    static int find(int x) {
+        if (parent[x] == x)
+            return x;
+        int temp = find(parent[x]);
+        parent[x] = temp;
+        return temp;
     }
 
-    static void dfs2(int u, int comp) {
-        component[u] = comp;
-        for (int v : revGraph.get(u)) {
-            if (component[v] == -1) {
-                dfs2(v, comp);
+    static void union(int x, int y) {
+        int lx = find(x);
+        int ly = find(y);
+
+        if (lx != ly) {
+            if (rank[lx] > rank[ly]) {
+                parent[ly] = lx;
+                len[lx] += len[ly];
+            } else if (rank[lx] < rank[ly]) {
+                parent[lx] = ly;
+                len[ly] += len[lx];
+            } else {
+                parent[lx] = ly;
+                rank[ly]++;
+                len[ly] += len[lx];
             }
+            comp--;
+            max = Math.max(max, Math.max(len[lx], len[ly]));
         }
     }
 
     public static void main(String[] args) {
         int n = in.nextInt();
+        len = new int[n + 1];
+        parent = new int[n + 1];
+        rank = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
+            rank[i] = 1;
+            len[i] = 1;
+        }
         int m = in.nextInt();
 
-        graph = new ArrayList<>();
-        revGraph = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            graph.add(new ArrayList<>());
-            revGraph.add(new ArrayList<>());
-        }
-
-        for (int i = 0; i < m; i++) {
+        comp = n;
+        max = 1;
+        for (int i = 1; i <= m; i++) {
             int u = in.nextInt();
             int v = in.nextInt();
 
-            graph.get(u).add(v);
-            revGraph.get(v).add(u);
-        }
+            union(u, v);
 
-        st = new Stack<>();
-        vis = new boolean[n + 1];
-
-        for (int i = 1; i <= n; i++) {
-            if (!vis[i]) {
-                dfs1(i);
-            }
-        }
-
-        component = new int[n + 1];
-        Arrays.fill(component, -1);
-        int comp = 1;
-        while (st.size() > 0) {
-            int u = st.pop();
-            if (component[u] == -1) {
-                dfs2(u, comp++);
-            }
-        }
-
-        out.println(comp - 1);
-        for (int i = 1; i <= n; i++) {
-            out.print(component[i] + " ");
+            out.println(comp + " " + max);
         }
 
         out.flush();
