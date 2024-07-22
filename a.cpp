@@ -1,22 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> adj, adjRev;
-vector<int> component;
-vector<bool> assignment, vis;
+vector<int> val, component, topSort;
+vector<vector<int>> adj, adjRev, adjScc;
+vector<long long> sccVal;
+vector<bool> vis;
 stack<int> st;
-int n, m;
-
-int negateVar(int x) {
-    return x < n ? x + n : x - n;
-}
-
-void addClause(int x, int y) {
-    adj[negateVar(x)].push_back(y);
-    adj[negateVar(y)].push_back(x);
-    adjRev[y].push_back(negateVar(x));
-    adjRev[x].push_back(negateVar(y));
-}
 
 void dfs1(int u) {
     vis[u] = true;
@@ -28,11 +17,51 @@ void dfs1(int u) {
     st.push(u);
 }
 
-void dfs2(int u, int comp) {
+void dfs2(int u, int comp, long long &sum) {
     component[u] = comp;
+    sum += val[u];
     for (int v : adjRev[u]) {
         if (component[v] == -1) {
-            dfs2(v, comp);
+            dfs2(v, comp, sum);
+        }
+    }
+}
+
+void build(int n, int comp) {
+    adjScc.assign(comp, vector<int>());
+    for (int u = 1; u <= n; u++) {
+        for (int v : adj[u]) {
+            if (component[u] != component[v]) {
+                adjScc[component[u]].push_back(component[v]);
+            }
+        }
+    }
+}
+
+void topologicalSort(int n) {
+    vector<int> indeg(n, 0);
+    for (int i = 0; i < n; i++) {
+        for (int v : adjScc[i]) {
+            indeg[v]++;
+        }
+    }
+
+    queue<int> q;
+    for (int i = 0; i < n; i++) {
+        if (indeg[i] == 0) {
+            q.push(i);
+        }
+    }
+
+    while (!q.empty()) {
+        int rem = q.front();
+        q.pop();
+        topSort.push_back(rem);
+        for (int v : adjScc[rem]) {
+            indeg[v]--;
+            if (indeg[v] == 0) {
+                q.push(v);
+            }
         }
     }
 }
@@ -41,70 +70,57 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    cin >> m >> n;
+    int n, m;
+    cin >> n >> m;
 
-    adj.resize(2 * n);
-    adjRev.resize(2 * n);
+    val.resize(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> val[i];
+    }
+
+    adj.assign(n + 1, vector<int>());
+    adjRev.assign(n + 1, vector<int>());
     for (int i = 0; i < m; i++) {
-        string sign1, sign2;
-        int x, y;
-        cin >> sign1 >> x >> sign2 >> y;
-
-        if (sign1 == "+") {
-            x = x - 1;
-        } else {
-            x = negateVar(x - 1);
-        }
-
-        if (sign2 == "+") {
-            y = y - 1;
-        } else {
-            y = negateVar(y - 1);
-        }
-
-        addClause(x, y);
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adjRev[v].push_back(u);
     }
 
-    vis.resize(2 * n, false);
-    for (int i = 0; i < 2 * n; i++) {
-        if (!vis[i]) {
-            dfs1(i);
+    vis.assign(n + 1, false);
+    for (int u = 1; u <= n; u++) {
+        if (!vis[u]) {
+            dfs1(u);
         }
     }
 
-    component.resize(2 * n, -1);
+    component.assign(n + 1, -1);
     int comp = 0;
+    sccVal.clear();
     while (!st.empty()) {
         int u = st.top();
         st.pop();
         if (component[u] == -1) {
-            dfs2(u, comp++);
+            long long sum = 0;
+            dfs2(u, comp++, sum);
+            sccVal.push_back(sum);
         }
     }
 
-    bool flag = true;
-    assignment.resize(n);
-    for (int i = 0; i < n; i++) {
-        if (component[i] == component[negateVar(i)]) {
-            flag = false;
-            break;
-        }
+    topSort.clear();
+    build(n, comp);
+    topologicalSort(comp);
 
-        assignment[i] = component[i] > component[negateVar(i)];
+    vector<long long> dp(comp, 0);
+    for (int u : topSort) {
+        dp[u] += sccVal[u];
+        for (int v : adjScc[u]) {
+            dp[v] = max(dp[v], dp[u]);
+        }
     }
 
-    if (!flag) {
-        cout << "IMPOSSIBLE" << endl;
-    } else {
-        for (int i = 0; i < n; i++) {
-            if (assignment[i]) {
-                cout << "+ ";
-            } else {
-                cout << "- ";
-            }
-        }
-        cout << endl;
-    }
+    long long maxCoins = *max_element(dp.begin(), dp.end());
+    cout << maxCoins << '\n';
 
     return 0;
 }
