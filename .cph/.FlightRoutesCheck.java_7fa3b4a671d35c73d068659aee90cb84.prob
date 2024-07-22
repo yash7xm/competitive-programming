@@ -1,1 +1,0 @@
-{"name":"Local: FlightRoutesCheck","url":"/home/yash/code-forces/FlightRoutesCheck.java","tests":[{"id":1721558620026,"input":"4 5\n1 2\n2 3\n3 1\n1 4\n3 4","output":"NO\n4 1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/yash/code-forces/FlightRoutesCheck.java","group":"local","local":true}
