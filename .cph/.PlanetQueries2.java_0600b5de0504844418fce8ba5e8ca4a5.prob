@@ -1,1 +1,0 @@
-{"name":"Local: PlanetQueries2","url":"/home/yash/code-forces/PlanetQueries2.java","tests":[{"id":1721502518726,"input":"5 3\n2 3 2 3 2\n1 2\n1 3\n1 4","output":"1\n2\n-1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/yash/code-forces/PlanetQueries2.java","group":"local","local":true}

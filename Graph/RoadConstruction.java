@@ -1,68 +1,67 @@
+package Graph;
 import java.util.*;
 import java.io.*;
 
-public class FlightRoutesCheck {
+public class RoadConstruction {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 
-    static ArrayList<ArrayList<Integer>> graph1;
-    static ArrayList<ArrayList<Integer>> graph2;
-    static boolean vis[];
+    static int parent[], rank[], len[];
+    static int comp, max;
 
-    static void dfs(int u, ArrayList<ArrayList<Integer>> graph) {
-        if (vis[u])
-            return;
-        vis[u] = true;
-        for (int v : graph.get(u)) {
-            if (!vis[v])
-                dfs(v, graph);
+    static int find(int x) {
+        if (parent[x] == x)
+            return x;
+        int temp = find(parent[x]);
+        parent[x] = temp;
+        return temp;
+    }
+
+    static void union(int x, int y) {
+        int lx = find(x);
+        int ly = find(y);
+
+        if (lx != ly) {
+            if (rank[lx] > rank[ly]) {
+                parent[ly] = lx;
+                len[lx] += len[ly];
+            } else if (rank[lx] < rank[ly]) {
+                parent[lx] = ly;
+                len[ly] += len[lx];
+            } else {
+                parent[lx] = ly;
+                rank[ly]++;
+                len[ly] += len[lx];
+            }
+            comp--;
+            max = Math.max(max, Math.max(len[lx], len[ly]));
         }
     }
 
     public static void main(String[] args) {
         int n = in.nextInt();
+        len = new int[n + 1];
+        parent = new int[n + 1];
+        rank = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            parent[i] = i;
+            rank[i] = 1;
+            len[i] = 1;
+        }
         int m = in.nextInt();
 
-        graph1 = new ArrayList<>();
-        graph2 = new ArrayList<>();
-
-        for (int i = 0; i <= n; i++) {
-            graph1.add(new ArrayList<>());
-            graph2.add(new ArrayList<>());
-        }
-
-        for (int i = 0; i < m; i++) {
+        comp = n;
+        max = 1;
+        for (int i = 1; i <= m; i++) {
             int u = in.nextInt();
             int v = in.nextInt();
 
-            graph1.get(u).add(v);
-            graph2.get(v).add(u);
+            union(u, v);
+
+            out.println(comp + " " + max);
         }
 
-        vis = new boolean[n + 1];
-        dfs(1, graph1);
-        for (int i = 1; i <= n; i++) {
-            if (vis[i] == false) {
-                out.println("NO");
-                out.println(1 + " " + i);
-                out.flush();
-                return;
-            }
-        }
-
-        vis = new boolean[n + 1];
-        dfs(1, graph2);
-        for (int i = 1; i <= n; i++) {
-            if (vis[i] == false) {
-                out.println("NO");
-                out.println(i + " " + 1);
-                out.flush();
-                return;
-            }
-        }
-
-        out.println("YES");
         out.flush();
     }
 
