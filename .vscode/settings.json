@@ -1,3 +1,10 @@
 {
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "java.project.sourcePaths": [
+        "tle-900",
+        "tle-800",
+        "Segment_Tree",
+        "Binary_Search",
+        ""
+    ]
 }
