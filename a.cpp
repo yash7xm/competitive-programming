@@ -1,37 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> arr;
-vector<long long> blockSums;
+vector<int> arr, sqrtBlocks;
 int len;
 
-void build(int n) {
-    blockSums.assign(len, 0);
-    for (int i = 1; i <= n; ++i) {
-        blockSums[i / len] += arr[i];
-    }
-}
+int query(int a, int b)
+{
+    int minVal = INT_MAX;
 
-void update(int k, int delta) {
-    blockSums[k / len] = blockSums[k / len] - arr[k] + delta;
-    arr[k] = delta;
-}
-
-long long query(int a, int b) {
-    long long sum = 0;
-    while (a <= b) {
-        if (a % len == 0 && a + len - 1 <= b) {
-            sum += blockSums[a / len];
+    while (a <= b)
+    {
+        if (a % len == 0 && a + len - 1 <= b)
+        {
+            minVal = min(sqrtBlocks[a / len], minVal);
             a += len;
-        } else {
-            sum += arr[a];
-            ++a;
+        }
+        else
+        {
+            minVal = min(arr[a], minVal);
+            a++;
         }
     }
-    return sum;
+
+    return minVal;
 }
 
-int main() {
+void update(int k, int val)
+{
+    int i = (k / len) * len;
+    arr[k] = val;
+    sqrtBlocks[i / len] = INT_MAX;
+    for (int j = 0; j < len && i < arr.size(); j++, i++)
+    {
+        sqrtBlocks[i / len] = min(sqrtBlocks[i / len], arr[i]);
+    }
+}
+
+int main()
+{
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
@@ -39,20 +45,25 @@ int main() {
     cin >> n >> q;
 
     arr.resize(n + 1);
-    for (int i = 1; i <= n; ++i) {
+    len = ceil(sqrt(n));
+    sqrtBlocks.assign(len, INT_MAX);
+    for (int i = 1; i <= n; i++)
+    {
         cin >> arr[i];
+        sqrtBlocks[i / len] = min(sqrtBlocks[i / len], arr[i]);
     }
 
-    len = ceil(sqrt(n));
-    build(n);
-
-    for (int i = 0; i < q; ++i) {
+    for (int i = 0; i < q; i++)
+    {
         int type, a, b;
         cin >> type >> a >> b;
 
-        if (type == 1) {
+        if (type == 1)
+        {
             update(a, b);
-        } else {
+        }
+        else
+        {
             cout << query(a, b) << "\n";
         }
     }
