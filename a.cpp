@@ -1,6 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+vector<int> arr;
+vector<long long> blockSums;
+int len;
+
+void build(int n) {
+    blockSums.assign(len, 0);
+    for (int i = 1; i <= n; ++i) {
+        blockSums[i / len] += arr[i];
+    }
+}
+
+void update(int k, int delta) {
+    blockSums[k / len] = blockSums[k / len] - arr[k] + delta;
+    arr[k] = delta;
+}
+
+long long query(int a, int b) {
+    long long sum = 0;
+    while (a <= b) {
+        if (a % len == 0 && a + len - 1 <= b) {
+            sum += blockSums[a / len];
+            a += len;
+        } else {
+            sum += arr[a];
+            ++a;
+        }
+    }
+    return sum;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
@@ -8,34 +38,23 @@ int main() {
     int n, q;
     cin >> n >> q;
 
-    vector<int> arr(n + 1);
+    arr.resize(n + 1);
     for (int i = 1; i <= n; ++i) {
         cin >> arr[i];
     }
 
-    int len = ceil(sqrt(n));
-    vector<int> sqrt(len, INT_MAX);
-
-    for (int i = 1; i <= n; ++i) {
-        sqrt[i / len] = min(sqrt[i / len], arr[i]);
-    }
+    len = ceil(sqrt(n));
+    build(n);
 
     for (int i = 0; i < q; ++i) {
-        int a, b;
-        cin >> a >> b;
+        int type, a, b;
+        cin >> type >> a >> b;
 
-        int minimum = INT_MAX;
-        while (a <= b) {
-            if (a % len == 0 && a + len - 1 <= b) {
-                minimum = min(minimum, sqrt[a / len]);
-                a += len;
-            } else {
-                minimum = min(minimum, arr[a]);
-                ++a;
-            }
+        if (type == 1) {
+            update(a, b);
+        } else {
+            cout << query(a, b) << "\n";
         }
-
-        cout << minimum << "\n";
     }
 
     return 0;
