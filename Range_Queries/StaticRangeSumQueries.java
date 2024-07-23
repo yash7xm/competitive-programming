@@ -1,7 +1,8 @@
+package Range_Queries;
 import java.util.*;
 import java.io.*;
 
-public class StaticRangeMinimumQueries {
+public class StaticRangeSumQueries {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
@@ -9,35 +10,19 @@ public class StaticRangeMinimumQueries {
     public static void main(String[] args) {
         int n = in.nextInt();
         int q = in.nextInt();
+
         int[] arr = new int[n + 1];
+        long[] prefix = new long[n + 1];
         for (int i = 1; i <= n; i++) {
             arr[i] = in.nextInt();
-        }
-
-        int len = (int) Math.ceil(Math.sqrt(n));
-
-        int[] sqrt = new int[len];
-        Arrays.fill(sqrt, Integer.MAX_VALUE);
-        for (int i = 1; i <= n; i++) {
-            sqrt[i / len] = Math.min(sqrt[i / len], arr[i]);
+            prefix[i] = arr[i] + prefix[i - 1];
         }
 
         for (int i = 0; i < q; i++) {
             int a = in.nextInt();
             int b = in.nextInt();
 
-            int min = Integer.MAX_VALUE;
-            while (a <= b) {
-                if (a % len == 0 && a + len - 1 <= b) {
-                    min = Math.min(min, sqrt[a / len]);
-                    a += len;
-                } else {
-                    min = Math.min(min, arr[a]);
-                    a++;
-                }
-            }
-
-            out.println(min);
+            out.println(prefix[b] - prefix[a - 1]);
         }
 
         out.flush();
