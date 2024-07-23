@@ -1,66 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Pair {
-    int node, idx;
-    Pair(int node, int idx) : node(node), idx(idx) {}
-};
-
-vector<vector<Pair>> graph;
-vector<int> deg;
-vector<bool> seen;
-vector<int> path;
-
-void dfs(int node) {
-    while (!graph[node].empty()) {
-        Pair edge = graph[node].back();
-        graph[node].pop_back();
-        if (seen[edge.idx])
-            continue;
-        seen[edge.idx] = true;
-        dfs(edge.node);
-    }
-    path.push_back(node);
-}
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n, m;
-    cin >> n >> m;
+    int n, q;
+    cin >> n >> q;
 
-    graph.resize(n + 1);
-    deg.resize(n + 1, 0);
-
-    for (int i = 1; i <= m; i++) {
-        int u, v;
-        cin >> u >> v;
-        graph[u].emplace_back(v, i);
-        graph[v].emplace_back(u, i);
-        deg[u]++;
-        deg[v]++;
+    vector<int> arr(n + 1);
+    for (int i = 1; i <= n; ++i) {
+        cin >> arr[i];
     }
 
-    for (int i = 1; i <= n; i++) {
-        if (deg[i] % 2 != 0) {
-            cout << "IMPOSSIBLE" << endl;
-            return 0;
-        }
+    int len = ceil(sqrt(n));
+    vector<int> sqrt(len, INT_MAX);
+
+    for (int i = 1; i <= n; ++i) {
+        sqrt[i / len] = min(sqrt[i / len], arr[i]);
     }
 
-    seen.resize(m + 1, false);
-    path.clear();
+    for (int i = 0; i < q; ++i) {
+        int a, b;
+        cin >> a >> b;
 
-    dfs(1);
-
-    if (path.size() != m + 1) {
-        cout << "IMPOSSIBLE" << endl;
-    } else {
-        for (int i = path.size() - 1; i >= 0; i--) {
-            cout << path[i] << " ";
+        int minimum = INT_MAX;
+        while (a <= b) {
+            if (a % len == 0 && a + len - 1 <= b) {
+                minimum = min(minimum, sqrt[a / len]);
+                a += len;
+            } else {
+                minimum = min(minimum, arr[a]);
+                ++a;
+            }
         }
-        cout << endl;
+
+        cout << minimum << "\n";
     }
 
     return 0;

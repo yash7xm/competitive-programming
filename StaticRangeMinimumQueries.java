@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class StaticRangeSumQueries {
+public class StaticRangeMinimumQueries {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
@@ -9,19 +9,35 @@ public class StaticRangeSumQueries {
     public static void main(String[] args) {
         int n = in.nextInt();
         int q = in.nextInt();
-
         int[] arr = new int[n + 1];
-        long[] prefix = new long[n + 1];
         for (int i = 1; i <= n; i++) {
             arr[i] = in.nextInt();
-            prefix[i] = arr[i] + prefix[i - 1];
+        }
+
+        int len = (int) Math.ceil(Math.sqrt(n));
+
+        int[] sqrt = new int[len];
+        Arrays.fill(sqrt, Integer.MAX_VALUE);
+        for (int i = 1; i <= n; i++) {
+            sqrt[i / len] = Math.min(sqrt[i / len], arr[i]);
         }
 
         for (int i = 0; i < q; i++) {
             int a = in.nextInt();
             int b = in.nextInt();
 
-            out.println(prefix[b] - prefix[a - 1]);
+            int min = Integer.MAX_VALUE;
+            while (a <= b) {
+                if (a % len == 0 && a + len - 1 <= b) {
+                    min = Math.min(min, sqrt[a / len]);
+                    a += len;
+                } else {
+                    min = Math.min(min, arr[a]);
+                    a++;
+                }
+            }
+
+            out.println(min);
         }
 
         out.flush();
