@@ -1,6 +1,10 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class RangeUpdateQueries {
+
+    static FastReader in = new FastReader();
+    static PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(System.out)));
 
     public static class SegmentTree {
         long[] tree;
@@ -55,8 +59,6 @@ public class RangeUpdateQueries {
     }
 
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
         int n = in.nextInt();
         int q = in.nextInt();
 
@@ -92,10 +94,56 @@ public class RangeUpdateQueries {
                 int l = quer[i][1] - 1;
                 long[] res = new long[1];
                 sg.query(1, 0, n - 1, l, res);
-                System.out.println(res[0]);
+                out.println(res[0]);
             }
         }
 
-        in.close();
+        out.flush();
+    }
+
+    static class FastReader {
+        BufferedReader br;
+        StringTokenizer st;
+
+        public FastReader() {
+            br = new BufferedReader(new InputStreamReader(System.in));
+        }
+
+        String next() {
+            while (st == null || !st.hasMoreElements()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+
+        double nextDouble() {
+            return Double.parseDouble(next());
+        }
+
+        String nextLine() {
+            String str = "";
+            try {
+                if (st.hasMoreTokens()) {
+                    str = st.nextToken("\n");
+                } else {
+                    str = br.readLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
     }
 }
