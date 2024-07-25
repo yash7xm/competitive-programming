@@ -1,84 +1,52 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> arr;
-vector<vector<int>> tree;
+struct Queries {
+    int type, a, b;
+    Queries(int type, int a, int b) : type(type), a(a), b(b) {}
+};
 
-void merge(vector<int>& res, vector<int>& lista, vector<int>& listb) {
-    int p = 0, q = 0;
-    res.clear();
-    while (p < lista.size() && q < listb.size()) {
-        if (lista[p] < listb[q]) {
-            res.push_back(lista[p]);
-            p++;
-        } else {
-            res.push_back(listb[q]);
-            q++;
+vector<int> arr, farr;
+vector<int> allVals;
+vector<Queries> quers;
+map<int, int> compressMap;
+
+void compressIndexes() {
+    sort(allVals.begin(), allVals.end());
+    int idx = 1;
+
+    for (int val : allVals) {
+        if (compressMap.find(val) == compressMap.end()) {
+            compressMap[val] = idx++;
         }
     }
-
-    while (q < listb.size()) {
-        res.push_back(listb[q]);
-        q++;
-    }
-
-    while (p < lista.size()) {
-        res.push_back(lista[p]);
-        p++;
-    }
 }
 
-void build(int node, int start, int end) {
-    if (start == end) {
-        tree[node].push_back(arr[start]);
-        return;
-    }
-
-    int mid = (start + end) / 2;
-
-    build(2 * node, start, mid);
-    build(2 * node + 1, mid + 1, end);
-
-    merge(tree[node], tree[2 * node], tree[2 * node + 1]);
-}
-
-void update(int node, int start, int end, int k, int x) {
-    if (start == end) {
-        tree[node][0] = x;
-        return;
-    }
-
-    int mid = (start + end) / 2;
-    if (k <= mid) {
-        update(2 * node, start, mid, k, x);
-    } else {
-        update(2 * node + 1, mid + 1, end, k, x);
-    }
-
-    merge(tree[node], tree[2 * node], tree[2 * node + 1]);
-}
-
-int upperbound(vector<int>& list, int x) {
-    int lo = 0;
-    int hi = list.size() - 1;
-    int ans = list.size();
-
-    while (lo <= hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (list[mid] > x) {
-            ans = mid;
-            hi = mid - 1;
-        } else {
-            lo = mid + 1;
+void build() {
+    for (int i = 1; i < arr.size(); ++i) {
+        int j = compressMap[arr[i]];
+        int idx = j;
+        while (idx < farr.size()) {
+            farr[idx] += 1;
+            idx += (idx & -idx);
         }
     }
-    return ans;
 }
 
-int query(int x, int y) {
-    int res = 0;
-    res = upperbound(tree[1], y) - upperbound(tree[1], x - 1);
-    return res;
+void update(int i, int x) {
+    while (i < farr.size()) {
+        farr[i] += x;
+        i += (i & -i);
+    }
+}
+
+int query(int x) {
+    int cnt = 0;
+    while (x > 0) {
+        cnt += farr[x];
+        x -= (x & -x);
+    }
+    return cnt;
 }
 
 int main() {
@@ -88,35 +56,46 @@ int main() {
     int n, q;
     cin >> n >> q;
 
-    arr.resize(n);
-    for (int i = 0; i < n; i++) {
+    arr.resize(n + 1);
+
+    allVals.reserve(n + 2 * q);
+    for (int i = 1; i <= n; i++) {
         cin >> arr[i];
+        allVals.push_back(arr[i]);
     }
 
-    tree.resize(4 * n);
-    for (int i = 0; i < 4 * n; i++) {
-        tree[i] = vector<int>();
-    }
-
-    build(1, 0, n - 1);
-
-    cin.ignore(); // To ignore the newline character after the last integer input
-    while (q-- > 0) {
-        string line;
-        getline(cin, line);
-        stringstream ss(line);
+    quers.reserve(q);
+    for (int i = 0; i < q; i++) {
         string type;
-        ss >> type;
+        int a, b;
+        cin >> type >> a >> b;
 
         if (type == "?") {
-            int a, b;
-            ss >> a >> b;
-            int res = query(a, b);
-            cout << res << "\n";
+            quers.emplace_back(1, a, b);
+            allVals.push_back(a);
+            allVals.push_back(b);
         } else {
-            int k, x;
-            ss >> k >> x;
-            update(1, 0, n - 1, k - 1, x);
+            quers.emplace_back(2, a, b);
+            allVals.push_back(b);
+        }
+    }
+
+    compressIndexes();
+    farr.resize(compressMap.size() + 1, 0);
+    build();
+
+    for (const auto& quer : quers) {
+        if (quer.type == 1) {
+            int a = compressMap[quer.a];
+            int b = compressMap[quer.b];
+            cout << query(b) - query(a - 1) << "\n";
+        } else {
+            int k = quer.a;
+            int x = quer.b;
+
+            update(compressMap[arr[k]], -1);
+            arr[k] = x;
+            update(compressMap[x], 1);
         }
     }
 

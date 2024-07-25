@@ -88,6 +88,7 @@ public class SalaryQueriesSegmentTree {
         return res;
     }
 
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         int n = in.nextInt();
         int q = in.nextInt();
