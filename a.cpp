@@ -1,70 +1,122 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> arr, sqrtBlocks;
-int len;
+vector<int> arr;
+vector<vector<int>> tree;
 
-int query(int a, int b)
-{
-    int minVal = INT_MAX;
-
-    while (a <= b)
-    {
-        if (a % len == 0 && a + len - 1 <= b)
-        {
-            minVal = min(sqrtBlocks[a / len], minVal);
-            a += len;
-        }
-        else
-        {
-            minVal = min(arr[a], minVal);
-            a++;
+void merge(vector<int>& res, vector<int>& lista, vector<int>& listb) {
+    int p = 0, q = 0;
+    res.clear();
+    while (p < lista.size() && q < listb.size()) {
+        if (lista[p] < listb[q]) {
+            res.push_back(lista[p]);
+            p++;
+        } else {
+            res.push_back(listb[q]);
+            q++;
         }
     }
 
-    return minVal;
-}
+    while (q < listb.size()) {
+        res.push_back(listb[q]);
+        q++;
+    }
 
-void update(int k, int val)
-{
-    int i = (k / len) * len;
-    arr[k] = val;
-    sqrtBlocks[i / len] = INT_MAX;
-    for (int j = 0; j < len && i < arr.size(); j++, i++)
-    {
-        sqrtBlocks[i / len] = min(sqrtBlocks[i / len], arr[i]);
+    while (p < lista.size()) {
+        res.push_back(lista[p]);
+        p++;
     }
 }
 
-int main()
-{
+void build(int node, int start, int end) {
+    if (start == end) {
+        tree[node].push_back(arr[start]);
+        return;
+    }
+
+    int mid = (start + end) / 2;
+
+    build(2 * node, start, mid);
+    build(2 * node + 1, mid + 1, end);
+
+    merge(tree[node], tree[2 * node], tree[2 * node + 1]);
+}
+
+void update(int node, int start, int end, int k, int x) {
+    if (start == end) {
+        tree[node][0] = x;
+        return;
+    }
+
+    int mid = (start + end) / 2;
+    if (k <= mid) {
+        update(2 * node, start, mid, k, x);
+    } else {
+        update(2 * node + 1, mid + 1, end, k, x);
+    }
+
+    merge(tree[node], tree[2 * node], tree[2 * node + 1]);
+}
+
+int upperbound(vector<int>& list, int x) {
+    int lo = 0;
+    int hi = list.size() - 1;
+    int ans = list.size();
+
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (list[mid] > x) {
+            ans = mid;
+            hi = mid - 1;
+        } else {
+            lo = mid + 1;
+        }
+    }
+    return ans;
+}
+
+int query(int x, int y) {
+    int res = 0;
+    res = upperbound(tree[1], y) - upperbound(tree[1], x - 1);
+    return res;
+}
+
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
     int n, q;
     cin >> n >> q;
 
-    arr.resize(n + 1);
-    len = ceil(sqrt(n));
-    sqrtBlocks.assign(len, INT_MAX);
-    for (int i = 1; i <= n; i++)
-    {
+    arr.resize(n);
+    for (int i = 0; i < n; i++) {
         cin >> arr[i];
-        sqrtBlocks[i / len] = min(sqrtBlocks[i / len], arr[i]);
     }
 
-    for (int i = 0; i < q; i++)
-    {
-        int type, a, b;
-        cin >> type >> a >> b;
+    tree.resize(4 * n);
+    for (int i = 0; i < 4 * n; i++) {
+        tree[i] = vector<int>();
+    }
 
-        if (type == 1)
-        {
-            update(a, b);
-        }
-        else
-        {
-            cout << query(a, b) << "\n";
+    build(1, 0, n - 1);
+
+    cin.ignore(); // To ignore the newline character after the last integer input
+    while (q-- > 0) {
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
+        string type;
+        ss >> type;
+
+        if (type == "?") {
+            int a, b;
+            ss >> a >> b;
+            int res = query(a, b);
+            cout << res << "\n";
+        } else {
+            int k, x;
+            ss >> k >> x;
+            update(1, 0, n - 1, k - 1, x);
         }
     }
 
