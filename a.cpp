@@ -1,58 +1,76 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 200010;
-const int S = 1 << 18;
+struct Node {
+    long long sum, maxsubsum, prefix, suffix;
+    Node(long long sum = 0, long long maxsubsum = 0, long long prefix = 0, long long suffix = 0) 
+        : sum(sum), maxsubsum(maxsubsum), prefix(prefix), suffix(suffix) {}
+};
 
-int n, q, a[N];
+vector<int> arr;
+vector<Node> tree;
 
-struct node {
-	long long sum, pref;
-	node(long long sum, long long pref) : sum(sum), pref(pref) {}
-	node(long long x = 0) : sum(x), pref(max(0LL, x)) {}
-	friend node operator+(const node &a, const node &b) {
-		return {a.sum + b.sum, max(a.pref, a.sum + b.pref)};
-	}
-} tt[S << 1];
-
-void build(int k = 1, int l = 1, int r = n) {
-	if (l == r) {
-		tt[k] = node(a[l]);
-		return;
-	}
-	int m = (l + r) >> 1;
-	build(k << 1, l, m);
-	build(k << 1 | 1, m + 1, r);
-	tt[k] = tt[k << 1] + tt[k << 1 | 1];
+Node merge(Node left, Node right) {
+    Node node;
+    node.sum = left.sum + right.sum;
+    node.prefix = max(left.prefix, left.sum + right.prefix);
+    node.suffix = max(right.suffix, right.sum + left.suffix);
+    node.maxsubsum = max({left.maxsubsum, right.maxsubsum, left.suffix + right.prefix});
+    return node;
 }
 
-void update(int i, int x, int k = 1, int l = 1, int r = n) {
-	if (l == r) {
-		tt[k] = node(x);
-		return;
-	}
-	int m = (l + r) >> 1;
-	if (i <= m) update(i, x, k << 1, l, m);
-	else update(i, x, k << 1 | 1, m + 1, r);
-	tt[k] = tt[k << 1] + tt[k << 1 | 1];
+void build(int node, int start, int end) {
+    if (start == end) {
+        tree[node] = Node(arr[start], arr[start], arr[start], arr[start]);
+        return;
+    }
+
+    int mid = (start + end) / 2;
+    build(2 * node, start, mid);
+    build(2 * node + 1, mid + 1, end);
+    tree[node] = merge(tree[2 * node], tree[2 * node + 1]);
 }
 
-node query(int ql, int qr, int k = 1, int l = 1, int r = n) {
-	if (ql > r || qr < l) return 0;
-	if (ql <= l && qr >= r) return tt[k];
-	int m = (l + r) >> 1;
-	node q1 = query(ql, qr, k << 1, l, m);
-	node q2 = query(ql, qr, k << 1 | 1, m + 1, r);
-	return q1 + q2;
+void update(int node, int start, int end, int i, int x) {
+    if (start == end) {
+        tree[node] = Node(x, x, x, x);
+        return;
+    }
+
+    int mid = (start + end) / 2;
+    if (i <= mid) {
+        update(2 * node, start, mid, i, x);
+    } else {
+        update(2 * node + 1, mid + 1, end, i, x);
+    }
+    tree[node] = merge(tree[2 * node], tree[2 * node + 1]);
 }
 
 int main() {
-	scanf("%d%d", &n, &q);
-	for (int i = 1; i <= n; ++i) scanf("%d", a + i);
-	build();
-	for (int i = 0, t, x, y; i < q; ++i) {
-		scanf("%d%d%d", &t, &x, &y);
-		if (t == 1) update(x, a[x] = y);
-		else printf("%lld\n", query(x, y).pref);
-	}
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, q;
+    cin >> n >> q;
+
+    arr.resize(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+
+    tree.resize(4 * n);
+    build(1, 0, n - 1);
+
+    for (int i = 0; i < q; ++i) {
+        int k, x;
+        cin >> k >> x;
+        --k;
+        arr[k] = x;
+        update(1, 0, n - 1, k, x);
+        long long res = tree[1].maxsubsum;
+        if (res < 0) res = 0;
+        cout << res << '\n';
+    }
+
+    return 0;
 }
