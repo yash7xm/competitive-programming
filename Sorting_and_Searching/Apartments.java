@@ -1,3 +1,4 @@
+package Sorting_and_Searching;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,32 +6,41 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class FerrisWheel {
+public class Apartments {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
     public static void main(String[] args) {
         int n = in.nextInt();
-        int x = in.nextInt();
+        int m = in.nextInt();
+        int k = in.nextInt();
 
-        int[] arr = new int[n];
+        int[] applicants = new int[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
+            applicants[i] = in.nextInt();
         }
 
-        Arrays.sort(arr);
+        int[] apartments = new int[m];
+        for (int i = 0; i < m; i++) {
+            apartments[i] = in.nextInt();
+        }
 
-        int i = 0, j = n - 1;
-        int res = 0;
-        while (i <= j) {
-            if (arr[i] + arr[j] <= x) {
+        Arrays.sort(applicants);
+        Arrays.sort(apartments);
+
+        int i = 0, j = 0, res = 0;
+
+        while (i < n && j < m) {
+            if (apartments[j] < applicants[i] - k) {
+                j++;
+            } else if (apartments[j] > applicants[i] + k) {
                 i++;
-                j--;
             } else {
-                j--;
+                res++;
+                i++;
+                j++;
             }
-            res++;
         }
 
         out.println(res);

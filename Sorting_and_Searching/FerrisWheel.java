@@ -1,24 +1,40 @@
+package Sorting_and_Searching;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class DistinctNumbers {
+public class FerrisWheel {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
     public static void main(String[] args) {
         int n = in.nextInt();
-        HashSet<Integer> set = new HashSet<>();
+        int x = in.nextInt();
 
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            set.add(in.nextInt());
+            arr[i] = in.nextInt();
         }
 
-        out.println(set.size());
+        Arrays.sort(arr);
+
+        int i = 0, j = n - 1;
+        int res = 0;
+        while (i <= j) {
+            if (arr[i] + arr[j] <= x) {
+                i++;
+                j--;
+            } else {
+                j--;
+            }
+            res++;
+        }
+
+        out.println(res);
         out.flush();
     }
 

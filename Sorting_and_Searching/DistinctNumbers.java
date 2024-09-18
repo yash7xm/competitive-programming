@@ -1,48 +1,25 @@
+package Sorting_and_Searching;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
-public class Apartments {
+public class DistinctNumbers {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
     public static void main(String[] args) {
         int n = in.nextInt();
-        int m = in.nextInt();
-        int k = in.nextInt();
+        HashSet<Integer> set = new HashSet<>();
 
-        int[] applicants = new int[n];
         for (int i = 0; i < n; i++) {
-            applicants[i] = in.nextInt();
+            set.add(in.nextInt());
         }
 
-        int[] apartments = new int[m];
-        for (int i = 0; i < m; i++) {
-            apartments[i] = in.nextInt();
-        }
-
-        Arrays.sort(applicants);
-        Arrays.sort(apartments);
-
-        int i = 0, j = 0, res = 0;
-
-        while (i < n && j < m) {
-            if (apartments[j] < applicants[i] - k) {
-                j++;
-            } else if (apartments[j] > applicants[i] + k) {
-                i++;
-            } else {
-                res++;
-                i++;
-                j++;
-            }
-        }
-
-        out.println(res);
+        out.println(set.size());
         out.flush();
     }
 
