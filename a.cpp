@@ -1,38 +1,39 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
 
-int main() {
-    int n, m, k;
-    cin >> n >> m >> k;
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    vector<int> applicants(n);
-    for (int i = 0; i < n; i++) {
-        cin >> applicants[i];
+    int n, x;
+    cin >> n >> x;
+
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
     }
 
-    vector<int> apartments(m);
-    for (int i = 0; i < m; i++) {
-        cin >> apartments[i];
-    }
+    sort(arr.begin(), arr.end());
 
-    sort(applicants.begin(), applicants.end());
-    sort(apartments.begin(), apartments.end());
+    int i = 0, j = n - 1;
+    int res = 0;
 
-    int i = 0, j = 0, res = 0;
-
-    while (i < n && j < m) {
-        if (apartments[j] < applicants[i] - k) {
-            j++;
-        } else if (apartments[j] > applicants[i] + k) {
+    while (i <= j)
+    {
+        if (arr[i] + arr[j] <= x)
+        {
             i++;
-        } else {
-            res++;
-            i++;
-            j++;
         }
+        j--;
+        res++;
     }
 
     cout << res << endl;
-    
+
     return 0;
 }
