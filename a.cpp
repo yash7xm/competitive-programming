@@ -1,40 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> tree;
-vector<int> res;
-
-int dfs(int u) {
-    int sum = 0;
-    for (int child : tree[u]) {
-        sum += dfs(child) + 1;
-    }
-    res[u] = sum;
-    return sum;
-}
-
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
+    int n, m, k;
+    cin >> n >> m >> k;
 
-    int n;
-    cin >> n;
-
-    tree.resize(n + 1);
-    res.resize(n + 1);
-
-    for (int i = 2; i <= n; i++) {
-        int u;
-        cin >> u;
-        tree[u].push_back(i);
+    vector<int> applicants(n);
+    for (int i = 0; i < n; i++) {
+        cin >> applicants[i];
     }
 
-    dfs(1);
-
-    for (int i = 1; i <= n; i++) {
-        cout << res[i] << " ";
+    vector<int> apartments(m);
+    for (int i = 0; i < m; i++) {
+        cin >> apartments[i];
     }
-    cout << endl;
 
+    sort(applicants.begin(), applicants.end());
+    sort(apartments.begin(), apartments.end());
+
+    int i = 0, j = 0, res = 0;
+
+    while (i < n && j < m) {
+        if (apartments[j] < applicants[i] - k) {
+            j++;
+        } else if (apartments[j] > applicants[i] + k) {
+            i++;
+        } else {
+            res++;
+            i++;
+            j++;
+        }
+    }
+
+    cout << res << endl;
+    
     return 0;
 }

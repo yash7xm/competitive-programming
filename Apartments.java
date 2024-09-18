@@ -15,49 +15,35 @@ public class Apartments {
         int m = in.nextInt();
         int k = in.nextInt();
 
-        int[] arr = new int[n];
+        int[] applicants = new int[n];
         for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
+            applicants[i] = in.nextInt();
         }
 
-        int[] brr = new int[m];
+        int[] apartments = new int[m];
         for (int i = 0; i < m; i++) {
-            brr[i] = in.nextInt();
+            apartments[i] = in.nextInt();
         }
 
-        Arrays.sort(arr);
-        Arrays.sort(brr);
+        Arrays.sort(applicants);
+        Arrays.sort(apartments);
 
-        int start = 0, res = 0;
-        for (int i = 0; i < n; i++) {
-            int idx = bs(brr, arr[i] - k, start);
-            if (idx >= brr.length) {
-                continue;
+        int i = 0, j = 0, res = 0;
+
+        while (i < n && j < m) {
+            if (apartments[j] < applicants[i] - k) {
+                j++;
+            } else if (apartments[j] > applicants[i] + k) {
+                i++;
             } else {
-                if (brr[idx] <= arr[i] + k) {
-                    start = idx + 1;
-                    res++;
-                }
+                res++;
+                i++;
+                j++;
             }
         }
 
         out.println(res);
         out.flush();
-    }
-
-    public static int bs(int[] arr, int tar, int lo) {
-        int hi = arr.length - 1, ans = arr.length;
-
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (arr[mid] >= tar) {
-                hi = mid - 1;
-                ans = mid;
-            } else {
-                lo = mid + 1;
-            }
-        }
-        return ans;
     }
 
     static class FastReader {
