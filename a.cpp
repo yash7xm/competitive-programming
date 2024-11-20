@@ -1,39 +1,48 @@
 #include <iostream>
+#include <map>
 #include <vector>
-#include <algorithm>
-
 using namespace std;
 
-int main()
-{
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+int main() {
+    int n, m;
+    cin >> n >> m;
 
-    int n, x;
-    cin >> n >> x;
+    vector<int> tickets(n);
+    vector<int> customers(m);
 
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
+    // Read ticket prices
+    for (int i = 0; i < n; ++i) {
+        cin >> tickets[i];
     }
 
-    sort(arr.begin(), arr.end());
+    // Read customers' maximum prices
+    for (int i = 0; i < m; ++i) {
+        cin >> customers[i];
+    }
 
-    int i = 0, j = n - 1;
-    int res = 0;
+    // Use map to store ticket prices and their counts
+    map<int, int> ticketMap;
+    for (int price : tickets) {
+        ticketMap[price]++;
+    }
 
-    while (i <= j)
-    {
-        if (arr[i] + arr[j] <= x)
-        {
-            i++;
+    // Process each customer's request
+    for (int maxPrice : customers) {
+        // Find the largest ticket price <= maxPrice
+        auto it = ticketMap.upper_bound(maxPrice);
+        if (it == ticketMap.begin()) {
+            // No suitable ticket found
+            cout << -1 << endl;
+        } else {
+            --it; // Move to the largest valid ticket
+            cout << it->first << endl;
+
+            // Decrease the count or remove the ticket
+            if (--(it->second) == 0) {
+                ticketMap.erase(it);
+            }
         }
-        j--;
-        res++;
     }
-
-    cout << res << endl;
 
     return 0;
 }
