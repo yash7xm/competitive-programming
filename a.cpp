@@ -1,48 +1,36 @@
 #include <iostream>
-#include <map>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int main() {
-    int n, m;
-    cin >> n >> m;
+    int n;
+    cin >> n;
 
-    vector<int> tickets(n);
-    vector<int> customers(m);
+    vector<pair<int, int>> events;
 
-    // Read ticket prices
+    // Read arrival and leaving times
     for (int i = 0; i < n; ++i) {
-        cin >> tickets[i];
+        int a, b;
+        cin >> a >> b;
+        events.push_back({a, 1});  // Arrival event (+1)
+        events.push_back({b, -1}); // Departure event (-1)
     }
 
-    // Read customers' maximum prices
-    for (int i = 0; i < m; ++i) {
-        cin >> customers[i];
+    // Sort events by time; if times are equal, process departures before arrivals
+    sort(events.begin(), events.end(), [](pair<int, int> &x, pair<int, int> &y) {
+        if (x.first == y.first)
+            return x.second < y.second;
+        return x.first < y.first;
+    });
+
+    // Sweep line to calculate maximum customers
+    int current_customers = 0, max_customers = 0;
+    for (auto &event : events) {
+        current_customers += event.second;
+        max_customers = max(max_customers, current_customers);
     }
 
-    // Use map to store ticket prices and their counts
-    map<int, int> ticketMap;
-    for (int price : tickets) {
-        ticketMap[price]++;
-    }
-
-    // Process each customer's request
-    for (int maxPrice : customers) {
-        // Find the largest ticket price <= maxPrice
-        auto it = ticketMap.upper_bound(maxPrice);
-        if (it == ticketMap.begin()) {
-            // No suitable ticket found
-            cout << -1 << endl;
-        } else {
-            --it; // Move to the largest valid ticket
-            cout << it->first << endl;
-
-            // Decrease the count or remove the ticket
-            if (--(it->second) == 0) {
-                ticketMap.erase(it);
-            }
-        }
-    }
-
+    cout << max_customers << endl;
     return 0;
 }

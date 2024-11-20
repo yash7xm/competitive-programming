@@ -1,4 +1,5 @@
 package Range_Queries;
+
 import java.util.*;
 import java.io.*;
 
