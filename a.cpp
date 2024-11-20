@@ -1,36 +1,66 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    vector<pair<int, int>> events;
+    int n, m;
+    cin >> n >> m;
 
-    // Read arrival and leaving times
-    for (int i = 0; i < n; ++i) {
+    vector<int> arr(n);
+    vector<int> pos(n + 1); // Stores positions of each number (1-based indexing)
+
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        pos[arr[i]] = i; // Store the position of each number
+    }
+
+    // Calculate initial number of rounds
+    int rounds = 1;
+    for (int i = 2; i <= n; i++) {
+        if (pos[i] < pos[i - 1]) {
+            rounds++;
+        }
+    }
+
+    while (m--) {
         int a, b;
         cin >> a >> b;
-        events.push_back({a, 1});  // Arrival event (+1)
-        events.push_back({b, -1}); // Departure event (-1)
+        a--; // Convert to 0-based index
+        b--; // Convert to 0-based index
+
+        // Identify affected elements
+        set<int> affected;
+        affected.insert(arr[a]);
+        affected.insert(arr[b]);
+        if (arr[a] > 1) affected.insert(arr[a] - 1);
+        if (arr[a] < n) affected.insert(arr[a] + 1);
+        if (arr[b] > 1) affected.insert(arr[b] - 1);
+        if (arr[b] < n) affected.insert(arr[b] + 1);
+
+        // Remove transitions affected by these elements
+        for (int x : affected) {
+            if (x > 1 && pos[x] < pos[x - 1]) {
+                rounds--;
+            }
+        }
+
+        // Perform the swap
+        swap(arr[a], arr[b]);
+        pos[arr[a]] = a;
+        pos[arr[b]] = b;
+
+        // Add transitions back
+        for (int x : affected) {
+            if (x > 1 && pos[x] < pos[x - 1]) {
+                rounds++;
+            }
+        }
+
+        // Output the number of rounds
+        cout << rounds << "\n";
     }
 
-    // Sort events by time; if times are equal, process departures before arrivals
-    sort(events.begin(), events.end(), [](pair<int, int> &x, pair<int, int> &y) {
-        if (x.first == y.first)
-            return x.second < y.second;
-        return x.first < y.first;
-    });
-
-    // Sweep line to calculate maximum customers
-    int current_customers = 0, max_customers = 0;
-    for (auto &event : events) {
-        current_customers += event.second;
-        max_customers = max(max_customers, current_customers);
-    }
-
-    cout << max_customers << endl;
     return 0;
 }
