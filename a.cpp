@@ -2,65 +2,61 @@
 using namespace std;
 
 int main() {
-    ios::sync_with_stdio(false);
+    ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n, m;
-    cin >> n >> m;
+    // Input street length and number of traffic lights
+    int x, n;
+    cin >> x >> n;
 
-    vector<int> arr(n);
-    vector<int> pos(n + 1); // Stores positions of each number (1-based indexing)
-
+    vector<int> pos(n);
     for (int i = 0; i < n; i++) {
-        cin >> arr[i];
-        pos[arr[i]] = i; // Store the position of each number
+        cin >> pos[i];
     }
 
-    // Calculate initial number of rounds
-    int rounds = 1;
-    for (int i = 2; i <= n; i++) {
-        if (pos[i] < pos[i - 1]) {
-            rounds++;
+    // Ordered set to store the traffic light positions
+    set<int> positions;
+    positions.insert(0);
+    positions.insert(x);
+
+    // Map to store segment lengths and their counts
+    map<int, int> segments;
+    segments[x] = 1;
+
+    vector<int> results;
+    for (int i = 0; i < n; i++) {
+        int p = pos[i];
+
+        // Find neighboring lights
+        auto it = positions.upper_bound(p);
+        int right = *it;
+        int left = *prev(it);
+
+        // Remove the old segment
+        int oldSeg = right - left;
+        segments[oldSeg]--;
+        if (segments[oldSeg] == 0) {
+            segments.erase(oldSeg);
         }
+
+        // Add the new segments
+        int leftSeg = p - left;
+        int rightSeg = right - p;
+        segments[leftSeg]++;
+        segments[rightSeg]++;
+
+        // Add the new light position
+        positions.insert(p);
+
+        // The largest segment is the last key in the map
+        results.push_back(segments.rbegin()->first);
     }
 
-    while (m--) {
-        int a, b;
-        cin >> a >> b;
-        a--; // Convert to 0-based index
-        b--; // Convert to 0-based index
-
-        // Identify affected elements
-        set<int> affected;
-        affected.insert(arr[a]);
-        affected.insert(arr[b]);
-        if (arr[a] > 1) affected.insert(arr[a] - 1);
-        if (arr[a] < n) affected.insert(arr[a] + 1);
-        if (arr[b] > 1) affected.insert(arr[b] - 1);
-        if (arr[b] < n) affected.insert(arr[b] + 1);
-
-        // Remove transitions affected by these elements
-        for (int x : affected) {
-            if (x > 1 && pos[x] < pos[x - 1]) {
-                rounds--;
-            }
-        }
-
-        // Perform the swap
-        swap(arr[a], arr[b]);
-        pos[arr[a]] = a;
-        pos[arr[b]] = b;
-
-        // Add transitions back
-        for (int x : affected) {
-            if (x > 1 && pos[x] < pos[x - 1]) {
-                rounds++;
-            }
-        }
-
-        // Output the number of rounds
-        cout << rounds << "\n";
+    // Output the results
+    for (int res : results) {
+        cout << res << " ";
     }
+    cout << endl;
 
     return 0;
 }
