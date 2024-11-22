@@ -1,7 +1,11 @@
 package Sorting_and_Searching;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.StringTokenizer;
 
 public class CollectingNumbers2 {
     static FastReader in = new FastReader();
