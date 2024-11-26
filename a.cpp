@@ -1,27 +1,69 @@
 #include <iostream>
-#include <queue>
-
+#include <vector>
+#include <cmath>
+#include <cstdio>
 using namespace std;
 
 int main() {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
 
-    queue<int> q;
+    vector<vector<int>> arr;
+
+    int root = (int)sqrt(n);
+    int row = 0, col = 0, count = 0;
+
+    vector<int> vec;
     for (int i = 1; i <= n; i++) {
-        q.push(i);
+        if (count > root) {
+            count = 0;
+            arr.push_back(vec);
+            vec.clear();
+        }
+        vec.push_back(i);
+        count++;
     }
 
-    bool flag = false;
-    while (!q.empty()) {
-        int el = q.front();
-        q.pop();
-        if (flag) {
-            cout << el << " ";
-        } else {
-            q.push(el);
+    if (!vec.empty()) {
+        arr.push_back(vec);
+    }
+
+    for (int i = 0; i < n; i++) {
+        int j = k % (n - i);
+        while (j > 0) {
+            if (col + j < arr[row].size()) {
+                col += j;
+                j = 0;
+            } else {
+                j -= arr[row].size() - col;
+                col = 0;
+                row++;
+            }
+
+            if (row >= arr.size()) {
+                row = 0;
+            }
         }
-        flag = !flag; // Toggle the flag
+
+        while (arr[row].size() <= col) {
+            col = 0;
+            row++;
+            if (row >= arr.size()) {
+                row = 0;
+            }
+        }
+
+        printf("%d ", arr[row][col]);
+        if (i != n - 1) {
+            arr[row].erase(arr[row].begin() + col);
+            while (row < arr.size() && arr[row].size() <= col) {
+                col = 0;
+                row++;
+                if (row >= arr.size()) {
+                    row = 0;
+                }
+            }
+        }
     }
 
     return 0;
