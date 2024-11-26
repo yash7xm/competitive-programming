@@ -31,7 +31,7 @@ public class JosephusProblemII {
             vec.add(i);
             count++;
         }
-
+        
         if (!vec.isEmpty()) {
             arr.add(new ArrayList<>(vec));
         }
