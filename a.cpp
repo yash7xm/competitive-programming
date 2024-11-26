@@ -3,66 +3,95 @@ using namespace std;
 
 struct Range {
     int start, end, index;
-
-    // Constructor
-    Range(int s, int e, int i) : start(s), end(e), index(i) {}
-
-    // Custom comparator for sorting
-    bool operator<(const Range &other) const {
-        if (start != other.start) {
-            return start < other.start;
+    bool operator<(const Range &o) const {
+        if (start != o.start) {
+            return start < o.start;
         }
-        return end > other.end; // Sort by end descending if starts are equal
+        return end > o.end;
     }
 };
 
+class FenwickTree {
+private:
+    vector<int> tree;
+public:
+    FenwickTree(int size) {
+        tree.resize(size + 1, 0);
+    }
+
+    void update(int idx) {
+        while (idx < tree.size()) {
+            tree[idx]++;
+            idx += idx & -idx;
+        }
+    }
+
+    int query(int idx) {
+        int sum = 0;
+        while (idx > 0) {
+            sum += tree[idx];
+            idx -= idx & -idx;
+        }
+        return sum;
+    }
+};
+
+int compress(vector<int> &list, unordered_map<int, int> &map) {
+    sort(list.begin(), list.end());
+    int idx = 1;
+    for (int val : list) {
+        if (map.find(val) == map.end()) {
+            map[val] = idx++;
+        }
+    }
+    return idx;
+}
+
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
 
     int n;
     cin >> n;
-
-    vector<Range> ranges;
-    for (int i = 0; i < n; ++i) {
-        int start, end;
-        cin >> start >> end;
-        ranges.emplace_back(start, end, i);
+    vector<Range> ranges(n);
+    vector<int> ends;
+    for (int i = 0; i < n; i++) {
+        int x, y;
+        cin >> x >> y;
+        ranges[i] = {x, y, i};
+        ends.push_back(y);
     }
 
-    // Sort ranges by start, and by end descending if starts are equal
     sort(ranges.begin(), ranges.end());
 
-    // Arrays to store results for "contains" and "contained"
+    unordered_map<int, int> map;
+    int size = compress(ends, map);
+
     vector<int> contains(n, 0), contained(n, 0);
+    FenwickTree fenwick(size);
 
-    // Determine the "contains" relationship
-    int minEnd = INT_MAX; // Tracks the smallest end from right to left
-    for (int i = n - 1; i >= 0; --i) {
-        if (ranges[i].end >= minEnd) {
-            contains[ranges[i].index] = 1;
-        }
-        minEnd = min(minEnd, ranges[i].end);
+    // Count how many ranges each range contains
+    for (int i = n - 1; i >= 0; i--) {
+        int idx = map[ranges[i].end];
+        contains[ranges[i].index] = fenwick.query(idx);
+        fenwick.update(idx);
     }
 
-    // Determine the "contained" relationship
-    int maxEnd = INT_MIN; // Tracks the largest end from left to right
-    for (int i = 0; i < n; ++i) {
-        if (ranges[i].end <= maxEnd) {
-            contained[ranges[i].index] = 1;
-        }
-        maxEnd = max(maxEnd, ranges[i].end);
+    fenwick = FenwickTree(size); // Reset Fenwick Tree
+
+    // Count how many ranges each range is contained in
+    for (int i = 0; i < n; i++) {
+        int idx = map[ranges[i].end];
+        contained[ranges[i].index] = fenwick.query(size) - fenwick.query(idx - 1);
+        fenwick.update(idx);
     }
 
-    // Print results for "contains"
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         cout << contains[i] << " ";
     }
     cout << "\n";
-
-    // Print results for "contained"
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         cout << contained[i] << " ";
     }
     cout << "\n";
