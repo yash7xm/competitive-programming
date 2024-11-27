@@ -1,98 +1,62 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Range {
-    int start, end, index;
-    bool operator<(const Range &o) const {
-        if (start != o.start) {
-            return start < o.start;
+struct Node {
+    int time, index;
+    bool arrival;
+
+    Node(int t, int i, bool a) : time(t), index(i), arrival(a) {}
+
+    // Comparator for sorting
+    bool operator<(const Node& other) const {
+        if (time == other.time) {
+            return arrival > other.arrival; // Arrivals (true) come before departures (false)
         }
-        return end > o.end;
+        return time < other.time; // Sort by time
     }
 };
-
-class FenwickTree {
-private:
-    vector<int> tree;
-public:
-    FenwickTree(int size) {
-        tree.resize(size + 1, 0);
-    }
-
-    void update(int idx) {
-        while (idx < tree.size()) {
-            tree[idx]++;
-            idx += idx & -idx;
-        }
-    }
-
-    int query(int idx) {
-        int sum = 0;
-        while (idx > 0) {
-            sum += tree[idx];
-            idx -= idx & -idx;
-        }
-        return sum;
-    }
-};
-
-int compress(vector<int> &list, unordered_map<int, int> &map) {
-    sort(list.begin(), list.end());
-    int idx = 1;
-    for (int val : list) {
-        if (map.find(val) == map.end()) {
-            map[val] = idx++;
-        }
-    }
-    return idx;
-}
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
     int n;
     cin >> n;
-    vector<Range> ranges(n);
-    vector<int> ends;
+
+    vector<Node> events;
     for (int i = 0; i < n; i++) {
-        int x, y;
-        cin >> x >> y;
-        ranges[i] = {x, y, i};
-        ends.push_back(y);
+        int l, r;
+        cin >> l >> r;
+        events.emplace_back(l, i, true);  // Arrival event
+        events.emplace_back(r, i, false); // Departure event
     }
 
-    sort(ranges.begin(), ranges.end());
+    // Sort events
+    sort(events.begin(), events.end());
 
-    unordered_map<int, int> map;
-    int size = compress(ends, map);
+    int maxRoom = 1;
+    priority_queue<int, vector<int>, greater<int>> pq; // Min-heap for available rooms
+    pq.push(INT_MAX);
 
-    vector<int> contains(n, 0), contained(n, 0);
-    FenwickTree fenwick(size);
-
-    // Count how many ranges each range contains
-    for (int i = n - 1; i >= 0; i--) {
-        int idx = map[ranges[i].end];
-        contains[ranges[i].index] = fenwick.query(idx);
-        fenwick.update(idx);
+    vector<int> res(n);
+    for (const auto& event : events) {
+        if (event.arrival) {
+            // Assign room to arrival
+            res[event.index] = min(maxRoom, pq.top());
+            if (pq.top() < maxRoom) {
+                pq.pop();
+            } else {
+                maxRoom++;
+            }
+        } else {
+            // Add room back to the pool on departure
+            pq.push(res[event.index]);
+        }
     }
 
-    fenwick = FenwickTree(size); // Reset Fenwick Tree
-
-    // Count how many ranges each range is contained in
+    cout << maxRoom - 1 << "\n"; // Total rooms allocated
     for (int i = 0; i < n; i++) {
-        int idx = map[ranges[i].end];
-        contained[ranges[i].index] = fenwick.query(size) - fenwick.query(idx - 1);
-        fenwick.update(idx);
-    }
-
-    for (int i = 0; i < n; i++) {
-        cout << contains[i] << " ";
-    }
-    cout << "\n";
-    for (int i = 0; i < n; i++) {
-        cout << contained[i] << " ";
+        cout << res[i] << " "; // Room assignments
     }
     cout << "\n";
 
