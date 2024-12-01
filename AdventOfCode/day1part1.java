@@ -21,7 +21,7 @@ public class day1part1 {
         Collections.sort(list1);
         Collections.sort(list2);
 
-        long ans = 0;
+        long ans = 0;   
         for (int i = 0; i < list1.size(); i++) {
             ans += Math.abs(list1.get(i) - list2.get(i));
         }
