@@ -2,7 +2,7 @@ package AdventOfCode;
 
 import java.util.*;
 
-public class day5part1 {
+public class day5part2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
@@ -10,7 +10,7 @@ public class day5part1 {
 
         while (in.hasNextLine()) {
             String line = in.nextLine().trim();
-            if (line.isEmpty()) {
+            if (line.isEmpty()) {   
                 break;
             }
             String[] parts = line.split("\\|");
@@ -18,6 +18,7 @@ public class day5part1 {
             int v = Integer.parseInt(parts[1].trim());
 
             graph.putIfAbsent(u, new HashSet<Integer>());
+            graph.putIfAbsent(v, new HashSet<Integer>());
             graph.get(u).add(v);
         }
 
@@ -37,7 +38,8 @@ public class day5part1 {
 
         long result = 0;
         for (ArrayList<Integer> update : updates) {
-            if (isValidUpdate(update, graph)) {
+            if (!isValidUpdate(update, graph)) {
+                makeValidUpdate(update, graph);
                 int middleIndex = update.size() / 2;
                 result += update.get(middleIndex);
             }
@@ -58,6 +60,25 @@ public class day5part1 {
                 }
             }
         }
-        return true;    
+        return true;
+    }
+
+    private static void makeValidUpdate(ArrayList<Integer> update, HashMap<Integer, HashSet<Integer>> graph) {
+        boolean isSorted = false;
+        while (!isSorted) {
+            isSorted = true;
+            for (int i = 0; i < update.size(); i++) {
+                for (int j = i + 1; j < update.size(); j++) {
+                    int u = update.get(i);
+                    int v = update.get(j);
+
+                    if (graph.containsKey(u) && !graph.get(u).contains(v)) {
+                        update.set(i, v);
+                        update.set(j, u);
+                        isSorted = false;
+                    }
+                }
+            }
+        }
     }
 }
