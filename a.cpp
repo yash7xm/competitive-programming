@@ -1,64 +1,59 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
-    int time, index;
-    bool arrival;
-
-    Node(int t, int i, bool a) : time(t), index(i), arrival(a) {}
-
-    // Comparator for sorting
-    bool operator<(const Node& other) const {
-        if (time == other.time) {
-            return arrival > other.arrival; // Arrivals (true) come before departures (false)
-        }
-        return time < other.time; // Sort by time
+struct FastIO {
+    FastIO() {
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
+        cout.tie(nullptr);
     }
 };
 
+int binarySearch(vector<pair<int, int>>& arr, int start, long long x) {
+    int lo = start, hi = arr.size() - 1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (arr[mid].first == x) {
+            return mid;
+        } else if (arr[mid].first > x) {
+            hi = mid - 1;
+        } else {
+            lo = mid + 1;
+        }
+    }
+    return -1;
+}
+
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    FastIO io;
 
-    int n;
-    cin >> n;
+    int n, x;
+    cin >> n >> x;
 
-    vector<Node> events;
+    vector<pair<int, int>> arr(n);
     for (int i = 0; i < n; i++) {
-        int l, r;
-        cin >> l >> r;
-        events.emplace_back(l, i, true);  // Arrival event
-        events.emplace_back(r, i, false); // Departure event
+        cin >> arr[i].first;
+        arr[i].second = i + 1;
     }
 
-    // Sort events
-    sort(events.begin(), events.end());
+    sort(arr.begin(), arr.end());
 
-    int maxRoom = 1;
-    priority_queue<int, vector<int>, greater<int>> pq; // Min-heap for available rooms
-    pq.push(INT_MAX);
-
-    vector<int> res(n);
-    for (const auto& event : events) {
-        if (event.arrival) {
-            // Assign room to arrival
-            res[event.index] = min(maxRoom, pq.top());
-            if (pq.top() < maxRoom) {
-                pq.pop();
-            } else {
-                maxRoom++;
+    for (int i = 0; i < n - 3; i++) {
+        int a = arr[i].first;
+        for (int j = i + 1; j < n - 2; j++) {
+            int b = arr[j].first;
+            for (int k = j + 1; k < n - 1; k++) {
+                int c = arr[k].first;
+                long long d = x - (a + b + c);
+                int l = binarySearch(arr, k + 1, d);
+                if (l != -1) {
+                    cout << arr[i].second << " " << arr[j].second << " " << arr[k].second << " " << arr[l].second << endl;
+                    return 0;
+                }
             }
-        } else {
-            // Add room back to the pool on departure
-            pq.push(res[event.index]);
         }
     }
 
-    cout << maxRoom - 1 << "\n"; // Total rooms allocated
-    for (int i = 0; i < n; i++) {
-        cout << res[i] << " "; // Room assignments
-    }
-    cout << "\n";
-
+    cout << "IMPOSSIBLE" << endl;
     return 0;
 }
