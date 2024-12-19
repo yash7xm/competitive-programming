@@ -1,10 +1,14 @@
+package Sorting_and_Searching;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
-public class SubarraySumsI {
+public class SubarraySumsII {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
@@ -18,14 +22,12 @@ public class SubarraySumsI {
         }
 
         long curr = 0, cnt = 0;
-        for (int j = 0, i = 0; j < n; j++) {
-            curr += arr[j];
-            while (i < j && curr > tar) {
-                curr -= arr[i];
-                i++;
-            }
-            if (curr == tar)
-                cnt++;
+        Map<Long, Integer> map = new HashMap<>();
+        map.put(0L, 1);
+        for (int i = 0; i < n; i++) {
+            curr += arr[i];
+            cnt += map.getOrDefault(curr - tar, 0);
+            map.put(curr, map.getOrDefault(curr, 0) + 1);
         }
 
         out.println(cnt);
