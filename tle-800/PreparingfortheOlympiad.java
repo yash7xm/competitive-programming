@@ -25,7 +25,7 @@ public class PreparingfortheOlympiad {
             int res = 0;
             for (int i = 0; i < n - 1; i++) {
                 if (arr[i] > brr[i + 1]) {
-                    res += arr[i] - brr[i+1];
+                    res += arr[i] - brr[i + 1];
                 }
             }
             res += arr[n - 1];
