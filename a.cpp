@@ -1,70 +1,103 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <iterator>
 
 using namespace std;
 
-class SlidingWindowMedian {
+class SlidingWindowCost
+{
 private:
-    multiset<int> low, high; // low contains the smaller half, high contains the larger half
+    multiset<int> low, high;             // low contains the smaller half, high contains the larger half
+    long long low_sum = 0, high_sum = 0; // Sum of elements in low and high respectively
 
-    void balance() {
+    void balance()
+    {
         // Ensure size of low >= size of high
-        while (low.size() > high.size() + 1) {
-            high.insert(*low.rbegin());
+        while (low.size() > high.size() + 1)
+        {
+            int val = *low.rbegin();
+            high.insert(val);
+            high_sum += val;
+            low_sum -= val;
             low.erase(prev(low.end()));
         }
-        while (high.size() > low.size()) {
-            low.insert(*high.begin());
+        while (high.size() > low.size())
+        {
+            int val = *high.begin();
+            low.insert(val);
+            low_sum += val;
+            high_sum -= val;
             high.erase(high.begin());
         }
     }
 
 public:
-    void insert(int x) {
-        if (low.empty() || x <= *low.rbegin()) {
+    void insert(int x)
+    {
+        if (low.empty() || x <= *low.rbegin())
+        {
             low.insert(x);
-        } else {
+            low_sum += x;
+        }
+        else
+        {
             high.insert(x);
+            high_sum += x;
         }
         balance();
     }
 
-    void erase(int x) {
-        if (x <= *low.rbegin()) {
+    void erase(int x)
+    {
+        if (x <= *low.rbegin())
+        {
             low.erase(low.find(x));
-        } else {
+            low_sum -= x;
+        }
+        else
+        {
             high.erase(high.find(x));
+            high_sum -= x;
         }
         balance();
     }
 
-    int getMedian() {
-        return *low.rbegin(); // Median is the largest element in low
+    long long getCost()
+    {
+        int median = *low.rbegin();
+        long long cost = (long long)median * low.size() - low_sum;
+        cost += high_sum - (long long)median * high.size();
+        return cost;
     }
 };
 
-int main() {
+int main()
+{
     int n, k;
     cin >> n >> k;
     vector<int> arr(n);
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i)
+    {
         cin >> arr[i];
     }
 
-    SlidingWindowMedian swm;
-    vector<int> medians;
+    SlidingWindowCost swc;
+    vector<long long> costs;
 
-    for (int i = 0; i < n; ++i) {
-        swm.insert(arr[i]);
-        if (i >= k - 1) {
-            medians.push_back(swm.getMedian());
-            swm.erase(arr[i - k + 1]);
+    for (int i = 0; i < n; ++i)
+    {
+        swc.insert(arr[i]);
+        if (i >= k - 1)
+        {
+            costs.push_back(swc.getCost());
+            swc.erase(arr[i - k + 1]);
         }
     }
 
-    for (int median : medians) {
-        cout << median << " ";
+    for (long long cost : costs)
+    {
+        cout << cost << " ";
     }
     cout << endl;
 
