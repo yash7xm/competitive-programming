@@ -18,19 +18,44 @@ public class SubarrayDistinctValues {
             arr[i] = in.nextInt();
         }
 
-        int cnt = 0;
+        long cnt = 0;
+        int i = -1, j = -1;
         HashMap<Integer, Integer> map = new HashMap<>();
-        for (int j = 0, i = 0; j < n; j++) {
-            while (i < j && map.size() > k) {
-                map.put(arr[i], map.get(arr[i]) - 1);
-                if (map.get(arr[i]) == 0) {
-                    map.remove(arr[i]);
-                }
+        while (true) {
+            boolean f1 = false;
+            boolean f2 = false;
+
+            while (i < n - 1) {
+                f1 = true;
                 i++;
+                map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+                if (map.size() <= k) {
+                    cnt += i - j;
+                } else {
+                    break;
+                }
             }
-            int len = (j - i);
-            cnt += (len * (len + 1)) / 2;
-            map.put(arr[j], map.getOrDefault(arr[j], 0) + 1);
+
+            if (i == n - 1 && map.size() <= k)
+                break;
+
+            while (j < i) {
+                f2 = true;
+                j++;
+                if (map.get(arr[j]) == 1) {
+                    map.remove(arr[j]);
+                } else {
+                    map.put(arr[j], map.get(arr[j]) - 1);
+                }
+
+                if (map.size() <= k) {
+                    cnt += i - j;
+                    break;
+                }
+            }
+
+            if (!f1 && !f2)
+                break;
         }
 
         out.println(cnt);
