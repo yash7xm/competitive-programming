@@ -1,4 +1,4 @@
-package Math;
+package Math_CP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
