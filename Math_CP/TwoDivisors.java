@@ -1,10 +1,12 @@
+package Math_CP;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Bestie {
+public class TwoDivisors {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
@@ -12,33 +14,23 @@ public class Bestie {
     public static void main(String[] args) {
         int t = in.nextInt();
         while (t-- > 0) {
-            int n = in.nextInt();
-            int[] arr = new int[n];
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
-            }
-            int g = arr[0];
-            for (int i = 1; i < n; i++) {
-                g = gcd(Math.max(g, arr[i]), Math.min(g, arr[i]));
+            long a = in.nextLong();
+            long b = in.nextLong();
+
+            long g = gcd(a, b);
+            long l = (a * b) / g;
+
+            if (b % a == 0) {
+                out.println((b * b) / a);
+            } else {
+                out.println(l);
             }
 
-            long res = 0;
-            if (g != 1) {
-                if (gcd(g, n) == 1) {
-                    res = 1;
-                } else if (gcd(g, n - 1) == 1) {
-                    res = 2;
-                } else {
-                    res = 3;
-                }
-            }
-
-            out.println(res);
             out.flush();
         }
     }
 
-    static int gcd(int a, int b) {
+    static long gcd(long a, long b) {
         if (b == 0) {
             return a;
         } else {
