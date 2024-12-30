@@ -1,10 +1,13 @@
+package Math_CP;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class DivisorSummation {
+public class AliquotSum {
+
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
@@ -21,8 +24,16 @@ public class DivisorSummation {
                     }
                 }
             }
+            sum -= n;
 
-            out.println(sum - n);
+            if (sum > n) {
+                out.println("abundant");
+            } else if (sum < n) {
+                out.println("deficient");
+            } else {
+                out.println("perfect");
+            }
+
             out.flush();
         }
     }

@@ -1,10 +1,12 @@
+package Math_CP;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class AliquotSum {
+public class WeWereBothChildren {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
@@ -13,24 +15,26 @@ public class AliquotSum {
         int t = in.nextInt();
         while (t-- > 0) {
             int n = in.nextInt();
-            long sum = 0;
-            for (int i = 1; i * i <= n; i++) {
-                if (n % i == 0) {
-                    sum += i;
-                    if (n / i != i) {
-                        sum += n / i;
-                    }
+            int[] arr = new int[n + 1];
+            for (int i = 0; i < n; i++) {
+                int x = in.nextInt();
+                if (x <= n)
+                    arr[x]++;
+            }
+
+            int[] dp = new int[n + 1];
+            for (int i = 1; i <= n; i++) {
+                for (int j = i; j <= n; j += i) {
+                    dp[j] += arr[i];
                 }
             }
-            sum -= n;
 
-            if (sum > n) {
-                out.println("abundant");
-            } else if (sum < n) {
-                out.println("deficient");
-            } else {
-                out.println("perfect");
+            int max = 0;
+            for (int i = 1; i <= n; i++) {
+                max = Math.max(dp[i], max);
             }
+
+            out.println(max);
 
             out.flush();
         }
