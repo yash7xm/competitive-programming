@@ -38,7 +38,7 @@ public class SplittingAnArray {
 
     static boolean check(int[] arr, long mid, int k) {
         int cnt = 1;
-        long currSum = 0;   
+        long currSum = 0;
         for (int i = 0; i < arr.length; i++) {
             if (currSum + arr[i] <= mid) {
                 currSum += arr[i];
