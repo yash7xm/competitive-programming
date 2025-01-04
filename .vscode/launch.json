@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ThreePartsOfTheArray",
+            "request": "launch",
+            "mainClass": "ThreePartsOfTheArray",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "NumberOfSegmentsWithBigSum",
             "request": "launch",
             "mainClass": "NumberOfSegmentsWithBigSum",
