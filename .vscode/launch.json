@@ -1,0 +1,1764 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "AB_Balance",
+            "request": "launch",
+            "mainClass": "AB_Balance",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day1part1",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day1part1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day1part2",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day1part2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day2part1",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day2part1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day2part2",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day2part2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day3part1",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day3part1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day3part2",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day3part2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day4part1",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day4part1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day4part2",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day4part2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day5part1",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day5part1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day5part2",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day5part2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day6part1",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day6part1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "day6part2",
+            "request": "launch",
+            "mainClass": "AdventOfCode.day6part2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Alice_and_Books",
+            "request": "launch",
+            "mainClass": "Alice_and_Books",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Ambitious_Kid",
+            "request": "launch",
+            "mainClass": "Ambitious_Kid",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Array_Cloning_Technique",
+            "request": "launch",
+            "mainClass": "Array_Cloning_Technique",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Array_Coloring",
+            "request": "launch",
+            "mainClass": "Array_Coloring",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Bad_Boy",
+            "request": "launch",
+            "mainClass": "Bad_Boy",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Balanced_Round",
+            "request": "launch",
+            "mainClass": "Balanced_Round",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Binary_Colouring",
+            "request": "launch",
+            "mainClass": "Binary_Colouring",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Binary_Cut",
+            "request": "launch",
+            "mainClass": "Binary_Cut",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CatAndTree",
+            "request": "launch",
+            "mainClass": "Binary_Lifting.CatAndTree",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "LearningDishes",
+            "request": "launch",
+            "mainClass": "Binary_Lifting.LearningDishes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "LowestCommonAncestor",
+            "request": "launch",
+            "mainClass": "Binary_Lifting.LowestCommonAncestor",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Blank_Space",
+            "request": "launch",
+            "mainClass": "Blank_Space",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Bomb",
+            "request": "launch",
+            "mainClass": "Bomb",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Boring_Day",
+            "request": "launch",
+            "mainClass": "Boring_Day",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Buttons",
+            "request": "launch",
+            "mainClass": "Buttons",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Card_Exchange",
+            "request": "launch",
+            "mainClass": "Card_Exchange",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Chemistry",
+            "request": "launch",
+            "mainClass": "Chemistry",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Chess_For_Three",
+            "request": "launch",
+            "mainClass": "Chess_For_Three",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Choosing_Cubes",
+            "request": "launch",
+            "mainClass": "Choosing_Cubes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ClassRoom",
+            "request": "launch",
+            "mainClass": "ClassRoom",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Clock_and_Strings",
+            "request": "launch",
+            "mainClass": "Clock_and_Strings",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Coins",
+            "request": "launch",
+            "mainClass": "Coins",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Color_Balls",
+            "request": "launch",
+            "mainClass": "Color_Balls",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Comparison_String",
+            "request": "launch",
+            "mainClass": "Comparison_String",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Consecutive_one",
+            "request": "launch",
+            "mainClass": "Consecutive_one",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Cover_in_Water",
+            "request": "launch",
+            "mainClass": "Cover_in_Water",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Creating_Words",
+            "request": "launch",
+            "mainClass": "Creating_Words",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Coins(1)",
+            "request": "launch",
+            "mainClass": "DP.Coins",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Frog1",
+            "request": "launch",
+            "mainClass": "DP.Frog1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Frog2",
+            "request": "launch",
+            "mainClass": "DP.Frog2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Grid1",
+            "request": "launch",
+            "mainClass": "DP.Grid1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Knapsack1",
+            "request": "launch",
+            "mainClass": "DP.Knapsack1",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Knapsack2",
+            "request": "launch",
+            "mainClass": "DP.Knapsack2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "LCS",
+            "request": "launch",
+            "mainClass": "DP.LCS",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "LongestPath",
+            "request": "launch",
+            "mainClass": "DP.LongestPath",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Sushi",
+            "request": "launch",
+            "mainClass": "DP.Sushi",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Vacation",
+            "request": "launch",
+            "mainClass": "DP.Vacation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Deletive_Editing",
+            "request": "launch",
+            "mainClass": "Deletive_Editing",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Desorting",
+            "request": "launch",
+            "mainClass": "Desorting",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Different_String",
+            "request": "launch",
+            "mainClass": "Different_String",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "DigitQueries",
+            "request": "launch",
+            "mainClass": "DigitQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Dont_Try_to_Count",
+            "request": "launch",
+            "mainClass": "Dont_Try_to_Count",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Doremys_Paint_3",
+            "request": "launch",
+            "mainClass": "Doremys_Paint_3",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Earning_on_Bets",
+            "request": "launch",
+            "mainClass": "Earning_on_Bets",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Equation",
+            "request": "launch",
+            "mainClass": "Equation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "EvenAndOddQueries",
+            "request": "launch",
+            "mainClass": "EvenAndOddQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Everybody_Likes_Good_Arrays",
+            "request": "launch",
+            "mainClass": "Everybody_Likes_Good_Arrays",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Extremely_Round",
+            "request": "launch",
+            "mainClass": "Extremely_Round",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Final_Boss",
+            "request": "launch",
+            "mainClass": "Final_Boss",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "FindKDistinctPointswithFixedCenter",
+            "request": "launch",
+            "mainClass": "FindKDistinctPointswithFixedCenter",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Find_the_Car",
+            "request": "launch",
+            "mainClass": "Find_the_Car",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Forbidden_Integer",
+            "request": "launch",
+            "mainClass": "Forbidden_Integer",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ForestQueries",
+            "request": "launch",
+            "mainClass": "ForestQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Forked",
+            "request": "launch",
+            "mainClass": "Forked",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "GCD_sequence",
+            "request": "launch",
+            "mainClass": "GCD_sequence",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Game_01",
+            "request": "launch",
+            "mainClass": "Game_01",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Game_with_Integers",
+            "request": "launch",
+            "mainClass": "Game_with_Integers",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "GetTogether",
+            "request": "launch",
+            "mainClass": "GetTogether",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "GoalsofVictory",
+            "request": "launch",
+            "mainClass": "GoalsofVictory",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Good_Prefixes",
+            "request": "launch",
+            "mainClass": "Good_Prefixes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "BuildingRoads",
+            "request": "launch",
+            "mainClass": "Graph.BuildingRoads",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "BuildingTeams",
+            "request": "launch",
+            "mainClass": "Graph.BuildingTeams",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CoinCollector",
+            "request": "launch",
+            "mainClass": "Graph.CoinCollector",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CountingRooms",
+            "request": "launch",
+            "mainClass": "Graph.CountingRooms",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CourseSchedule",
+            "request": "launch",
+            "mainClass": "Graph.CourseSchedule",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CourseScheduleLeetcode",
+            "request": "launch",
+            "mainClass": "Graph.CourseScheduleLeetcode",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CycleFinding",
+            "request": "launch",
+            "mainClass": "Graph.CycleFinding",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "DeBruijnSequence",
+            "request": "launch",
+            "mainClass": "Graph.DeBruijnSequence",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Dijkstra",
+            "request": "launch",
+            "mainClass": "Graph.Dijkstra",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "EvaluateDivision",
+            "request": "launch",
+            "mainClass": "Graph.EvaluateDivision",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "FlightDiscount",
+            "request": "launch",
+            "mainClass": "Graph.FlightDiscount",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "FlightRoutes",
+            "request": "launch",
+            "mainClass": "Graph.FlightRoutes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "FlightRoutesCheck",
+            "request": "launch",
+            "mainClass": "Graph.FlightRoutesCheck",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "GameRoutes",
+            "request": "launch",
+            "mainClass": "Graph.GameRoutes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "GiantPizza",
+            "request": "launch",
+            "mainClass": "Graph.GiantPizza",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "HighScore",
+            "request": "launch",
+            "mainClass": "Graph.HighScore",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Investigation",
+            "request": "launch",
+            "mainClass": "Graph.Investigation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "KefaandPark",
+            "request": "launch",
+            "mainClass": "Graph.KefaandPark",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Labyrinth",
+            "request": "launch",
+            "mainClass": "Graph.Labyrinth",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "LongestFlightRoute",
+            "request": "launch",
+            "mainClass": "Graph.LongestFlightRoute",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MailDelivery",
+            "request": "launch",
+            "mainClass": "Graph.MailDelivery",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MessageRoute",
+            "request": "launch",
+            "mainClass": "Graph.MessageRoute",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MinimumGeneticMutation",
+            "request": "launch",
+            "mainClass": "Graph.MinimumGeneticMutation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Monsters",
+            "request": "launch",
+            "mainClass": "Graph.Monsters",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PlanetQueries2",
+            "request": "launch",
+            "mainClass": "Graph.PlanetQueries2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PlanetsAndKingdoms",
+            "request": "launch",
+            "mainClass": "Graph.PlanetsAndKingdoms",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PlanetsCycles",
+            "request": "launch",
+            "mainClass": "Graph.PlanetsCycles",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PlanetsQueriesI",
+            "request": "launch",
+            "mainClass": "Graph.PlanetsQueriesI",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RoadConstruction",
+            "request": "launch",
+            "mainClass": "Graph.RoadConstruction",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RoadReparation",
+            "request": "launch",
+            "mainClass": "Graph.RoadReparation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RoundTrip",
+            "request": "launch",
+            "mainClass": "Graph.RoundTrip",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RoundTripII",
+            "request": "launch",
+            "mainClass": "Graph.RoundTripII",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ShortestRoutesI",
+            "request": "launch",
+            "mainClass": "Graph.ShortestRoutesI",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ShortestRoutesII",
+            "request": "launch",
+            "mainClass": "Graph.ShortestRoutesII",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "TwoSAT",
+            "request": "launch",
+            "mainClass": "Graph.TwoSAT",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "WordLadder",
+            "request": "launch",
+            "mainClass": "Graph.WordLadder",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Grasshopper_on_a_Line",
+            "request": "launch",
+            "mainClass": "Grasshopper_on_a_Line",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Guess_the_Maximum",
+            "request": "launch",
+            "mainClass": "Guess_the_Maximum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Halloumi_Boxes",
+            "request": "launch",
+            "mainClass": "Halloumi_Boxes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "HotelQueries",
+            "request": "launch",
+            "mainClass": "HotelQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "HowMuchDoesDaytonaCost",
+            "request": "launch",
+            "mainClass": "HowMuchDoesDaytonaCost",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Inc_Dec_Copy",
+            "request": "launch",
+            "mainClass": "Inc_Dec_Copy",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "InterestingFunction",
+            "request": "launch",
+            "mainClass": "InterestingFunction",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "IsSubsequence",
+            "request": "launch",
+            "mainClass": "IsSubsequence",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Jagged_Swaps",
+            "request": "launch",
+            "mainClass": "Jagged_Swaps",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Journey",
+            "request": "launch",
+            "mainClass": "Journey",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Kth_Sum_Value",
+            "request": "launch",
+            "mainClass": "Kth_Sum_Value",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Large_Addition",
+            "request": "launch",
+            "mainClass": "Large_Addition",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Least_Product",
+            "request": "launch",
+            "mainClass": "Least_Product",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Legs",
+            "request": "launch",
+            "mainClass": "Legs",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Line_Trip",
+            "request": "launch",
+            "mainClass": "Line_Trip",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Luntik_and_Subsequences",
+            "request": "launch",
+            "mainClass": "Luntik_and_Subsequences",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Make_AP",
+            "request": "launch",
+            "mainClass": "Make_AP",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Make_It_Increasing",
+            "request": "launch",
+            "mainClass": "Make_It_Increasing",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Make_it_Beautiful",
+            "request": "launch",
+            "mainClass": "Make_it_Beautiful",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Make_it_Divisible_by_25",
+            "request": "launch",
+            "mainClass": "Make_it_Divisible_by_25",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Make_it_Divisible_by_25_2",
+            "request": "launch",
+            "mainClass": "Make_it_Divisible_by_25_2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Manhattan_Circle",
+            "request": "launch",
+            "mainClass": "Manhattan_Circle",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "AliquotSum",
+            "request": "launch",
+            "mainClass": "Math_CP.AliquotSum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Bestie",
+            "request": "launch",
+            "mainClass": "Math_CP.Bestie",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CountingDivisors",
+            "request": "launch",
+            "mainClass": "Math_CP.CountingDivisors",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "DivisorSummation",
+            "request": "launch",
+            "mainClass": "Math_CP.DivisorSummation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "LCMProblem",
+            "request": "launch",
+            "mainClass": "Math_CP.LCMProblem",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RemovingSmallestMultiples",
+            "request": "launch",
+            "mainClass": "Math_CP.RemovingSmallestMultiples",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "TwoDivisors",
+            "request": "launch",
+            "mainClass": "Math_CP.TwoDivisors",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "WeWereBothChildren",
+            "request": "launch",
+            "mainClass": "Math_CP.WeWereBothChildren",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Matrix_Stabilization",
+            "request": "launch",
+            "mainClass": "Matrix_Stabilization",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Maximise_the_fraction",
+            "request": "launch",
+            "mainClass": "Maximise_the_fraction",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MaximumAverageSegment",
+            "request": "launch",
+            "mainClass": "MaximumAverageSegment",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MaximumMedian",
+            "request": "launch",
+            "mainClass": "MaximumMedian",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Maximum_Multiple_Sum",
+            "request": "launch",
+            "mainClass": "Maximum_Multiple_Sum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Median_of_Subarray_Sum",
+            "request": "launch",
+            "mainClass": "Median_of_Subarray_Sum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MeetingOnTheLine",
+            "request": "launch",
+            "mainClass": "MeetingOnTheLine",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Minimise_Max_Diff",
+            "request": "launch",
+            "mainClass": "Minimise_Max_Diff",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MinimizeEqualSumSubarrays",
+            "request": "launch",
+            "mainClass": "MinimizeEqualSumSubarrays",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Mocha_and_Math",
+            "request": "launch",
+            "mainClass": "Mocha_and_Math",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MultiplicationTable",
+            "request": "launch",
+            "mainClass": "MultiplicationTable",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MultiplicationTable0",
+            "request": "launch",
+            "mainClass": "MultiplicationTable0",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Multiply_y_2_divide_by_6",
+            "request": "launch",
+            "mainClass": "Multiply_y_2_divide_by_6",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "My_First_Sorting_Problem",
+            "request": "launch",
+            "mainClass": "My_First_Sorting_Problem",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "NIT_Destroys_the_Universe",
+            "request": "launch",
+            "mainClass": "NIT_Destroys_the_Universe",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Not_Dividing",
+            "request": "launch",
+            "mainClass": "Not_Dividing",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Number_And_Sum_of_Digit",
+            "request": "launch",
+            "mainClass": "Number_And_Sum_of_Digit",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "GCD",
+            "request": "launch",
+            "mainClass": "Number_Theory.GCD",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Odd_Divisor",
+            "request": "launch",
+            "mainClass": "Odd_Divisor",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Odd_Grasshopper",
+            "request": "launch",
+            "mainClass": "Odd_Grasshopper",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Odd_Queries",
+            "request": "launch",
+            "mainClass": "Odd_Queries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "One_and_Two",
+            "request": "launch",
+            "mainClass": "One_and_Two",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PackingRectangles",
+            "request": "launch",
+            "mainClass": "PackingRectangles",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Painter_Partition",
+            "request": "launch",
+            "mainClass": "Painter_Partition",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PairSelection",
+            "request": "launch",
+            "mainClass": "PairSelection",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Parent",
+            "request": "launch",
+            "mainClass": "Parent",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Permutation_Swap",
+            "request": "launch",
+            "mainClass": "Permutation_Swap",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Phone_Desktop",
+            "request": "launch",
+            "mainClass": "Phone_Desktop",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PointSetRangeComposite",
+            "request": "launch",
+            "mainClass": "PointSetRangeComposite",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PreparingfortheOlympiad",
+            "request": "launch",
+            "mainClass": "PreparingfortheOlympiad",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Prepend_and_Append",
+            "request": "launch",
+            "mainClass": "Prepend_and_Append",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Problem_Generator",
+            "request": "launch",
+            "mainClass": "Problem_Generator",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RangeUpdateQueries",
+            "request": "launch",
+            "mainClass": "RangeUpdateQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RangeXorQueries",
+            "request": "launch",
+            "mainClass": "RangeXorQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "BreedCounting",
+            "request": "launch",
+            "mainClass": "Range_Queries.BreedCounting",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "DynamicRangeMinimumQueries",
+            "request": "launch",
+            "mainClass": "Range_Queries.DynamicRangeMinimumQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "DynamicRangeSumQueries",
+            "request": "launch",
+            "mainClass": "Range_Queries.DynamicRangeSumQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "KuriyamaMiraisStones",
+            "request": "launch",
+            "mainClass": "Range_Queries.KuriyamaMiraisStones",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ListRemovals",
+            "request": "launch",
+            "mainClass": "Range_Queries.ListRemovals",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PizzeriaQueries",
+            "request": "launch",
+            "mainClass": "Range_Queries.PizzeriaQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "PrefixSumQueries",
+            "request": "launch",
+            "mainClass": "Range_Queries.PrefixSumQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SalaryQueriesCompressedIndexFenwick",
+            "request": "launch",
+            "mainClass": "Range_Queries.SalaryQueriesCompressedIndexFenwick",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SalaryQueriesCompressedSeg",
+            "request": "launch",
+            "mainClass": "Range_Queries.SalaryQueriesCompressedSeg",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SalaryQueriesFenwick",
+            "request": "launch",
+            "mainClass": "Range_Queries.SalaryQueriesFenwick",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SalaryQueriesSegmentTree",
+            "request": "launch",
+            "mainClass": "Range_Queries.SalaryQueriesSegmentTree",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "StaticRangeMinimumQueries",
+            "request": "launch",
+            "mainClass": "Range_Queries.StaticRangeMinimumQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "StaticRangeSumQueries",
+            "request": "launch",
+            "mainClass": "Range_Queries.StaticRangeSumQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SubsequencesSummingtoSevens",
+            "request": "launch",
+            "mainClass": "Range_Queries.SubsequencesSummingtoSevens",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Range_Queries_I",
+            "request": "launch",
+            "mainClass": "Range_Queries_I",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Ropes",
+            "request": "launch",
+            "mainClass": "Ropes",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Scale",
+            "request": "launch",
+            "mainClass": "Scale",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Sequence_Game",
+            "request": "launch",
+            "mainClass": "Sequence_Game",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Serval_and_Mochas_Array",
+            "request": "launch",
+            "mainClass": "Serval_and_Mochas_Array",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Soccer",
+            "request": "launch",
+            "mainClass": "Soccer",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Sorting_Problem_Again",
+            "request": "launch",
+            "mainClass": "Sorting_Problem_Again",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Apartments",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.Apartments",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ArrayDivision",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.ArrayDivision",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CollectingNumbers",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.CollectingNumbers",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "CollectingNumbers2",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.CollectingNumbers2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ConcertTickets",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.ConcertTickets",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "DistinctNumbers",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.DistinctNumbers",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "FactoryMachines",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.FactoryMachines",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "FerrisWheel",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.FerrisWheel",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "JosephusProblemI",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.JosephusProblemI",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "JosephusProblemII",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.JosephusProblemII",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MaximumSubarraySum",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.MaximumSubarraySum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MissingCoinSum",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.MissingCoinSum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "MovieFestival",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.MovieFestival",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "NearestSmallerValues",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.NearestSmallerValues",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "NestedRangesCheck",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.NestedRangesCheck",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "NestedRangesCount",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.NestedRangesCount",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Playlist",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.Playlist",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "ReadingBooks",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.ReadingBooks",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RestaurantCustomers",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.RestaurantCustomers",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "RoomAllocation",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.RoomAllocation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SlidingWindowCost",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SlidingWindowCost",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SlidingWindowMedian",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SlidingWindowMedian",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "StickLengths",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.StickLengths",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SubarrayDistinctValues",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SubarrayDistinctValues",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SubarrayDivisibility",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SubarrayDivisibility",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SubarraySumsI",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SubarraySumsI",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SubarraySumsII",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SubarraySumsII",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SumofFourValues",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SumofFourValues",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SumofThreeValues",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SumofThreeValues",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SumofTwoValues",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.SumofTwoValues",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "TasksAndDeadlines",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.TasksAndDeadlines",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Towers",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.Towers",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "TrafficLights",
+            "request": "launch",
+            "mainClass": "Sorting_and_Searching.TrafficLights",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SplittingAnArray",
+            "request": "launch",
+            "mainClass": "SplittingAnArray",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Strange_Partition",
+            "request": "launch",
+            "mainClass": "Strange_Partition",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Strange_Splitting",
+            "request": "launch",
+            "mainClass": "Strange_Splitting",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "SubarraySumQueries",
+            "request": "launch",
+            "mainClass": "SubarraySumQueries",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Sum_of_Medians",
+            "request": "launch",
+            "mainClass": "Sum_of_Medians",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Symmetric_Encoding",
+            "request": "launch",
+            "mainClass": "Symmetric_Encoding",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Target_Practice",
+            "request": "launch",
+            "mainClass": "Target_Practice",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "TheMeetingPlaceCannotBeChanged",
+            "request": "launch",
+            "mainClass": "TheMeetingPlaceCannotBeChanged",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Three_Indices",
+            "request": "launch",
+            "mainClass": "Three_Indices",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Subordinates",
+            "request": "launch",
+            "mainClass": "Tree.Subordinates",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "WordSearch2",
+            "request": "launch",
+            "mainClass": "Trie.WordSearch2",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Twin_Permutations",
+            "request": "launch",
+            "mainClass": "Twin_Permutations",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Two_Permutations",
+            "request": "launch",
+            "mainClass": "Two_Permutations",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Unit_Array",
+            "request": "launch",
+            "mainClass": "Unit_Array",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "United_We_Stand",
+            "request": "launch",
+            "mainClass": "United_We_Stand",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Vasilije_in_Cacak",
+            "request": "launch",
+            "mainClass": "Vasilije_in_Cacak",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Verify_Password",
+            "request": "launch",
+            "mainClass": "Verify_Password",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "VeryEasyTask",
+            "request": "launch",
+            "mainClass": "VeryEasyTask",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "VowelString",
+            "request": "launch",
+            "mainClass": "VowelString",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Walking_Master",
+            "request": "launch",
+            "mainClass": "Walking_Master",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "X_Axis",
+            "request": "launch",
+            "mainClass": "X_Axis",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "input",
+            "request": "launch",
+            "mainClass": "input",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "lis",
+            "request": "launch",
+            "mainClass": "lis",
+            "projectName": "competitive-programming_5ff656ca"
+        }
+    ]
+}
