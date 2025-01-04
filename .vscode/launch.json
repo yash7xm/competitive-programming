@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "StaticRangeFrequency",
+            "request": "launch",
+            "mainClass": "StaticRangeFrequency",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "Mafia",
             "request": "launch",
             "mainClass": "Mafia",
