@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "QuizMaster",
+            "request": "launch",
+            "mainClass": "QuizMaster",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "SegmentsWithSmallSpread",
             "request": "launch",
             "mainClass": "SegmentsWithSmallSpread",
