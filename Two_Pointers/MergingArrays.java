@@ -1,51 +1,60 @@
+package Two_Pointers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class Books {
+public class MergingArrays {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
     public static void main(String[] args) {
         int n = in.nextInt();
-        int t = in.nextInt();
+        int m = in.nextInt();
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
 
-        long[] p = new long[n + 1];
-        p[0] = 0;
-        for (int i = 1; i <= n; i++) {
-            p[i] = p[i - 1] + arr[i - 1];
+        int[] brr = new int[m];
+        for (int i = 0; i < m; i++) {
+            brr[i] = in.nextInt();
         }
 
-        int res = 0;
-        for (int i = 1; i <= n; i++) {
-            long x = p[i] - t;
-            int left = upperBound(p, i, x);
-            res = Math.max(res, i - left);
-        }
-
-        out.println(res);
-        out.flush();
-    }
-
-    static int upperBound(long[] p, int hi, long x) {
-        int lo = 0, ans = 0;
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (p[mid] >= x) {
-                hi = mid - 1;
-                ans = mid;
+        int[] res = new int[n + m];
+        int i = 0, j = 0, idx = 0;
+        while (i < n && j < m) {
+            if (arr[i] < brr[j]) {
+                res[idx] = arr[i];
+                i++;
             } else {
-                lo = mid + 1;
+                res[idx] = brr[j];
+                j++;
             }
+            idx++;
         }
-        return ans;
+
+        while (i < n) {
+            res[idx] = arr[i];
+            i++;
+            idx++;
+        }
+
+        while (j < m) {
+            res[idx] = brr[j];
+            j++;
+            idx++;
+        }
+
+        for (i = 0; i < n + m; i++) {
+            out.print(res[i] + " ");
+        }
+        out.println();
+
+        out.flush();
     }
 
     static class FastReader {

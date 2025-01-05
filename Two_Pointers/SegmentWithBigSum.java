@@ -1,10 +1,12 @@
+package Two_Pointers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.StringTokenizer;
 
-public class SegmentWithSmallSum {
+public class SegmentWithBigSum {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
@@ -18,18 +20,20 @@ public class SegmentWithSmallSum {
         }
 
         long curr = 0;
-        int res = 0;
-        for (int j = 0, i = 0; j < n; j++) {
+        int res = Integer.MAX_VALUE;
+        for (int i = 0, j = 0; j < n; j++) {
             curr += arr[j];
-            while (curr > s) {
+            while (i < j && curr - arr[i] >= s) {
                 curr -= arr[i];
                 i++;
             }
 
-            res = Math.max(res, j - i + 1);
+            if (curr >= s) {
+                res = Math.min(res, j - i + 1);
+            }
         }
 
-        out.println(res);
+        out.println(res == Integer.MAX_VALUE ? -1 : res);
         out.flush();
     }
 

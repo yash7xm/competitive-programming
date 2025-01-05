@@ -1,43 +1,46 @@
+package Two_Pointers;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
-public class CellularNetworkTwoPointers {
+public class TheyAreEverywhere {
 
     static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
     public static void main(String[] args) {
         int n = in.nextInt();
-        int m = in.nextInt();
-        int[] cities = new int[n];
-        int[] towers = new int[m];
+        String s = in.next();
 
-        for (int i = 0; i < n; i++) {
-            cities[i] = in.nextInt();
-        }
-        for (int i = 0; i < m; i++) {
-            towers[i] = in.nextInt();
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            map.put(ch, 0);
         }
 
-        int i = 0, j = 0;
-        long maxDistance = 0;
+        int total = map.size();
+        map.clear();
 
-        while (i < n) {
-            while (j < m - 1 && Math.abs(towers[j + 1] - cities[i]) <= Math.abs(towers[j] - cities[i])) {
-                j++;
+        int res = n + 1;
+        for (int i = 0, j = 0; j < n; j++) {
+            char ch = s.charAt(j);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+            while (map.size() == total) {
+                res = Math.min(res, j - i + 1);
+                char ith = s.charAt(i);
+                if (map.get(ith) == 1) {
+                    map.remove(ith);
+                } else {
+                    map.put(ith, map.get(ith) - 1);
+                }
+                i++;
             }
-
-            long closestDistance = Math.abs(towers[j] - cities[i]);
-
-            maxDistance = Math.max(maxDistance, closestDistance);
-
-            i++;
         }
 
-        out.println(maxDistance);
+        out.println(res);
         out.flush();
     }
 

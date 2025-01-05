@@ -1,3 +1,5 @@
+package Two_Pointers;
+
 import java.util.HashMap;
 import java.util.Scanner;
 
