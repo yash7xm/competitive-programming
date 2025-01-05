@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CellularNetworkTwoPointers",
+            "request": "launch",
+            "mainClass": "CellularNetworkTwoPointers",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "CellularNetwork",
             "request": "launch",
             "mainClass": "CellularNetwork",
