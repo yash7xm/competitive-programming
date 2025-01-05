@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SegmentsWithSmallSet",
+            "request": "launch",
+            "mainClass": "SegmentsWithSmallSet",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "EatingCandies",
             "request": "launch",
             "mainClass": "EatingCandies",
