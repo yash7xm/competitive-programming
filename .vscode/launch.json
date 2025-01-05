@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CellularNetwork",
+            "request": "launch",
+            "mainClass": "CellularNetwork",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "Books",
             "request": "launch",
             "mainClass": "Books",
