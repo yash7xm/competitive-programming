@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Books",
+            "request": "launch",
+            "mainClass": "Books",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "NumberOfPairs",
             "request": "launch",
             "mainClass": "NumberOfPairs",
