@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SegmentsWithSmallSpread",
+            "request": "launch",
+            "mainClass": "SegmentsWithSmallSpread",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "SegmentsWithSmallSet",
             "request": "launch",
             "mainClass": "SegmentsWithSmallSet",
