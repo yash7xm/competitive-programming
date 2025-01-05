@@ -1,105 +1,72 @@
 #include <iostream>
 #include <vector>
-#include <set>
-#include <iterator>
+#include <algorithm>
 
 using namespace std;
 
-class SlidingWindowCost
-{
-private:
-    multiset<int> low, high;             // low contains the smaller half, high contains the larger half
-    long long low_sum = 0, high_sum = 0; // Sum of elements in low and high respectively
-
-    void balance()
-    {
-        // Ensure size of low >= size of high
-        while (low.size() > high.size() + 1)
-        {
-            int val = *low.rbegin();
-            high.insert(val);
-            high_sum += val;
-            low_sum -= val;
-            low.erase(prev(low.end()));
-        }
-        while (high.size() > low.size())
-        {
-            int val = *high.begin();
-            low.insert(val);
-            low_sum += val;
-            high_sum -= val;
-            high.erase(high.begin());
+int upperBound(const vector<int>& arr, int lo, int x) {
+    int hi = arr.size() - 1;
+    int ans = -1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (arr[mid] >= x) {
+            hi = mid - 1;
+            ans = mid;
+        } else {
+            lo = mid + 1;
         }
     }
+    return ans;
+}
 
-public:
-    void insert(int x)
-    {
-        if (low.empty() || x <= *low.rbegin())
-        {
-            low.insert(x);
-            low_sum += x;
-        }
-        else
-        {
-            high.insert(x);
-            high_sum += x;
-        }
-        balance();
-    }
-
-    void erase(int x)
-    {
-        if (x <= *low.rbegin())
-        {
-            low.erase(low.find(x));
-            low_sum -= x;
-        }
-        else
-        {
-            high.erase(high.find(x));
-            high_sum -= x;
-        }
-        balance();
-    }
-
-    long long getCost()
-    {
-        int median = *low.rbegin();
-        long long cost = (long long)median * low.size() - low_sum;
-        cost += high_sum - (long long)median * high.size();
-        return cost;
-    }
-};
-
-int main()
-{
-    int n, k;
-    cin >> n >> k;
-    vector<int> arr(n);
-    for (int i = 0; i < n; ++i)
-    {
-        cin >> arr[i];
-    }
-
-    SlidingWindowCost swc;
-    vector<long long> costs;
-
-    for (int i = 0; i < n; ++i)
-    {
-        swc.insert(arr[i]);
-        if (i >= k - 1)
-        {
-            costs.push_back(swc.getCost());
-            swc.erase(arr[i - k + 1]);
+int lowerBound(const vector<int>& arr, int lo, int x) {
+    int hi = arr.size() - 1;
+    int ans = -1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (arr[mid] <= x) {
+            lo = mid + 1;
+            ans = mid;
+        } else {
+            hi = mid - 1;
         }
     }
+    return ans;
+}
 
-    for (long long cost : costs)
-    {
-        cout << cost << " ";
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, l, r;
+        cin >> n >> l >> r;
+
+        vector<int> arr(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> arr[i];
+        }
+
+        sort(arr.begin(), arr.end());
+        long long cnt = 0;
+
+        for (int i = 0; i < n; ++i) {
+            int left = upperBound(arr, i + 1, l - arr[i]);
+            int right = lowerBound(arr, i + 1, r - arr[i]);
+
+            if (left == -1 || right == -1) {
+                continue;
+            }
+
+            if (left <= right) {
+                cnt += right - left + 1;
+            }
+        }
+
+        cout << cnt << '\n';
     }
-    cout << endl;
 
     return 0;
 }
