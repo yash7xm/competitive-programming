@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BitwiseAND",
+            "request": "launch",
+            "mainClass": "BitwiseAND",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "MaximizingXOR",
             "request": "launch",
             "mainClass": "MaximizingXOR",
