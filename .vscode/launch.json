@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PetrAndACombinationLock",
+            "request": "launch",
+            "mainClass": "PetrAndACombinationLock",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "BitStrings",
             "request": "launch",
             "mainClass": "BitStrings",
