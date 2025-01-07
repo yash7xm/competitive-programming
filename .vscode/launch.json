@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AppleDivision",
+            "request": "launch",
+            "mainClass": "AppleDivision",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "Knapsack",
             "request": "launch",
             "mainClass": "Knapsack",
