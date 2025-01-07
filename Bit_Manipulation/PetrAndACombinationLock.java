@@ -1,6 +1,8 @@
+package Bit_Manipulation;
+
 import java.util.Scanner;
 
-public class AppleDivision {
+public class PetrAndACombinationLock {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
@@ -9,21 +11,24 @@ public class AppleDivision {
             arr[i] = in.nextInt();
         }
 
-        long res = Long.MAX_VALUE;
         for (int i = 0; i < (1 << n); i++) {
-            long grp1 = 0, grp2 = 0;
+            long sum = 0;
             for (int j = 0; j < n; j++) {
-                if ((i & (1 << j)) != 0) {
-                    grp1 += arr[j];
+                if ((i & (1 << j)) == 0) {
+                    sum -= arr[j];
                 } else {
-                    grp2 += arr[j];
+                    sum += arr[j];
                 }
             }
 
-            res = Math.min(res, Math.abs(grp1 - grp2));
+            if (sum % 360 == 0) {
+                System.out.println("YES");
+                in.close();
+                return;
+            }
         }
 
-        System.out.println(res);
+        System.out.println("NO");
         in.close();
     }
 }

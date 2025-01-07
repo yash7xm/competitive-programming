@@ -1,3 +1,5 @@
+package Bit_Manipulation;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
