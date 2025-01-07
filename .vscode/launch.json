@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Bars",
+            "request": "launch",
+            "mainClass": "Bars",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "PreparingOlympiad",
             "request": "launch",
             "mainClass": "PreparingOlympiad",
