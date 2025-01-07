@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SwapBits",
+            "request": "launch",
+            "mainClass": "SwapBits",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "BitwiseAND",
             "request": "launch",
             "mainClass": "BitwiseAND",
