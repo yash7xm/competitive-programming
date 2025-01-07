@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LuckyNumbersEasy",
+            "request": "launch",
+            "mainClass": "LuckyNumbersEasy",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "LittleElephantAndBits",
             "request": "launch",
             "mainClass": "LittleElephantAndBits",
