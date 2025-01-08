@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "IncreasingArray",
+            "request": "launch",
+            "mainClass": "IncreasingArray",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "StudyingAlgorithms",
             "request": "launch",
             "mainClass": "StudyingAlgorithms",
