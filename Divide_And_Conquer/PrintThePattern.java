@@ -1,3 +1,5 @@
+package Divide_And_Conquer;
+
 import java.util.Scanner;
 
 public class PrintThePattern {
