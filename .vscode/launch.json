@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "StudyingAlgorithms",
+            "request": "launch",
+            "mainClass": "StudyingAlgorithms",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "MergeSort",
             "request": "launch",
             "mainClass": "MergeSort",
