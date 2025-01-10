@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DidWeGetEverythingCovered",
+            "request": "launch",
+            "mainClass": "DidWeGetEverythingCovered",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "ThePartyAndSweets",
             "request": "launch",
             "mainClass": "ThePartyAndSweets",
