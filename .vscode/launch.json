@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GroupingIncreases",
+            "request": "launch",
+            "mainClass": "GroupingIncreases",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "DidWeGetEverythingCovered",
             "request": "launch",
             "mainClass": "DidWeGetEverythingCovered",
