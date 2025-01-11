@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MatchingArrays",
+            "request": "launch",
+            "mainClass": "MatchingArrays",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "GroupingIncreases",
             "request": "launch",
             "mainClass": "GroupingIncreases",
