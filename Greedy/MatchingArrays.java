@@ -1,3 +1,5 @@
+package Greedy;
+
 import java.util.*;
 
 public class MatchingArrays {
@@ -9,7 +11,7 @@ public class MatchingArrays {
 
         int t = sc.nextInt();
         while (t-- > 0) {
-            int n = sc.nextInt(); 
+            int n = sc.nextInt();
             int x = sc.nextInt();
             int[] a = new int[n];
             int[] b = new int[n];

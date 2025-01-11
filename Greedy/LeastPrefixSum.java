@@ -1,3 +1,5 @@
+package Greedy;
+
 import java.util.*;
 
 public class LeastPrefixSum {
@@ -11,7 +13,7 @@ public class LeastPrefixSum {
     }
 
     private static void solve(Scanner sc) {
-        long n = sc.nextLong(); 
+        long n = sc.nextLong();
         long m = sc.nextLong();
         long ans = 0, sum = 0, mn = 0;
         long[] arr = new long[(int) n];
@@ -19,8 +21,8 @@ public class LeastPrefixSum {
             arr[i] = sc.nextLong();
         }
 
-        PriorityQueue<Long> maxHeap = new PriorityQueue<>(Collections.reverseOrder()); 
-        PriorityQueue<Long> minHeap = new PriorityQueue<>(); 
+        PriorityQueue<Long> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Long> minHeap = new PriorityQueue<>();
 
         for (int i = 0; i < m; i++) {
             mn += arr[i];
