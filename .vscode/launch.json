@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "LeastPrefixSum",
+            "request": "launch",
+            "mainClass": "LeastPrefixSum",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "MatchingArrays",
             "request": "launch",
             "mainClass": "MatchingArrays",
