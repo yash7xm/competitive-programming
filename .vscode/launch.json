@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SpecialPermutation",
+            "request": "launch",
+            "mainClass": "SpecialPermutation",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
+            "name": "Crafting",
+            "request": "launch",
+            "mainClass": "Crafting",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "TwoFrogs",
             "request": "launch",
             "mainClass": "TwoFrogs",
