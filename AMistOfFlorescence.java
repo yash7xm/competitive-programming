@@ -11,77 +11,122 @@ public class AMistOfFlorescence {
         C = in.nextInt();
         D = in.nextInt();
 
-        int[][] arr = new int[20][20];
-        arr[0][0] = 1;
-        A--;
-        dfs(arr, 0, 0, 1);
+        int[][] arr = new int[50][50];
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0; j < 25; j++) {
+                if ((i & 1) == 0) {
+                    arr[i][j] = 1;
+                } else {
+                    if ((j & 1) == 0) {
+                        arr[i][j] = 1;
+                    } else {
+                        if (B > 1) {
+                            arr[i][j] = 2;
+                            B--;
+                        } else if (C > 1) {
+                            arr[i][j] = 3;
+                            C--;
+                        } else if (D > 1) {
+                            arr[i][j] = 4;
+                            D--;
+                        } else {
+                            arr[i][j] = 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 25; i < 50; i++) {
+            for (int j = 0; j < 25; j++) {
+                if ((i & 1) == 1) {
+                    arr[i][j] = 2;
+                } else {
+                    if ((j & 1) == 0) {
+                        arr[i][j] = 2;
+                    } else {
+                        if (A > 1) {
+                            arr[i][j] = 1;
+                            A--;
+                        } else if (C > 1) {
+                            arr[i][j] = 3;
+                            C--;
+                        } else if (D > 1) {
+                            arr[i][j] = 4;
+                            D--;
+                        } else {
+                            arr[i][j] = 2;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < 25; i++) {
+            for (int j = 25; j < 50; j++) {
+                if ((i & 1) == 0) {
+                    arr[i][j] = 3;
+                } else {
+                    if ((j & 1) == 1) {
+                        arr[i][j] = 3;
+                    } else {
+                        if (A > 1) {
+                            arr[i][j] = 1;
+                            A--;
+                        } else if (B > 1) {
+                            arr[i][j] = 2;
+                            B--;
+                        } else if (D > 1) {
+                            arr[i][j] = 4;
+                            D--;
+                        } else {
+                            arr[i][j] = 3;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 25; i < 50; i++) {
+            for (int j = 25; j < 50; j++) {
+                if ((i & 1) == 1) {
+                    arr[i][j] = 4;
+                } else {
+                    if ((j & 1) == 1) {
+                        arr[i][j] = 4;
+                    } else {
+                        if (A > 1) {
+                            arr[i][j] = 1;
+                            A--;
+                        } else if (C > 1) {
+                            arr[i][j] = 3;
+                            C--;
+                        } else if (B > 1) {
+                            arr[i][j] = 2;
+                            B--;
+                        } else {
+                            arr[i][j] = 4;
+                        }
+                    }
+                }
+            }
+        }
 
         System.out.println("50 50");
-        for (int[] row : arr) {
-            for (int type : row) {
-                if (type == 1) {
+        for (int i = 0; i < 50; i++) {
+            for (int j = 0; j < 50; j++) {
+                if (arr[i][j] == 1) {
                     System.out.print("A");
-                } else if (type == 2) {
+                } else if (arr[i][j] == 2) {
                     System.out.print("B");
-                } else if (type == 3) {
+                } else if (arr[i][j] == 3) {
                     System.out.print("C");
-                } else if (type == 4) {
+                } else if (arr[i][j] == 4) {
                     System.out.print("D");
                 }
             }
             System.out.println();
         }
         in.close();
-    }
-
-    static void dfs(int[][] arr, int row, int col, int type) {
-        if (row > arr.length && col > arr[0].length && row < 0 && col < 0 && A <= 0 && B <= 0 && C <= 0 && D <= 0) {
-            return;
-        }
-
-        int[][] dirs = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
-        for (int[] dir : dirs) {
-            int r = row + dir[0];
-            int c = col + dir[1];
-
-            if (r < arr.length && c < arr[0].length && r >= 0 && c >= 0 &&
-                    arr[r][c] == 0) {
-                if (A > 0 && check(arr, r, c, 1)) {
-                    arr[r][c] = 1;
-                    A--;
-                    dfs(arr, r, c, 1);
-                } else if (B > 0 && check(arr, r, c, 2)) {
-                    arr[r][c] = 2;
-                    B--;
-                    dfs(arr, r, c, 2);
-                } else if (C > 0 && check(arr, r, c, 3)) {
-                    arr[r][c] = 3;
-                    C--;
-                    dfs(arr, r, c, 3);
-                } else if (D > 0 && check(arr, r, c, 4)) {
-                    arr[r][c] = 4;
-                    D--;
-                    dfs(arr, r, c, 4);
-                } else {
-                    arr[r][c] = type;
-                    dfs(arr, r, c, type);
-                }
-            }
-        }
-    }
-
-    static boolean check(int[][] arr, int row, int col, int type) {
-        int[][] dirs = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
-        for (int[] dir : dirs) {
-            int r = row + dir[0];
-            int c = col + dir[1];
-
-            if (r < arr.length && c < arr[0].length && r >= 0 && c >= 0 &&
-                    arr[r][c] == type) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }
