@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TheTrail",
+            "request": "launch",
+            "mainClass": "TheTrail",
+            "projectName": "competitive-programming_5ff656ca"
+        },
+        {
+            "type": "java",
             "name": "ConstructTheString",
             "request": "launch",
             "mainClass": "ConstructTheString",
