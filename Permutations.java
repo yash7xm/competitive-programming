@@ -6,27 +6,28 @@ import java.util.StringTokenizer;
 
 public class Permutations {
 
-	static FastReader in = new FastReader();
+    static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
     public static void main(String[] args) {
         int n = in.nextInt();
-        if(n == 1) {
-			out.println("1");
-		} else if(n <= 3) {
-			out.println("NO SOLUTION");
-		} else {
-			for(int i=2; i<=n; i+=2) {	
-				out.print(i+" ");
-			}
-			for(int i=1; i<=n; i+=2) {	
-				out.print(i+" ");
-			}
-		}
-		out.flush();
+        if (n == 1) {
+            out.println("1");
+        } else if (n <= 3) {
+            out.println("NO SOLUTION");
+        } else {
+            
+            for (int i = 2; i <= n; i += 2) {
+                out.print(i + " ");
+            }
+            for (int i = 1; i <= n; i += 2) {
+                out.print(i + " ");
+            }
+        }
+        out.flush();
     }
 
-	static class FastReader {
+    static class FastReader {
         BufferedReader br;
         StringTokenizer st;
 
