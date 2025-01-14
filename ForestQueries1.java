@@ -1,38 +1,47 @@
 import java.io.*;
 import java.util.*;
 
-public class ABITOfAConstruction {
+public class ForestQueries1 {
 	
 	static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
 
 	public static void main(String[] args) {
-		int t = in.nextInt();
-		while(t-- > 0) {
-			solve();
-		}
+		solve();
 		out.flush();
 	}
 
 	public static void solve() {
 		int n = in.nextInt();
-		int k = in.nextInt();
+		int q = in.nextInt();
+		int[][] arr = new int[n+1][n+1];
+		for(int i=1; i<=n; i++) {
+			String row = in.next();
+			for(int j=1; j<=n; j++) {
+				if(row.charAt(j-1) == '.') {
+					arr[i][j] = 0;
+				} else {
+					arr[i][j] = 1;
+				}
+			}
+		}
 
-		if(n == 1) {
-			out.println(k);
-		} else {
-			int idx = 0;
-			while((1 << idx) <= k) {
-				idx++;	
+		long[][] dp = new long[n+1][n+1];
+		for(int i=1; i<=n; i++) {
+			for(int j=1; j<=n; j++) {
+				dp[i][j] = dp[i-1][j] + dp[i][j-1] - dp[i-1][j-1] + arr[i][j];
 			}
-			idx--;
-			int a = (1<<idx) - 1;
-			int b = k - a;
-			out.print(a + " " + b + " ");
-			for(int i=2; i<n; i++) {
-				out.print("0 ");
-			}
-			out.println();
+		}
+
+		for(int i=0; i<q; i++) {
+			int a1 = in.nextInt();
+			int b1 = in.nextInt();
+			int a2 = in.nextInt();
+			int b2 = in.nextInt();
+
+			long res = 0;
+			res = dp[a2][b2] - dp[a2][b1-1] - dp[a1-1][b2] + dp[a1-1][b1-1];
+			out.println(res);			
 		}
 	}
 
