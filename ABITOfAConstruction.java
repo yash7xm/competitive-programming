@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class WeNeedTheZero {
+public class ABITOfAConstruction {
 	
 	static FastReader in = new FastReader();
     static PrintWriter out = new PrintWriter(System.out);
@@ -16,21 +16,23 @@ public class WeNeedTheZero {
 
 	public static void solve() {
 		int n = in.nextInt();
-		int[] arr = new int[n];
-		int xor = 0;
-		for(int i=0; i<n; i++) {
-			arr[i] = in.nextInt();
-			xor ^= arr[i];
-		}
+		int k = in.nextInt();
 
-		if(n % 2 == 0) {
-			if(xor == 0) {
-				out.println("1");
-			} else {
-				out.println("-1");
-			}
+		if(n == 1) {
+			out.println(k);
 		} else {
-			out.println(xor);
+			int idx = 0;
+			while((1 << idx) <= k) {
+				idx++;
+			}
+			idx--;
+			int a = (1<<idx) - 1;
+			int b = k - a;
+			out.print(a + " " + b + " ");
+			for(int i=2; i<n; i++) {
+				out.print("0 ");
+			}
+			out.println();
 		}
 	}
 
