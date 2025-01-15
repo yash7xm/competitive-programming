@@ -45,9 +45,9 @@ public class CherryAndBits {
 		for (int i = 1; i <= n; i++) {
 			for (int j = 1; j <= m; j++) {
 				if (pref[i][j] % 2 == 1) {
-					out.print(arr[i][j] == 0 ? "1 " : "0 ");
+					out.print(arr[i][j] == 0 ? "1" : "0");
 				} else {
-					out.print(arr[i][j] + " ");
+					out.print(arr[i][j] + "");
 				}
 			}
 			out.println();
