@@ -14,21 +14,37 @@ public class A {
 	public static void solve() {
 		int n = 5;
 		int[] arr = new int[n];
-		int cnt = 0;
 		for (int i = 0; i < n; i++) {
 			arr[i] = in.nextInt();
-			if (i > 0) {
-				if (arr[i] < arr[i - 1]) {
-					cnt++;
-				}
-			}
 		}
 
-		if (cnt != 1) {
-			out.println("No");
-		} else {
-			out.println("Yes");
+		for (int i = 0; i < n - 1; i++) {
+			swap(arr, i, i + 1);
+
+			if (check(arr)) {
+				out.println("Yes");
+				return;
+			}
+
+			swap(arr, i, i + 1);
 		}
+
+		out.println("No");
+	}
+
+	private static void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	private static boolean check(int[] arr) {
+		for (int i = 0; i < arr.length - 1; i++) {
+			if (arr[i] > arr[i + 1]) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	static class FastReader {
