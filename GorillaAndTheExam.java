@@ -1,38 +1,45 @@
 import java.io.*;
 import java.util.*;
 
-public class StoneXOR {
+public class GorillaAndTheExam {
 
 	static FastReader in = new FastReader();
 	static PrintWriter out = new PrintWriter(System.out);
 
 	public static void main(String[] args) {
-		solve();
+		int t = in.nextInt();
+		while (t-- > 0) {
+			solve();
+		}
 		out.flush();
 	}
 
 	public static void solve() {
 		int n = in.nextInt();
-		long[] arr = new long[n];
+		int k = in.nextInt();
+
+		int[] arr = new int[n];
 		for (int i = 0; i < n; i++) {
-			arr[i] = in.nextLong();
+			arr[i] = in.nextInt();
 		}
 
-		Set<Long> set = new HashSet<>();
-		int totalSubsets = 1 << n;
-        for (int mask = 0; mask < totalSubsets; mask++) {
-            long xorValue = 0;
+		Arrays.sort(arr);
 
-            for (int i = 0; i < n; i++) {
-                if ((mask & (1 << i)) != 0) {
-                    xorValue ^= stones[i];
-                }
-            }
+		int cnt = 0;
+		for (int i = 0; i < n; i++) {
+			int temp = k;
+			cnt++;
+			int j = i;
+			while(j < n) {
+				if (arr[i] == arr[j] || temp > 0) {
+					if(arr[i] != arr[j]) temp--;
+					j++;
+				}
+			}
+			i = j;
+		}
 
-            set.add(xorValue);
-        
-
-		out.println(set.size());
+		out.println(cnt);
 	}
 
 	static class FastReader {

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class StoneXOR {
+public class SumvsXOR {
 
 	static FastReader in = new FastReader();
 	static PrintWriter out = new PrintWriter(System.out);
@@ -12,27 +12,20 @@ public class StoneXOR {
 	}
 
 	public static void solve() {
-		int n = in.nextInt();
-		long[] arr = new long[n];
-		for (int i = 0; i < n; i++) {
-			arr[i] = in.nextLong();
-		}
+		long n = in.nextLong();
 
-		Set<Long> set = new HashSet<>();
-		int totalSubsets = 1 << n;
-        for (int mask = 0; mask < totalSubsets; mask++) {
-            long xorValue = 0;
+		int cnt = 0;
+        boolean foundOne = false;
 
-            for (int i = 0; i < n; i++) {
-                if ((mask & (1 << i)) != 0) {
-                    xorValue ^= stones[i];
-                }
+        for (int i = 63; i >= 0; i--) {
+            if ((n & (1L << i)) != 0) {
+                foundOne = true;
+            } else if (foundOne) {
+                cnt++;
             }
+        }
 
-            set.add(xorValue);
-        
-
-		out.println(set.size());
+		out.println(1L << cnt);
 	}
 
 	static class FastReader {
