@@ -15,15 +15,15 @@ public class SumvsXOR {
 		long n = in.nextLong();
 
 		int cnt = 0;
-        boolean foundOne = false;
+		boolean foundOne = false;
 
-        for (int i = 63; i >= 0; i--) {
-            if ((n & (1L << i)) != 0) {
-                foundOne = true;
-            } else if (foundOne) {
-                cnt++;
-            }
-        }
+		for (int i = 63; i >= 0; i--) {
+			if ((n & (1L << i)) != 0) {
+				foundOne = true;
+			} else if (foundOne) {
+				cnt++;
+			}
+		}
 
 		out.println(1L << cnt);
 	}
