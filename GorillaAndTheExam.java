@@ -23,23 +23,26 @@ public class GorillaAndTheExam {
 			arr[i] = in.nextInt();
 		}
 
-		Arrays.sort(arr);
 
-		int cnt = 0;
-		for (int i = 0; i < n; i++) {
-			int temp = k;
-			cnt++;
-			int j = i;
-			while(j < n) {
-				if (arr[i] == arr[j] || temp > 0) {
-					if(arr[i] != arr[j]) temp--;
-					j++;
-				}
-			}
-			i = j;
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int num : arr) {
+			map.put(num, map.getOrDefault(num, 0) + 1);
 		}
 
-		out.println(cnt);
+		List<Integer> list = new ArrayList<>(map.values());
+		Collections.sort(list);
+
+		int cnt = list.size();
+		for (int freq : list) {
+			if (freq <= k) {
+				k -= freq;
+				cnt--;
+			} else {
+				break;
+			}
+		}
+
+		out.println(cnt == 0 ? 1 : cnt);
 	}
 
 	static class FastReader {
