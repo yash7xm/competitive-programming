@@ -25,15 +25,9 @@ public class ExcitingBets {
 		if (a == b) {
 			out.println("0 0");
 		} else {
-			long g = gcd(a, b);
-			a += g; b += g;
-			long res = gcd(a, b);
-
-			if (res == g) {
-				out.println(g + " 0");
-			} else {
-				out.println(res + " " + g);
-			}
+			long g = a - b;
+			long m = Math.min(a % g, g - a % g);
+			out.println(g + " " + m);
 		}
 	}
 
