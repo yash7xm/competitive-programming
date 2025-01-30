@@ -17,26 +17,27 @@ public class HossamAndCombinatorics {
 	public static void solve() {
 		int n = in.nextInt();
 		int[] arr = new int[n];
-		int max = 0, min = (int) 1e6;
+		int max = 0, min = Integer.MAX_VALUE;
 		for (int i = 0; i < n; i++) {
 			arr[i] = in.nextInt();
 			max = Math.max(max, arr[i]);
 			min = Math.min(min, arr[i]);
 		}
 
-		int cntMax = 0, cntMin = 0;
+		long cntMax = 0, cntMin = 0;
 		for (int num : arr) {
 			if (num == min) {
 				cntMin++;
-			} else if (num == max) {
+			}
+			if (num == max) {
 				cntMax++;
 			}
 		}
 
-		long res = 2 * (cntMin * cntMax);
+		long res = 2L * (cntMin * cntMax);
 
-		if(min == max) {
-			res = 2 * (cntMin * (cntMin - 1));
+		if (max == min) {
+			res = 1L * (cntMin * (cntMin - 1));
 		}
 
 		out.println(res);
