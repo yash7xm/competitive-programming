@@ -14,7 +14,7 @@ public class MissingNumber {
 	public static void solve() {
 		int n = in.nextInt();
 		int xor = 0;
-		
+
 		for (int i = 1; i <= n; i++) {
 			xor ^= i;
 		}
