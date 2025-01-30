@@ -1,44 +1,64 @@
 import java.io.*;
 import java.util.*;
 
-public class XorSum4 {
+public class ANDSequences {
 
 	static FastReader in = new FastReader();
 	static PrintWriter out = new PrintWriter(System.out);
 
+	static final int MOD = 1_000_000_007;
+
+	static long[] fact;
+	static void precomputeFactorials(int maxN) {
+		fact = new long[maxN + 1];
+		fact[0] = 1;
+		for (int i = 1; i <= maxN; i++) {
+			fact[i] = (fact[i - 1] * i) % MOD;
+		}
+	}
+
 	public static void main(String[] args) {
-		solve();
+		precomputeFactorials(200000);
+		int t = in.nextInt();
+		while (t-- > 0) {
+			solve();
+		}
 		out.flush();
 	}
 
 	public static void solve() {
 		int n = in.nextInt();
-		long[] arr = new long[n];
+		long[] a = new long[n];
 		for (int i = 0; i < n; i++) {
-			arr[i] = in.nextLong();
+			a[i] = in.nextLong();
 		}
 
-		int mod = (int) 1e9 + 7;
+		long x = a[0];
+		for (int i = 1; i < n; i++) {
+			x = Math.min(x, a[i]);
+		}
 
-		long res = 0;
+		long cnt = 0;
+		for (long num : a) {
+			if (num == x) cnt++;
+		}
 
-		for (int bit = 0; bit < 60; bit++) {
-			long count0 = 0, count1 = 0;
-			long power = (1L << bit) % mod;
+		if (cnt < 2) {
+			out.println(0);
+			return;
+		}
 
-			for (long num : arr) {
-				if ((num & (1L << bit)) == 0) {
-					count0++;
-				} else {
-					count1++;
-				}
+		for (long num : a) {
+			if ((num & x) != x) {
+				out.println(0);
+				return;
 			}
-
-			long contribution = (count0 * count1) % mod * power % mod;
-			res = (res + contribution) % mod;
 		}
 
-		out.println(res);
+		long result = (cnt * (cnt - 1)) % MOD;
+		result = (result * fact[n - 2]) % MOD;
+
+		out.println(result);
 	}
 
 	static class FastReader {
