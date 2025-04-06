@@ -22,7 +22,7 @@ public class AND0SumBig {
 
 		long ans = 1;
 		for (int i = 0; i < k; i++) {
-			ans = (ans * n) % mod;
+			ans *= n % mod;
 		}
 
 		out.println(ans);
