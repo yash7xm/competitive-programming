@@ -1,76 +1,64 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Query {
-    int l, r, idx, block;
-
-    Query(int _l, int _r, int _idx, int blockSize) {
-        l = _l;
-        r = _r;
-        idx = _idx;
-        block = l / blockSize;
+// BeginCodeSnip{BIT}
+struct BIT {
+    int size;
+    vector<int> bit;
+    BIT(int n) : size(n), bit(n + 1) {}
+    void update(int x, int v) {
+        x++;
+        for (; x <= size; x += x & (-x)) { bit[x] += v; }
     }
-
-    bool operator<(const Query& other) const {
-        if (block != other.block)
-            return block < other.block;
-        return (block % 2 == 0) ? r < other.r : r > other.r;
+    /** @return sum of the values in [0,b] */
+    int query(int b) {
+        b++;
+        int result = 0;
+        for (; b > 0; b -= b & (-b)) { result += bit[b]; }
+        return result;
     }
 };
+// EndCodeSnip
 
 int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     int n, q;
     cin >> n >> q;
+
     vector<int> arr(n);
-    for (int i = 0; i < n; i++) cin >> arr[i];
-
-    int blockSize = sqrt(n) + 1;
-    vector<Query> queries;
+    vector<vector<pair<int, int>>> queries(n);
+    for (int i = 0; i < n; i++) { cin >> arr[i]; }
     for (int i = 0; i < q; i++) {
-        int l, r;
-        cin >> l >> r;
-        queries.emplace_back(l - 1, r - 1, i, blockSize);
+        int a, b;
+        cin >> a >> b;
+        a--, b--;
+        queries[a].push_back({b, i});
     }
 
-    sort(queries.begin(), queries.end());
+    BIT bit(n);
+    // last_index[val] is the left-most index where arr[last_index[val]] = val.
+    map<int, int> last_index;
+    vector<int> solution(q, -1);
+    // Update the indices and answer queries from right to left.
+    for (int i = n - 1; i >= 0; i--) {
+        int val = arr[i];
+        /*
+         * If val already appeared earlier, then the saved value is no
+         * longer the left-most index, so erase it from our BIT.
+         */
+        if (last_index.count(val) > 0) bit.update(last_index[val], -1);
+        // i becomes the left-most index.
+        last_index[val] = i;
+        bit.update(i, 1);
 
-    unordered_map<int, int> freq;
-    vector<int> answer(q);
-    int currL = 0, currR = -1, distinct = 0;
-
-    for (auto& qu : queries) {
-        while (currL > qu.l) {
-            currL--;
-            freq[arr[currL]]++;
-            if (freq[arr[currL]] == 1) distinct++;
+        // Answer all queires with a == i.
+        for (auto &qr : queries[i]) {
+            /*
+             * The solution for this query is bit[i,b].
+             * This equals bit[0,b] since bit[0,i-1] = 0.
+             */
+            solution[qr.second] = bit.query(qr.first);
         }
-
-        while (currR < qu.r) {
-            currR++;
-            freq[arr[currR]]++;
-            if (freq[arr[currR]] == 1) distinct++;
-        }
-
-        while (currL < qu.l) {
-            freq[arr[currL]]--;
-            if (freq[arr[currL]] == 0) distinct--;
-            currL++;
-        }
-
-        while (currR > qu.r) {
-            freq[arr[currR]]--;
-            if (freq[arr[currR]] == 0) distinct--;
-            currR--;
-        }
-
-        answer[qu.idx] = distinct;
     }
 
-    for (int ans : answer)
-        cout << ans << '\n';
-
-    return 0;
+    for (auto &a : solution) { cout << a << "\n"; }
 }
