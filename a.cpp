@@ -1,72 +1,76 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int upperBound(const vector<int>& arr, int lo, int x) {
-    int hi = arr.size() - 1;
-    int ans = -1;
-    while (lo <= hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (arr[mid] >= x) {
-            hi = mid - 1;
-            ans = mid;
-        } else {
-            lo = mid + 1;
-        }
-    }
-    return ans;
-}
+struct Query {
+    int l, r, idx, block;
 
-int lowerBound(const vector<int>& arr, int lo, int x) {
-    int hi = arr.size() - 1;
-    int ans = -1;
-    while (lo <= hi) {
-        int mid = lo + (hi - lo) / 2;
-        if (arr[mid] <= x) {
-            lo = mid + 1;
-            ans = mid;
-        } else {
-            hi = mid - 1;
-        }
+    Query(int _l, int _r, int _idx, int blockSize) {
+        l = _l;
+        r = _r;
+        idx = _idx;
+        block = l / blockSize;
     }
-    return ans;
-}
+
+    bool operator<(const Query& other) const {
+        if (block != other.block)
+            return block < other.block;
+        return (block % 2 == 0) ? r < other.r : r > other.r;
+    }
+};
 
 int main() {
-    ios_base::sync_with_stdio(false);
+    ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int t;
-    cin >> t;
-    while (t--) {
-        int n, l, r;
-        cin >> n >> l >> r;
+    int n, q;
+    cin >> n >> q;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) cin >> arr[i];
 
-        vector<int> arr(n);
-        for (int i = 0; i < n; ++i) {
-            cin >> arr[i];
-        }
-
-        sort(arr.begin(), arr.end());
-        long long cnt = 0;
-
-        for (int i = 0; i < n; ++i) {
-            int left = upperBound(arr, i + 1, l - arr[i]);
-            int right = lowerBound(arr, i + 1, r - arr[i]);
-
-            if (left == -1 || right == -1) {
-                continue;
-            }
-
-            if (left <= right) {
-                cnt += right - left + 1;
-            }
-        }
-
-        cout << cnt << '\n';
+    int blockSize = sqrt(n) + 1;
+    vector<Query> queries;
+    for (int i = 0; i < q; i++) {
+        int l, r;
+        cin >> l >> r;
+        queries.emplace_back(l - 1, r - 1, i, blockSize);
     }
+
+    sort(queries.begin(), queries.end());
+
+    unordered_map<int, int> freq;
+    vector<int> answer(q);
+    int currL = 0, currR = -1, distinct = 0;
+
+    for (auto& qu : queries) {
+        while (currL > qu.l) {
+            currL--;
+            freq[arr[currL]]++;
+            if (freq[arr[currL]] == 1) distinct++;
+        }
+
+        while (currR < qu.r) {
+            currR++;
+            freq[arr[currR]]++;
+            if (freq[arr[currR]] == 1) distinct++;
+        }
+
+        while (currL < qu.l) {
+            freq[arr[currL]]--;
+            if (freq[arr[currL]] == 0) distinct--;
+            currL++;
+        }
+
+        while (currR > qu.r) {
+            freq[arr[currR]]--;
+            if (freq[arr[currR]] == 0) distinct--;
+            currR--;
+        }
+
+        answer[qu.idx] = distinct;
+    }
+
+    for (int ans : answer)
+        cout << ans << '\n';
 
     return 0;
 }
