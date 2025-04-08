@@ -64,7 +64,7 @@ public class APTree {
     		}
 
     		int mid = (start + end) / 2;
-    		
+
     		Node res;
     		if(i <= mid) {
     			res = query(2*node, start , mid , i);
