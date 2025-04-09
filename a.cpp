@@ -2,95 +2,90 @@
 using namespace std;
 
 struct Node {
-    long long lazy;
-    int a[32];
+    long long a, d, sum;
 
-    Node() {
-        lazy = 0;
-        fill(a, a + 32, 0);
-    }
+    Node() : a(0), d(0), sum(0) {}
 };
 
 class SegmentTree {
     vector<Node> tree;
+    vector<int> arr;
     int size;
 
 public:
-    SegmentTree(int n) {
-        size = n;
-        tree.resize(4 * n);
+    SegmentTree(const vector<int>& input) {
+        size = input.size();
+        arr = input;
+        tree.resize(4 * size);
+        build(1, 1, size);
+    }
+
+    void build(int v, int tl, int tr) {
+        if (tl == tr) {
+            tree[v].sum = arr[tl - 1];
+        } else {
+            int tm = (tl + tr) / 2;
+            build(v * 2, tl, tm);
+            build(v * 2 + 1, tm + 1, tr);
+            tree[v].sum = tree[v * 2].sum + tree[v * 2 + 1].sum;
+        }
     }
 
     void push(int v, int tl, int tr) {
-        if (tree[v].lazy != 0) {
-            for (int i = 0; i < 32; ++i) {
-                if ((tree[v].lazy >> i) & 1) {
-                    tree[v].a[i] = (tr - tl + 1);
-                }
-            }
+        if (tree[v].a != 0 || tree[v].d != 0) {
+            int n = tr - tl + 1;
+            tree[v].sum += n * (2 * tree[v].a + (n - 1) * tree[v].d) / 2;
 
             if (tl != tr) {
-                tree[v * 2].lazy |= tree[v].lazy;
-                tree[v * 2 + 1].lazy |= tree[v].lazy;
+                int tm = (tl + tr) / 2;
+                int lenLeft = tm - tl + 1;
+
+                tree[v * 2].a += tree[v].a;
+                tree[v * 2].d += tree[v].d;
+
+                tree[v * 2 + 1].a += tree[v].a + tree[v].d * lenLeft;
+                tree[v * 2 + 1].d += tree[v].d;
             }
 
-            tree[v].lazy = 0;
+            tree[v].a = 0;
+            tree[v].d = 0;
         }
     }
 
-    Node merge(const Node &left, const Node &right) {
-        Node res;
-        for (int i = 0; i < 32; ++i) {
-            res.a[i] = left.a[i] + right.a[i];
-        }
-        return res;
-    }
-
-    void update(int v, int tl, int tr, int l, int r, int val) {
+    void update(int v, int tl, int tr, int l, int r, long long a, long long d) {
         push(v, tl, tr);
         if (r < tl || tr < l) return;
-
         if (l <= tl && tr <= r) {
-            tree[v].lazy |= val;
+            long long offset = a + d * (tl - l);
+            tree[v].a += offset;
+            tree[v].d += d;
             push(v, tl, tr);
             return;
         }
 
         int tm = (tl + tr) / 2;
-        update(v * 2, tl, tm, l, r, val);
-        update(v * 2 + 1, tm + 1, tr, l, r, val);
-        tree[v] = merge(tree[v * 2], tree[v * 2 + 1]);
+        update(v * 2, tl, tm, l, r, a, d);
+        update(v * 2 + 1, tm + 1, tr, l, r, a, d);
+        tree[v].sum = tree[v * 2].sum + tree[v * 2 + 1].sum;
     }
 
-    Node query(int v, int tl, int tr, int l, int r) {
+    long long query(int v, int tl, int tr, int l, int r) {
         push(v, tl, tr);
-        if (r < tl || tr < l) return Node();
-
+        if (r < tl || tr < l) return 0;
         if (l <= tl && tr <= r) {
-            return tree[v];
+            return tree[v].sum;
         }
 
         int tm = (tl + tr) / 2;
-        Node left = query(v * 2, tl, tm, l, r);
-        Node right = query(v * 2 + 1, tm + 1, tr, l, r);
-
-        return merge(left, right);
+        return query(v * 2, tl, tm, l, r) + query(v * 2 + 1, tm + 1, tr, l, r);
     }
 
-    void update(int l, int r, int val) {
-        update(1, 0, size - 1, l, r - 1, val);
+    void update(int l, int r, long long a, long long d) {
+        update(1, 1, size, l, r, a, d);
     }
 
-    int query(int l, int r) {
-        Node res = query(1, 0, size - 1, l, r - 1);
-        int result = 0;
-        int rangeSize = r - l;
-        for (int i = 0; i < 32; ++i) {
-            if (res.a[i] == rangeSize) {
-                result |= (1 << i);
-            }
-        }
-        return result;
+    long long query(int l, int r) {
+        return query(1, 1, size, l, r);
     }
 };
 
@@ -101,15 +96,20 @@ int main() {
     int n, m;
     cin >> n >> m;
 
-    SegmentTree st(n);
+    vector<int> arr(n);
+    for (int& x : arr) {
+        cin >> x;
+    }
+
+    SegmentTree st(arr);
 
     for (int i = 0; i < m; ++i) {
         int t;
         cin >> t;
         if (t == 1) {
-            int l, r, v;
-            cin >> l >> r >> v;
-            st.update(l, r, v);
+            int l, r;
+            cin >> l >> r;
+            st.update(l, r, 1, 1);
         } else {
             int l, r;
             cin >> l >> r;
