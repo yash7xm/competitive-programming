@@ -7,7 +7,7 @@ public class ArithmeticAddInRange {
     static PrintWriter out = new PrintWriter(System.out);
 
     static class Node {
-        long a, d; // lazy values
+        long a, d; 
 
         public Node() {
             this.a = 0;
