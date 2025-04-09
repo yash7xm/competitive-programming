@@ -2,90 +2,96 @@
 using namespace std;
 
 struct Node {
-    long long a, d, sum;
-
-    Node() : a(0), d(0), sum(0) {}
+    long long lazyAdd = 0, lazySet = 0, sum = 0;
 };
 
 class SegmentTree {
     vector<Node> tree;
-    vector<int> arr;
+    vector<int> A;
     int size;
 
 public:
-    SegmentTree(const vector<int>& input) {
-        size = input.size();
-        arr = input;
+    SegmentTree(const vector<int>& a) {
+        A = a;
+        size = a.size();
         tree.resize(4 * size);
-        build(1, 1, size);
+        build(1, 0, size - 1);
+    }
+
+    Node merge(const Node& left, const Node& right) {
+        return Node{0LL, 0LL, left.sum + right.sum};
+    }
+
+    void push(int v, int tl, int tr) {
+        if (tree[v].lazySet != 0) {
+            tree[v].sum = tree[v].lazySet * (tr - tl + 1);
+            if (tl != tr) {
+                tree[v * 2].lazySet = tree[v].lazySet;
+                tree[v * 2 + 1].lazySet = tree[v].lazySet;
+                tree[v * 2].lazyAdd = 0;
+                tree[v * 2 + 1].lazyAdd = 0;
+            }
+            tree[v].lazySet = 0;
+        }
+
+        if (tree[v].lazyAdd != 0) {
+            tree[v].sum += tree[v].lazyAdd * (tr - tl + 1);
+            if (tl != tr) {
+                tree[v * 2].lazyAdd += tree[v].lazyAdd;
+                tree[v * 2 + 1].lazyAdd += tree[v].lazyAdd;
+            }
+            tree[v].lazyAdd = 0;
+        }
     }
 
     void build(int v, int tl, int tr) {
         if (tl == tr) {
-            tree[v].sum = arr[tl - 1];
+            tree[v].sum = A[tl];
         } else {
             int tm = (tl + tr) / 2;
             build(v * 2, tl, tm);
             build(v * 2 + 1, tm + 1, tr);
-            tree[v].sum = tree[v * 2].sum + tree[v * 2 + 1].sum;
+            tree[v] = merge(tree[v * 2], tree[v * 2 + 1]);
         }
     }
 
-    void push(int v, int tl, int tr) {
-        if (tree[v].a != 0 || tree[v].d != 0) {
-            int n = tr - tl + 1;
-            tree[v].sum += n * (2 * tree[v].a + (n - 1) * tree[v].d) / 2;
-
-            if (tl != tr) {
-                int tm = (tl + tr) / 2;
-                int lenLeft = tm - tl + 1;
-
-                tree[v * 2].a += tree[v].a;
-                tree[v * 2].d += tree[v].d;
-
-                tree[v * 2 + 1].a += tree[v].a + tree[v].d * lenLeft;
-                tree[v * 2 + 1].d += tree[v].d;
-            }
-
-            tree[v].a = 0;
-            tree[v].d = 0;
-        }
-    }
-
-    void update(int v, int tl, int tr, int l, int r, long long a, long long d) {
+    void update(int v, int tl, int tr, int l, int r, long long val, int type) {
         push(v, tl, tr);
-        if (r < tl || tr < l) return;
+        if (tr < l || tl > r) return;
+
         if (l <= tl && tr <= r) {
-            long long offset = a + d * (tl - l);
-            tree[v].a += offset;
-            tree[v].d += d;
+            if (type == 1) {
+                tree[v].lazyAdd += val;
+            } else {
+                tree[v].lazySet = val;
+                tree[v].lazyAdd = 0;
+            }
             push(v, tl, tr);
             return;
         }
 
         int tm = (tl + tr) / 2;
-        update(v * 2, tl, tm, l, r, a, d);
-        update(v * 2 + 1, tm + 1, tr, l, r, a, d);
-        tree[v].sum = tree[v * 2].sum + tree[v * 2 + 1].sum;
+        update(v * 2, tl, tm, l, r, val, type);
+        update(v * 2 + 1, tm + 1, tr, l, r, val, type);
+        tree[v] = merge(tree[v * 2], tree[v * 2 + 1]);
     }
 
     long long query(int v, int tl, int tr, int l, int r) {
         push(v, tl, tr);
-        if (r < tl || tr < l) return 0;
-        if (l <= tl && tr <= r) {
-            return tree[v].sum;
-        }
-
+        if (tr < l || tl > r) return 0;
+        if (l <= tl && tr <= r) return tree[v].sum;
         int tm = (tl + tr) / 2;
-        return query(v * 2, tl, tm, l, r) + query(v * 2 + 1, tm + 1, tr, l, r);
+        long long left = query(v * 2, tl, tm, l, r);
+        long long right = query(v * 2 + 1, tm + 1, tr, l, r);
+        return left + right;
     }
 
-    void update(int l, int r, long long a, long long d) {
-        update(1, 1, size, l, r, a, d);
+    void update(int l, int r, int x, int type) {
+        update(1, 0, size - 1, l - 1, r - 1, x, type);
     }
 
     long long query(int l, int r) {
-        return query(1, 1, size, l, r);
+        return query(1, 0, size - 1, l - 1, r - 1);
     }
 };
 
@@ -93,27 +99,28 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n, m;
-    cin >> n >> m;
+    int n, q;
+    cin >> n >> q;
+    vector<int> A(n);
+    for (int i = 0; i < n; ++i) cin >> A[i];
 
-    vector<int> arr(n);
-    for (int& x : arr) {
-        cin >> x;
-    }
+    SegmentTree st(A);
 
-    SegmentTree st(arr);
-
-    for (int i = 0; i < m; ++i) {
+    for (int i = 0; i < q; ++i) {
         int t;
         cin >> t;
         if (t == 1) {
-            int l, r;
-            cin >> l >> r;
-            st.update(l, r, 1, 1);
+            int l, r, x;
+            cin >> l >> r >> x;
+            st.update(l, r, x, 1);
+        } else if (t == 2) {
+            int l, r, x;
+            cin >> l >> r >> x;
+            st.update(l, r, x, 2);
         } else {
             int l, r;
             cin >> l >> r;
-            cout << st.query(l, r) << "\n";
+            cout << st.query(l, r) << '\n';
         }
     }
 
