@@ -1,5 +1,2 @@
-Case 1: 5
-Case 3: 14
-Case 1: 1
-Case 3: 13
-Case 1: 2
+5
+6
