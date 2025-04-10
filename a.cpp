@@ -19,7 +19,13 @@ void ad(int x, int b) {
 }
 
 ll sum(int x) {
-    ll res = 0;
+    ll res = 0;class a
+    {
+    public:
+        a();
+        ~a();
+        
+    };
     for (; x; x -= x & (-x)) { res += bit[x]; }
     return res;
 }
