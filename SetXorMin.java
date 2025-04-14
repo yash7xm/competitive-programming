@@ -6,45 +6,74 @@ public class SetXorMin {
     static PrintWriter out = new PrintWriter(System.out);
 
     public static class Trie {
-    private static class Node {
-        Node left, right;
-        int cnt;
-    }
+    	private static class Node {
+    		Node left, right;
+    		int cnt;
+    	}
 
-    public static Node root = new Node();
+    	public static Node root;
 
-    public static void insert(int num, int x) {
-        Node curr = root;
-        for (int bitIndex = 29; bitIndex >= 0; bitIndex--) {
-            curr.cnt += x;
-            int bit = (num >> bitIndex) & 1;
-            if (bit == 0) {
-                if (curr.left == null) curr.left = new Node();
-                curr = curr.left;
-            } else {
-                if (curr.right == null) curr.right = new Node();
-                curr = curr.right;
-            }
-        }
-        curr.cnt += x;
-    }
+    	public Trie() {
+    		root = new Node();
+    	}
 
-    public static int query(int num) {
-        Node curr = root;
-        int ans = 0;
-        for (int bitIndex = 29; bitIndex >= 0; bitIndex--) {
-            int bit = (num >> bitIndex) & 1;
-            if ((bit == 0 && curr.left != null && curr.left.cnt > 0) ||
-                (bit == 1 && curr.right != null && curr.right.cnt > 0)) {
-                curr = (bit == 0) ? curr.left : curr.right;
-            } else {
-                curr = (bit == 0) ? curr.right : curr.left;
-                ans |= (1 << bitIndex);
-            }
-        }
-        return ans;
+    	public static void insert(int num, int x) {
+    		int bitIndex = 30;
+    		Node curr = root;
+
+    		while(bitIndex >= 0) {
+    			int mask = 1 << bitIndex;
+    			int bit = (num & mask) > 0 ? 1 : 0;
+
+    			curr.cnt += x;
+    			if(bit == 0) {
+    				if(curr.left == null) {
+    					curr.left = new Node();
+    				}
+    				curr = curr.left;
+    			} else {
+    				if(curr.right == null) {
+    					curr.right = new Node();
+    				}
+    				curr = curr.right;
+    			}
+
+    			bitIndex--;
+    		}
+    		curr.cnt += x;
+    	}
+
+    	public static int query(int num) {
+    		int bitIndex = 30;
+    		Node curr = root;
+    		int ans = 0;
+
+    		while(bitIndex >= 0) {
+    			int mask = 1 << bitIndex;
+    			int bit = (num & mask) > 0 ? 1 : 0;
+
+    			if(bit == 0) {
+    				if(curr.left != null && curr.left.cnt > 0) {
+    					curr = curr.left;
+    				} else {
+    					curr = curr.right;
+    					ans |= mask;
+    				}
+    			} else {
+    				if(curr.right != null && curr.right.cnt > 0) {
+    					curr = curr.right;
+    				} else {
+    					curr = curr.left;
+    					ans |= mask;
+    				}
+    			}
+
+    			bitIndex--;
+    		}
+
+    		return ans;
+    	}
     }
-}
 
     static void solve() {
         int n = in.nextInt();
