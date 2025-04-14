@@ -93,7 +93,7 @@ public class SetXorMin {
         			t.insert(x, -1);
         			set.remove(x);
         		}
-	        	} else {
+        	} else {
         		out.println(t.query(x));
         	}
         }
