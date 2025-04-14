@@ -6,63 +6,48 @@ public class ALotOfGames {
     static PrintWriter out = new PrintWriter(System.out);
 
     public static class Trie {
-    	private static class Node {
-    		Node[] childs;
-    		boolean isLeaf;
+        private static class Node {
+            Node[] childs = new Node[26];
+        }
 
-    		Node() {
-    			childs = new Node[26];
-    			isLeaf = false;
-    		}
-    	}
+        public static Node root;
 
-    	public static Node root;
+        public Trie() {
+            root = new Node();
+        }
 
-    	public Trie() {
-    		root = new Node();
-    	}
+        public static void insert(String word) {
+            Node curr = root;
+            for (char ch : word.toCharArray()) {
+                int i = ch - 'a';
+                if (curr.childs[i] == null) {
+                    curr.childs[i] = new Node();
+                }
+                curr = curr.childs[i];
+            }
+        }
 
-    	public static void insert(String word) {
-    		Node curr = root;
-    		for(char ch : word.toCharArray()) {
-    			int i = ch - 'a';
-    			if(curr.childs[i] == null) {
-    				curr.childs[i] = new Node();
-    			}
-    			curr = curr.childs[i];
-    		}
-    		curr.isLeaf = true;
-    	}
+        public static boolean canWin(Node node) {
+            for (Node child : node.childs) {
+                if (child != null && !canWin(child)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-    	public static boolean canWin() {
-    		return canWin(root);
-    	}
-
-    	private static boolean canWin(Node node) {
-        	for (Node child : node.childs) {
-            	if (child != null && !canWin(child)) {
-                	return true;
-            	}
-        	}
-        	return false;
-    	}
-
-    	public static boolean canLose() {
-    		return canLose(root);
-    	}
-
-    	private static boolean canLose(Node node) {
-        	boolean hasChild = false;
-        	for (Node child : node.childs) {
-            	if (child != null) {
-                	hasChild = true;
-                	if (!canLose(child)) {
-                    	return true;
-                	}
-            	}
-        	}
-        	return !hasChild;
-    	}
+        public static boolean canLose(Node node) {
+            boolean hasChild = false;
+            for (Node child : node.childs) {
+                if (child != null) {
+                    hasChild = true;
+                    if (!canLose(child)) {
+                        return true;
+                    }
+                }
+            }
+            return !hasChild;
+        }
     }
 
     static void solve() {
@@ -70,41 +55,33 @@ public class ALotOfGames {
         int k = in.nextInt();
 
         Trie t = new Trie();
-
-        for(int i=0; i<n; i++) {
-        	t.insert(in.next());
+        for (int i = 0; i < n; i++) {
+            t.insert(in.next());
         }
 
-        boolean win = t.canWin();
-        boolean lose = t.canLose();
+        boolean win = Trie.canWin(Trie.root);
+        boolean lose = Trie.canLose(Trie.root);
 
         if (!win) {
-            System.out.println("Second");
+            out.println("Second");
         } else if (lose) {
-            System.out.println((k % 2 == 1) ? "First" : "Second");
+            out.println("First");
         } else {
-            System.out.println("First");
+            out.println((k % 2 == 1) ? "First" : "Second");
         }
     }
 
     public static void main(String[] args) {
-        int t = 1;
-        while (t-- > 0) {
-            solve();
-        }
+        solve();
         out.close();
     }
 
     static class FastReader {
-        BufferedReader br;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-        public FastReader() {
-            br = new BufferedReader(new InputStreamReader(System.in));
-        }
-
         String next() {
-            while (st == null || !st.hasMoreElements()) {
+            while (st == null || !st.hasMoreTokens()) {
                 try {
                     st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
@@ -116,24 +93,6 @@ public class ALotOfGames {
 
         int nextInt() {
             return Integer.parseInt(next());
-        }
-
-        long nextLong() {
-            return Long.parseLong(next());
-        }
-
-        double nextDouble() {
-            return Double.parseDouble(next());
-        }
-
-        String nextLine() {
-            String str = "";
-            try {
-                str = br.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return str;
         }
     }
 }
