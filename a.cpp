@@ -1,64 +1,69 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-using ll = long long;
 
-const int MX = 4e5 + 5;
+struct Trie {
+    struct Node {
+        Node* childs[26];
+        bool isEnd;
 
-ll bit[MX];
-vector<int> vals;
-int n, q;
-
-void upd(int i, int val) {
-    for (; i <= MX; i += i & (-i)) { bit[i] += val; }
-}
-
-void ad(int x, int b) {
-    int ind = upper_bound(vals.begin(), vals.end(), x) - vals.begin();
-    upd(ind, b);
-}
-
-ll sum(int x) {
-    ll res = 0;class a
-    {
-    public:
-        a();
-        ~a();
-        
+        Node() {
+            fill(begin(childs), end(childs), nullptr);
+            isEnd = false;
+        }
     };
-    for (; x; x -= x & (-x)) { res += bit[x]; }
-    return res;
-}
 
-ll query(int x) {
-    int ind = upper_bound(vals.begin(), vals.end(), x) - vals.begin();
-    return sum(ind);
+    Node* root = new Node();
+
+    void insert(const string& word) {
+        Node* curr = root;
+        for (char ch : word) {
+            int idx = ch - 'a';
+            if (curr->childs[idx] == nullptr)
+                curr->childs[idx] = new Node();
+            curr = curr->childs[idx];
+        }
+        curr->isEnd = true;
+    }
+};
+
+vector<long long> dp;
+Trie t;
+string s;
+
+long long countWays(int i) {
+    if (i == s.size()) return 1;
+    if (dp[i] != -1) return dp[i];
+
+    Trie::Node* curr = t.root;
+    long long ways = 0;
+
+    for (int j = i; j < s.size(); ++j) {
+        int idx = s[j] - 'a';
+        if (curr->childs[idx] == nullptr) break;
+        curr = curr->childs[idx];
+        if (curr->isEnd) {
+            ways += countWays(j + 1);
+        }
+    }
+
+    return dp[i] = ways;
 }
 
 int main() {
-    cin >> n >> q;
-    vector<int> ar(n);
-    for (int i = 0; i < n; i++) { cin >> ar[i]; }
-    vals = ar;
-    vector<array<int, 3>> rec;
-    for (int i = 0; i < q; i++) {
-        char t;
-        int a, b;
-        cin >> t >> a >> b;
-        rec.push_back({t == '?', a, b});
-        if (t == '!') vals.push_back(b);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> s >> n;
+
+    for (int i = 0; i < n; ++i) {
+        string word;
+        cin >> word;
+        t.insert(word);
     }
-    sort(vals.begin(), vals.end());
-    vals.erase(unique(vals.begin(), vals.end()), vals.end());
-    for (int i = 0; i < n; i++) { ad(ar[i], 1); }
-    for (auto u : rec) {
-        u[1]--;
-        if (u[0] == 0) {
-            ad(ar[u[1]], -1);
-            ar[u[1]] = u[2];
-            ad(ar[u[1]], 1);
-        } else {
-            cout << query(u[2]) - query(u[1]) << '\n';
-        }
-    }
+
+    dp.assign(s.size(), -1);
+    cout << countWays(0) << '\n';
+
+    return 0;
 }
