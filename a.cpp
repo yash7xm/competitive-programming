@@ -1,69 +1,77 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-struct Trie {
-    struct Node {
-        Node* childs[26];
-        bool isEnd;
+const int N = 2e5 + 5;
 
-        Node() {
-            fill(begin(childs), end(childs), nullptr);
-            isEnd = false;
-        }
-    };
+int parent[N], size[N];
+long long add[N], exp[N];
 
-    Node* root = new Node();
-
-    void insert(const string& word) {
-        Node* curr = root;
-        for (char ch : word) {
-            int idx = ch - 'a';
-            if (curr->childs[idx] == nullptr)
-                curr->childs[idx] = new Node();
-            curr = curr->childs[idx];
-        }
-        curr->isEnd = true;
+// Find function with path compression
+int find(int x) {
+    if (x != parent[x]) {
+        int par = parent[x];
+        parent[x] = find(parent[x]);
+        exp[x] += add[par] - add[parent[x]];  // Add delta
     }
-};
+    return parent[x];
+}
 
-vector<long long> dp;
-Trie t;
-string s;
+// Union by size
+void join(int x, int y) {
+    x = find(x);
+    y = find(y);
+    if (x == y) return;
+    if (size[x] < size[y]) swap(x, y);
+    parent[y] = x;
+    exp[y] += add[y] - add[x];  // Convert exp to parent base
+    size[x] += size[y];
+}
 
-long long countWays(int i) {
-    if (i == s.size()) return 1;
-    if (dp[i] != -1) return dp[i];
+// Add experience to the whole team
+void addExp(int x, int v) {
+    x = find(x);
+    add[x] += v;
+}
 
-    Trie::Node* curr = t.root;
-    long long ways = 0;
-
-    for (int j = i; j < s.size(); ++j) {
-        int idx = s[j] - 'a';
-        if (curr->childs[idx] == nullptr) break;
-        curr = curr->childs[idx];
-        if (curr->isEnd) {
-            ways += countWays(j + 1);
-        }
-    }
-
-    return dp[i] = ways;
+// Get experience of a player
+long long getExp(int x) {
+    find(x);  // Path compress and update exp[x]
+    return exp[x] + add[parent[x]];
 }
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n;
-    cin >> s >> n;
+    int n, m;
+    cin >> n >> m;
 
-    for (int i = 0; i < n; ++i) {
-        string word;
-        cin >> word;
-        t.insert(word);
+    // Initialize
+    for (int i = 1; i <= n; ++i) {
+        parent[i] = i;
+        size[i] = 1;
+        exp[i] = 0;
+        add[i] = 0;
     }
 
-    dp.assign(s.size(), -1);
-    cout << countWays(0) << '\n';
+    while (m--) {
+        string cmd;
+        int x, y;
+        cin >> cmd;
+
+        if (cmd == "join") {
+            cin >> x >> y;
+            join(x, y);
+        } else if (cmd == "add") {
+            int v;
+            cin >> x >> v;
+            addExp(x, v);
+        } else if (cmd == "get") {
+            cin >> x;
+            cout << getExp(x) << '\n';
+        }
+    }
 
     return 0;
 }
