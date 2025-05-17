@@ -1,0 +1,10 @@
+BasedOnStyle: Google
+IndentWidth: 4
+ColumnLimit: 0
+AllowShortFunctionsOnASingleLine: Empty
+SpacesInAngles: false
+SpaceBeforeParens: Never
+SortIncludes: false
+DerivePointerAlignment: false
+PointerAlignment: Left
+BreakBeforeBraces: Allman

@@ -6,7 +6,7 @@ using namespace std;
 #define sz(x) int((x).size())
 
 typedef long long ll;
-typedef vector<ll> vll;
+typedef vector<ll> vll; 
 
 vll res;
 bool found = false;
